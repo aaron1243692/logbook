@@ -11,13 +11,39 @@ class="w-full h-full">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+            .entry-body {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                align-items: start;
+            }
+
+            .entry-photo {
+                width: min(300px, 100%);
+                height: auto;
+                aspect-ratio: 1 / 1;
+            }
+
+            @media (max-height: 699px) and (min-width: 1024px) {
+                .entry-body {
+                    grid-template-columns: 300px minmax(0, 1fr);
+                    align-items: center;
+                }
+
+                .entry-photo {
+                    width: 300px;
+                    height: 300px;
+                }
+            }
+        </style>
     </head>
     <body class="eg-kiosk-page eg-kiosk-page--out">
         <header class="eg-kiosk-header">
             <div class="eg-kiosk-brand">
                 <img src="{{ asset('images/olpcc-logo.png') }}" alt="OLPCC logo" class="eg-kiosk-logo">
                 <div>
-                    <h1 class="eg-kiosk-title">EGate Time Out</h1>
+                    <h1 id="kiosk-title" class="eg-kiosk-title">EGate Time Out</h1>
                     <p>OLPCC / OSMIS-eGATE Scanner</p>
                 </div>
             </div>
@@ -28,7 +54,7 @@ class="w-full h-full">
             </div>
 
             <div class="eg-kiosk-clock">
-                <span class="eg-kiosk-mode">Time Out</span>
+                <span id="kiosk-clock-mode" class="eg-kiosk-mode">Time Out</span>
                 <p id="ph-time" class="text-xl font-semibold text-stone-900">--:--:-- --</p>
                 <p id="ph-date" class="text-md text-black/80">Loading date...</p>
             </div>
@@ -38,7 +64,7 @@ class="w-full h-full">
             <section class="eg-kiosk-card eg-kiosk-current">
                 <div class="eg-kiosk-card-head">
                     <h2>Current Scan</h2>
-                    <span class="eg-kiosk-mode">Latest Exit</span>
+                    <span id="current-scan-mode" class="eg-kiosk-mode">Latest Exit</span>
                 </div>
 
                 <div class="eg-kiosk-profile">
@@ -163,6 +189,16 @@ class="w-full h-full">
             </div>
         </div>
 
+        <button
+            type="button"
+            id="fullscreen-prompt"
+            class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/70 px-4 text-white backdrop-blur-sm"
+        >
+            <span class="rounded-2xl border border-white/25 bg-white/10 px-6 py-4 text-center text-lg font-semibold shadow-2xl">
+                Click to enter full screen
+            </span>
+        </button>
+
         <script>
             const phTimeEl = document.getElementById('ph-time');
             const phDateEl = document.getElementById('ph-date');
@@ -175,20 +211,30 @@ class="w-full h-full">
             const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
             const studentIdInput = document.getElementById('student_id');
             const rfidInput = document.getElementById('rfid');
+            const statusInput = document.getElementById('status');
+            const kioskTitleEl = document.getElementById('kiosk-title');
+            const kioskClockModeEl = document.getElementById('kiosk-clock-mode');
+            const currentScanModeEl = document.getElementById('current-scan-mode');
             const submitFeedbackEl = document.getElementById('submit-feedback');
             const messageModal = document.getElementById('message-modal');
             const messageModalTitle = document.getElementById('message-modal-title');
             const messageModalText = document.getElementById('message-modal-text');
             const shortcutModal = document.getElementById('shortcut-modal');
             const shortcutOptions = shortcutModal ? Array.from(shortcutModal.querySelectorAll('[data-shortcut-option]')) : [];
+            const fullscreenPrompt = document.getElementById('fullscreen-prompt');
             const manualEntryEnabled = @json($manualEntryEnabled);
             const rfidLoginEnabled = @json($rfidLoginEnabled);
+            const getStudentsInUrl = @json(route('get-students.in'));
+            const getStudentsOutUrl = @json(route('get-students.out'));
+            const defaultEntryStatus = statusInput?.value || '0';
             let lastSignature = null;
             let rfidBuffer = '';
             let lastKeyAt = 0;
             let scanTimer = null;
             let messageModalTimer = null;
             let activeShortcutIndex = 0;
+            let activeEntryStatus = defaultEntryStatus;
+            let pinnedShortcutStudent = null;
             const shortcutBaseColors = ['bg-emerald-600', 'bg-rose-600'];
             const shortcutHoverColors = ['hover:bg-emerald-700', 'hover:bg-rose-700'];
 
@@ -353,6 +399,11 @@ class="w-full h-full">
             function fillPending(prefix) {
                 const imageEl = document.getElementById(`${prefix}-image`);
                 const statusEl = document.getElementById(`${prefix}-status`);
+
+                if (prefix === 'current') {
+                    applyKioskMode(getActiveEntryStatus());
+                }
+
                 imageEl.src = placeholderImage;
                 imageEl.alt = 'Pending student image';
                 statusEl.textContent = 'Pending...';
@@ -389,10 +440,16 @@ class="w-full h-full">
                         ? '0'
                         : 'other';
 
-                statusEl.textContent = normalizedStatus === '0' ? 'Time Out' : 'N/A';
+                if (prefix === 'current') {
+                    applyKioskMode(getActiveEntryStatus());
+                }
+
+                statusEl.textContent = normalizedStatus === '1' ? 'Time In' : normalizedStatus === '0' ? 'Time Out' : 'N/A';
                 statusEl.className = 'px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full border';
 
-                if (normalizedStatus === '0') {
+                if (normalizedStatus === '1') {
+                    statusEl.classList.add('bg-emerald-100', 'text-emerald-800', 'border-emerald-300');
+                } else if (normalizedStatus === '0') {
                     statusEl.classList.add('bg-rose-100', 'text-rose-800', 'border-rose-300');
                 } else {
                     statusEl.classList.add('bg-slate-100', 'text-stone-700', 'border-slate-200');
@@ -437,10 +494,73 @@ class="w-full h-full">
                 return 'other';
             }
 
+            function applyKioskMode(status) {
+                const normalizedStatus = status === '1' || status === '0' ? status : activeEntryStatus;
+                const isTimeIn = normalizedStatus === '1';
+
+                document.body.classList.toggle('eg-kiosk-page--in', isTimeIn);
+                document.body.classList.toggle('eg-kiosk-page--out', !isTimeIn);
+
+                if (kioskTitleEl) {
+                    kioskTitleEl.textContent = isTimeIn ? 'EGate Time In' : 'EGate Time Out';
+                }
+
+                if (kioskClockModeEl) {
+                    kioskClockModeEl.textContent = isTimeIn ? 'Time In' : 'Time Out';
+                }
+
+                if (currentScanModeEl) {
+                    currentScanModeEl.textContent = isTimeIn ? 'Latest Entry' : 'Latest Exit';
+                }
+            }
+
+            function setEntryStatus(status) {
+                const normalizedStatus = status === '1' || status === '0' ? status : activeEntryStatus;
+                const previousStatus = getActiveEntryStatus();
+                activeEntryStatus = normalizedStatus;
+
+                if (statusInput) {
+                    statusInput.value = normalizedStatus;
+                }
+
+                if (normalizedStatus !== previousStatus) {
+                    lastSignature = null;
+                    pinnedShortcutStudent = null;
+                }
+
+                applyKioskMode(normalizedStatus);
+
+                return normalizedStatus;
+            }
+
+            function getActiveEntryStatus() {
+                const status = String(statusInput?.value ?? activeEntryStatus);
+
+                return status === '1' || status === '0' ? status : activeEntryStatus;
+            }
+
+            function getOppositeEntryStatus() {
+                return getActiveEntryStatus() === '1' ? '0' : '1';
+            }
+
+            function getActiveStudentsUrl() {
+                return getActiveEntryStatus() === '1' ? getStudentsInUrl : getStudentsOutUrl;
+            }
+
             function renderStudents(students) {
-                const filteredStudents = students.filter((student) => normalizeStudentStatus(student) === '0');
-                const currentStudent = filteredStudents[0] || null;
-                const previousStudent = filteredStudents[1] || null;
+                const activeStatus = getActiveEntryStatus();
+                const filteredStudents = students.filter((student) => normalizeStudentStatus(student) === activeStatus);
+                const activePinnedStudent = pinnedShortcutStudent && normalizeStudentStatus(pinnedShortcutStudent) === activeStatus
+                    ? pinnedShortcutStudent
+                    : null;
+                const visibleStudents = activePinnedStudent
+                    ? [
+                        activePinnedStudent,
+                        ...filteredStudents.filter((student) => String(student.log_id ?? '') !== String(activePinnedStudent.log_id ?? '')),
+                    ]
+                    : filteredStudents;
+                const currentStudent = visibleStudents[0] || null;
+                const previousStudent = visibleStudents[1] || null;
 
                 fillStudent('current', currentStudent);
                 fillStudent('previous', previousStudent);
@@ -455,7 +575,7 @@ class="w-full h-full">
 
             async function checkUpdates() {
                 try {
-                    const response = await fetch('{{ route('get-students.out') }}', {
+                    const response = await fetch(getActiveStudentsUrl(), {
                         headers: {
                             'Accept': 'application/json',
                         },
@@ -484,6 +604,7 @@ class="w-full h-full">
             }
 
             async function submitGateEntry(payload) {
+                const submittedStatus = setEntryStatus(String(payload.status ?? getActiveEntryStatus()));
                 setSubmitFeedback('Submitting entry...', 'sending');
 
                 try {
@@ -519,7 +640,24 @@ class="w-full h-full">
                         return;
                     }
 
+                    const submittedStudent = {
+                        ...result,
+                        log_id: result.log_id,
+                        student_id: result.student_id,
+                        student_number: result.student_number,
+                        student_name: result.student_name,
+                        status: String(result.status ?? submittedStatus),
+                        logged_at: result.logged_at,
+                    };
+
                     clearEntryInputs();
+                    pinnedShortcutStudent = submittedStudent.status === defaultEntryStatus
+                        ? null
+                        : submittedStudent;
+
+                    fillStudent('current', submittedStudent);
+                    setSystemStatus('online', 'Success to Load Records');
+
                     setSubmitFeedback('Entry submitted successfully.', 'success');
                     checkUpdates();
                     focusManualEntry();
@@ -545,13 +683,71 @@ class="w-full h-full">
             }
 
             function formDataFromPayload(payload) {
+                const submittedStatus = setEntryStatus(String(payload.status ?? getActiveEntryStatus()));
                 const formData = new FormData();
                 formData.append('_token', csrfToken);
                 formData.append('student_id', payload.student_id || '');
                 formData.append('rfid', payload.rfid || '');
-                formData.append('status', '0');
+                formData.append('status', submittedStatus);
 
                 return formData;
+            }
+
+            function submitShortcutGateEntry() {
+                hideShortcutModal();
+
+                const shortcutEntryStatus = getOppositeEntryStatus();
+                const studentIdValue = studentIdInput?.value.trim() || '';
+                const rfidValue = rfidInput?.value.trim() || rfidBuffer.trim();
+
+                if (manualEntryEnabled && studentIdValue !== '') {
+                    if (rfidInput) {
+                        rfidInput.value = '';
+                    }
+
+                    submitGateEntry({
+                        student_id: studentIdValue,
+                        rfid: null,
+                        status: shortcutEntryStatus,
+                    });
+                    return;
+                }
+
+                if (rfidLoginEnabled && rfidValue !== '') {
+                    rfidBuffer = '';
+
+                    if (rfidInput) {
+                        rfidInput.value = rfidValue;
+                    }
+
+                    if (studentIdInput) {
+                        studentIdInput.value = '';
+                    }
+
+                    submitGateEntry({
+                        student_id: null,
+                        rfid: rfidValue,
+                        status: shortcutEntryStatus,
+                    });
+                    return;
+                }
+
+                setSubmitFeedback('Enter a student ID or scan an RFID first.', 'error');
+                focusManualEntry();
+                focusRfidListener();
+            }
+
+            function installEntryStatusShortcut() {
+                window.addEventListener('keydown', (event) => {
+                    if (!event.ctrlKey || event.key !== 'Enter') {
+                        return;
+                    }
+
+                    event.preventDefault();
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
+                    showShortcutModal();
+                }, true);
             }
 
             function focusManualEntry() {
@@ -791,11 +987,68 @@ class="w-full h-full">
                 });
             }
 
+            function isFullscreenActive() {
+                return Boolean(
+                    document.fullscreenElement
+                    || document.webkitFullscreenElement
+                    || document.msFullscreenElement
+                );
+            }
+
+            function requestForcedFullscreen() {
+                if (isFullscreenActive()) {
+                    updateFullscreenPrompt();
+                    return;
+                }
+
+                const page = document.documentElement;
+                const requestFullscreen = page.requestFullscreen
+                    || page.webkitRequestFullscreen
+                    || page.msRequestFullscreen;
+
+                if (!requestFullscreen) {
+                    return;
+                }
+
+                Promise.resolve(requestFullscreen.call(page))
+                    .then(updateFullscreenPrompt)
+                    .catch(updateFullscreenPrompt);
+            }
+
+            function updateFullscreenPrompt() {
+                if (!fullscreenPrompt) {
+                    return;
+                }
+
+                fullscreenPrompt.classList.toggle('hidden', isFullscreenActive());
+                fullscreenPrompt.classList.toggle('flex', !isFullscreenActive());
+            }
+
+            function installForcedFullscreen() {
+                if (document.fullscreenEnabled === false) {
+                    return;
+                }
+
+                updateFullscreenPrompt();
+                requestForcedFullscreen();
+
+                ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
+                    window.addEventListener(eventName, requestForcedFullscreen, true);
+                });
+
+                document.addEventListener('fullscreenchange', requestForcedFullscreen);
+                document.addEventListener('webkitfullscreenchange', requestForcedFullscreen);
+                document.addEventListener('msfullscreenchange', requestForcedFullscreen);
+                fullscreenPrompt?.addEventListener('click', requestForcedFullscreen);
+            }
+
             updatePhilippineClock();
             checkUpdates();
             focusManualEntry();
+            installEntryStatusShortcut();
             listenForRfidInput();
             installFullscreenGuards();
+            installForcedFullscreen();
             setInterval(updatePhilippineClock, 1000);
             setInterval(checkUpdates, 5000);
             setInterval(maintainInputFocus, 2000);

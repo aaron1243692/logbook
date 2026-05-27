@@ -11,7 +11,7 @@
  Target Server Version : 90700 (9.7.0)
  File Encoding         : 65001
 
- Date: 25/05/2026 13:00:29
+ Date: 27/05/2026 12:59:30
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `cache`  (
 -- ----------------------------
 -- Records of cache
 -- ----------------------------
-INSERT INTO `cache` VALUES ('egate-cache-spatie.permission.cache', 'a:3:{s:5:\"alias\";a:6:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:4:\"code\";s:1:\"d\";s:9:\"parent_id\";s:1:\"e\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:38:{i:0;a:6:{s:1:\"a\";i:1;s:1:\"b\";s:5:\"Users\";s:1:\"c\";s:5:\"users\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:8;}}i:1;a:6:{s:1:\"a\";i:4;s:1:\"b\";s:12:\"Create Users\";s:1:\"c\";s:12:\"users.create\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:8;}}i:2;a:6:{s:1:\"a\";i:5;s:1:\"b\";s:12:\"Update Users\";s:1:\"c\";s:12:\"users.update\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:3;a:6:{s:1:\"a\";i:6;s:1:\"b\";s:12:\"Delete Users\";s:1:\"c\";s:12:\"users.delete\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:4;a:6:{s:1:\"a\";i:9;s:1:\"b\";s:21:\"Update User Passwords\";s:1:\"c\";s:17:\"users.update.pass\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:6:{s:1:\"a\";i:10;s:1:\"b\";s:10:\"View Users\";s:1:\"c\";s:10:\"users.view\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:8;}}i:6;a:6:{s:1:\"a\";i:11;s:1:\"b\";s:5:\"Roles\";s:1:\"c\";s:5:\"roles\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:7;a:6:{s:1:\"a\";i:17;s:1:\"b\";s:10:\"View Roles\";s:1:\"c\";s:10:\"roles.view\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:8;a:6:{s:1:\"a\";i:18;s:1:\"b\";s:12:\"Create Roles\";s:1:\"c\";s:12:\"roles.create\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:9;a:6:{s:1:\"a\";i:19;s:1:\"b\";s:12:\"Update Roles\";s:1:\"c\";s:12:\"roles.update\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:10;a:6:{s:1:\"a\";i:20;s:1:\"b\";s:12:\"Delete Roles\";s:1:\"c\";s:12:\"roles.delete\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:11;a:6:{s:1:\"a\";i:21;s:1:\"b\";s:12:\"Student Logs\";s:1:\"c\";s:4:\"logs\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:12;a:6:{s:1:\"a\";i:22;s:1:\"b\";s:9:\"View Logs\";s:1:\"c\";s:9:\"logs.view\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:13;a:6:{s:1:\"a\";i:23;s:1:\"b\";s:4:\"Data\";s:1:\"c\";s:4:\"Data\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:14;a:6:{s:1:\"a\";i:24;s:1:\"b\";s:9:\"View Data\";s:1:\"c\";s:9:\"data.view\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:15;a:6:{s:1:\"a\";i:25;s:1:\"b\";s:11:\"Create Data\";s:1:\"c\";s:11:\"data.create\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:16;a:6:{s:1:\"a\";i:26;s:1:\"b\";s:11:\"Update Data\";s:1:\"c\";s:11:\"data.update\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:17;a:6:{s:1:\"a\";i:27;s:1:\"b\";s:11:\"Delete Data\";s:1:\"c\";s:11:\"data.delete\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:18;a:6:{s:1:\"a\";i:28;s:1:\"b\";s:10:\"Print Data\";s:1:\"c\";s:10:\"data.print\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:19;a:6:{s:1:\"a\";i:29;s:1:\"b\";s:11:\"Export Data\";s:1:\"c\";s:11:\"data.export\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:20;a:6:{s:1:\"a\";i:31;s:1:\"b\";s:11:\"Delete Logs\";s:1:\"c\";s:11:\"logs.delete\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:21;a:6:{s:1:\"a\";i:32;s:1:\"b\";s:10:\"Print Logs\";s:1:\"c\";s:10:\"logs.print\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:6;i:2;i:8;i:3;i:9;}}i:22;a:6:{s:1:\"a\";i:35;s:1:\"b\";s:11:\"Export Logs\";s:1:\"c\";s:11:\"export.logs\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:6;i:2;i:8;i:3;i:9;}}i:23;a:6:{s:1:\"a\";i:36;s:1:\"b\";s:8:\"Time Log\";s:1:\"c\";s:4:\"time\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;}}i:24;a:6:{s:1:\"a\";i:37;s:1:\"b\";s:2:\"In\";s:1:\"c\";s:7:\"time.in\";s:1:\"d\";i:36;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;}}i:25;a:6:{s:1:\"a\";i:40;s:1:\"b\";s:3:\"Out\";s:1:\"c\";s:8:\"time.out\";s:1:\"d\";i:36;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:5;i:2;i:8;}}i:26;a:6:{s:1:\"a\";i:41;s:1:\"b\";s:13:\"Employee Logs\";s:1:\"c\";s:5:\"emlog\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:8;i:3;i:9;}}i:27;a:6:{s:1:\"a\";i:42;s:1:\"b\";s:4:\"View\";s:1:\"c\";s:10:\"emlog.view\";s:1:\"d\";i:41;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:8;i:3;i:9;}}i:28;a:6:{s:1:\"a\";i:44;s:1:\"b\";s:5:\"Print\";s:1:\"c\";s:11:\"emlog.print\";s:1:\"d\";i:41;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:29;a:6:{s:1:\"a\";i:45;s:1:\"b\";s:6:\"Delete\";s:1:\"c\";s:12:\"emlog.delete\";s:1:\"d\";i:41;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:30;a:6:{s:1:\"a\";i:46;s:1:\"b\";s:20:\"Setup Sched Schedule\";s:1:\"c\";s:13:\"setschedcehed\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:31;a:6:{s:1:\"a\";i:47;s:1:\"b\";s:4:\"View\";s:1:\"c\";s:18:\"setschedcehed.view\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:32;a:6:{s:1:\"a\";i:48;s:1:\"b\";s:6:\"Create\";s:1:\"c\";s:20:\"setschedcehed.create\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:33;a:6:{s:1:\"a\";i:49;s:1:\"b\";s:6:\"Update\";s:1:\"c\";s:20:\"setschedcehed.update\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:34;a:6:{s:1:\"a\";i:50;s:1:\"b\";s:6:\"Delete\";s:1:\"c\";s:20:\"setschedcehed.delete\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:35;a:6:{s:1:\"a\";i:51;s:1:\"b\";s:20:\"Setup Sched Employee\";s:1:\"c\";s:10:\"setschedem\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:36;a:6:{s:1:\"a\";i:52;s:1:\"b\";s:4:\"View\";s:1:\"c\";s:15:\"setschedem.view\";s:1:\"d\";i:51;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:37;a:6:{s:1:\"a\";i:53;s:1:\"b\";s:6:\"Update\";s:1:\"c\";s:17:\"setschedem.update\";s:1:\"d\";i:51;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}}s:5:\"roles\";a:5:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:5:\"Admin\";s:1:\"e\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:8;s:1:\"b\";s:5:\"Staff\";s:1:\"e\";s:3:\"web\";}i:2;a:3:{s:1:\"a\";i:5;s:1:\"b\";s:8:\"Employee\";s:1:\"e\";s:3:\"web\";}i:3;a:3:{s:1:\"a\";i:6;s:1:\"b\";s:5:\"Guard\";s:1:\"e\";s:3:\"web\";}i:4;a:3:{s:1:\"a\";i:9;s:1:\"b\";s:2:\"HR\";s:1:\"e\";s:3:\"web\";}}}', 1779775197);
+INSERT INTO `cache` VALUES ('egate-cache-spatie.permission.cache', 'a:3:{s:5:\"alias\";a:6:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:4:\"code\";s:1:\"d\";s:9:\"parent_id\";s:1:\"e\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:38:{i:0;a:6:{s:1:\"a\";i:1;s:1:\"b\";s:5:\"Users\";s:1:\"c\";s:5:\"users\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:8;}}i:1;a:6:{s:1:\"a\";i:4;s:1:\"b\";s:12:\"Create Users\";s:1:\"c\";s:12:\"users.create\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:8;}}i:2;a:6:{s:1:\"a\";i:5;s:1:\"b\";s:12:\"Update Users\";s:1:\"c\";s:12:\"users.update\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:3;a:6:{s:1:\"a\";i:6;s:1:\"b\";s:12:\"Delete Users\";s:1:\"c\";s:12:\"users.delete\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:4;a:6:{s:1:\"a\";i:9;s:1:\"b\";s:21:\"Update User Passwords\";s:1:\"c\";s:17:\"users.update.pass\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:6:{s:1:\"a\";i:10;s:1:\"b\";s:10:\"View Users\";s:1:\"c\";s:10:\"users.view\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:8;}}i:6;a:6:{s:1:\"a\";i:11;s:1:\"b\";s:5:\"Roles\";s:1:\"c\";s:5:\"roles\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:7;a:6:{s:1:\"a\";i:17;s:1:\"b\";s:10:\"View Roles\";s:1:\"c\";s:10:\"roles.view\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:8;a:6:{s:1:\"a\";i:18;s:1:\"b\";s:12:\"Create Roles\";s:1:\"c\";s:12:\"roles.create\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:9;a:6:{s:1:\"a\";i:19;s:1:\"b\";s:12:\"Update Roles\";s:1:\"c\";s:12:\"roles.update\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:10;a:6:{s:1:\"a\";i:20;s:1:\"b\";s:12:\"Delete Roles\";s:1:\"c\";s:12:\"roles.delete\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:11;a:6:{s:1:\"a\";i:21;s:1:\"b\";s:12:\"Student Logs\";s:1:\"c\";s:4:\"logs\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:12;a:6:{s:1:\"a\";i:22;s:1:\"b\";s:9:\"View Logs\";s:1:\"c\";s:9:\"logs.view\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:13;a:6:{s:1:\"a\";i:23;s:1:\"b\";s:4:\"Data\";s:1:\"c\";s:4:\"Data\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:8;i:3;i:9;}}i:14;a:6:{s:1:\"a\";i:24;s:1:\"b\";s:9:\"View Data\";s:1:\"c\";s:9:\"data.view\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:8;i:3;i:9;}}i:15;a:6:{s:1:\"a\";i:25;s:1:\"b\";s:11:\"Create Data\";s:1:\"c\";s:11:\"data.create\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:16;a:6:{s:1:\"a\";i:26;s:1:\"b\";s:11:\"Update Data\";s:1:\"c\";s:11:\"data.update\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:17;a:6:{s:1:\"a\";i:27;s:1:\"b\";s:11:\"Delete Data\";s:1:\"c\";s:11:\"data.delete\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:18;a:6:{s:1:\"a\";i:28;s:1:\"b\";s:10:\"Print Data\";s:1:\"c\";s:10:\"data.print\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:19;a:6:{s:1:\"a\";i:29;s:1:\"b\";s:11:\"Export Data\";s:1:\"c\";s:11:\"data.export\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:20;a:6:{s:1:\"a\";i:31;s:1:\"b\";s:11:\"Delete Logs\";s:1:\"c\";s:11:\"logs.delete\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:21;a:6:{s:1:\"a\";i:32;s:1:\"b\";s:10:\"Print Logs\";s:1:\"c\";s:10:\"logs.print\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:22;a:6:{s:1:\"a\";i:35;s:1:\"b\";s:11:\"Export Logs\";s:1:\"c\";s:11:\"export.logs\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:23;a:6:{s:1:\"a\";i:36;s:1:\"b\";s:8:\"Time Log\";s:1:\"c\";s:4:\"time\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;}}i:24;a:6:{s:1:\"a\";i:37;s:1:\"b\";s:2:\"In\";s:1:\"c\";s:7:\"time.in\";s:1:\"d\";i:36;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;}}i:25;a:6:{s:1:\"a\";i:40;s:1:\"b\";s:3:\"Out\";s:1:\"c\";s:8:\"time.out\";s:1:\"d\";i:36;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;}}i:26;a:6:{s:1:\"a\";i:41;s:1:\"b\";s:13:\"Employee Logs\";s:1:\"c\";s:5:\"emlog\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:27;a:6:{s:1:\"a\";i:42;s:1:\"b\";s:4:\"View\";s:1:\"c\";s:10:\"emlog.view\";s:1:\"d\";i:41;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:28;a:6:{s:1:\"a\";i:44;s:1:\"b\";s:5:\"Print\";s:1:\"c\";s:11:\"emlog.print\";s:1:\"d\";i:41;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:29;a:6:{s:1:\"a\";i:45;s:1:\"b\";s:6:\"Delete\";s:1:\"c\";s:12:\"emlog.delete\";s:1:\"d\";i:41;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:30;a:6:{s:1:\"a\";i:46;s:1:\"b\";s:20:\"Setup Sched Schedule\";s:1:\"c\";s:13:\"setschedcehed\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:31;a:6:{s:1:\"a\";i:47;s:1:\"b\";s:4:\"View\";s:1:\"c\";s:18:\"setschedcehed.view\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:32;a:6:{s:1:\"a\";i:48;s:1:\"b\";s:6:\"Create\";s:1:\"c\";s:20:\"setschedcehed.create\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:33;a:6:{s:1:\"a\";i:49;s:1:\"b\";s:6:\"Update\";s:1:\"c\";s:20:\"setschedcehed.update\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:34;a:6:{s:1:\"a\";i:50;s:1:\"b\";s:6:\"Delete\";s:1:\"c\";s:20:\"setschedcehed.delete\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:35;a:6:{s:1:\"a\";i:51;s:1:\"b\";s:20:\"Setup Sched Employee\";s:1:\"c\";s:10:\"setschedem\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:36;a:6:{s:1:\"a\";i:52;s:1:\"b\";s:4:\"View\";s:1:\"c\";s:15:\"setschedem.view\";s:1:\"d\";i:51;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:37;a:6:{s:1:\"a\";i:53;s:1:\"b\";s:6:\"Update\";s:1:\"c\";s:17:\"setschedem.update\";s:1:\"d\";i:51;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}}s:5:\"roles\";a:5:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:5:\"Admin\";s:1:\"e\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:8;s:1:\"b\";s:5:\"Staff\";s:1:\"e\";s:3:\"web\";}i:2;a:3:{s:1:\"a\";i:5;s:1:\"b\";s:8:\"Employee\";s:1:\"e\";s:3:\"web\";}i:3;a:3:{s:1:\"a\";i:6;s:1:\"b\";s:5:\"Guard\";s:1:\"e\";s:3:\"web\";}i:4;a:3:{s:1:\"a\";i:9;s:1:\"b\";s:2:\"HR\";s:1:\"e\";s:3:\"web\";}}}', 1779859626);
 
 -- ----------------------------
 -- Table structure for cache_locks
@@ -66,8 +66,8 @@ CREATE TABLE `config`  (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES (1, 'Manual Login', 1, '2026-05-19 14:04:40', '2026-05-25 12:58:02');
-INSERT INTO `config` VALUES (2, 'RFID Login', 1, '2026-05-19 14:04:40', '2026-05-25 12:58:02');
+INSERT INTO `config` VALUES (1, 'Manual Login', 1, '2026-05-19 14:04:40', '2026-05-27 12:51:28');
+INSERT INTO `config` VALUES (2, 'RFID Login', 1, '2026-05-19 14:04:40', '2026-05-27 12:51:28');
 
 -- ----------------------------
 -- Table structure for egate_data
@@ -104,7 +104,7 @@ INSERT INTO `egate_data` VALUES (1, '11', NULL, NULL, 'Maria, Santos, Dela Cruz'
 INSERT INTO `egate_data` VALUES (2, '22', NULL, NULL, 'John Paul, Villanueva, Reyes', 1, NULL, NULL, 'Male', 'College of Computing Studies', 'BS Computer Science', NULL, '2nd Year', NULL, '2026-05-19 23:19:45', '2026-05-22 10:54:56', NULL);
 INSERT INTO `egate_data` VALUES (3, '33', NULL, 595930496, 'Angela, Lopez, Garcia', 2, NULL, NULL, 'Female', 'College of Engineering', 'BS Civil Engineering', NULL, '3rd Year', NULL, '2026-05-19 23:19:45', '2026-05-25 12:07:55', 1);
 INSERT INTO `egate_data` VALUES (4, '66', 44, NULL, 'Carlo, Ramos, Mendoza', 1, NULL, NULL, 'Male', 'College of Business Administration', 'BS Accountancy', NULL, '4th Year', NULL, '2026-05-19 23:19:45', '2026-05-22 10:54:59', NULL);
-INSERT INTO `egate_data` VALUES (5, '3762720653', 55, NULL, 'Bea, Fernandez, Torres', 1, NULL, NULL, 'Female', 'College of Education', 'BSEd English', NULL, '2nd Year', NULL, '2026-05-19 23:19:45', '2026-05-22 10:55:00', NULL);
+INSERT INTO `egate_data` VALUES (5, '3762720653', NULL, NULL, 'Bea Fernandez, Torres', 1, NULL, NULL, NULL, 'College of Education', 'BSEd English', NULL, '2nd Year', NULL, '2026-05-19 23:19:45', '2026-05-26 09:02:04', NULL);
 INSERT INTO `egate_data` VALUES (6, '2026-00006', NULL, NULL, 'Ethan, Diaz, Navarro', 1, NULL, NULL, 'Male', 'College of Computing Studies', 'BS Information Systems', NULL, '1st Year', NULL, '2026-05-19 23:19:45', '2026-05-22 10:55:05', NULL);
 INSERT INTO `egate_data` VALUES (7, '2026-00007', NULL, NULL, 'Sofia, Lim, Aquino', 2, NULL, NULL, 'Female', 'College of Nursing', 'BS Nursing', NULL, '3rd Year', NULL, '2026-05-19 23:19:45', '2026-05-22 10:55:23', NULL);
 INSERT INTO `egate_data` VALUES (8, '2026-00008', NULL, NULL, 'Miguel, Perez, Castro', 2, NULL, NULL, 'Male', 'College of Arts and Sciences', 'BA Communication', NULL, '4th Year', NULL, '2026-05-19 23:19:45', '2026-05-22 10:55:21', NULL);
@@ -127,7 +127,7 @@ CREATE TABLE `egate_logs`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `egate_logs_egate_data_id_foreign`(`egate_data_id` ASC) USING BTREE,
   CONSTRAINT `egate_logs_egate_data_id_foreign` FOREIGN KEY (`egate_data_id`) REFERENCES `egate_data` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 392 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 525 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of egate_logs
@@ -163,6 +163,139 @@ INSERT INTO `egate_logs` VALUES (388, 1, '11', 0, '2026-05-25 10:03:29', '2026-0
 INSERT INTO `egate_logs` VALUES (389, 2, '22', 0, '2026-05-25 10:03:29', '2026-05-25 10:03:29');
 INSERT INTO `egate_logs` VALUES (390, 1, '11', 0, '2026-05-25 10:03:30', '2026-05-25 10:03:30');
 INSERT INTO `egate_logs` VALUES (391, 2, '22', 0, '2026-05-25 10:03:30', '2026-05-25 10:03:30');
+INSERT INTO `egate_logs` VALUES (392, 1, '11', 0, '2026-05-25 16:58:26', '2026-05-25 16:58:26');
+INSERT INTO `egate_logs` VALUES (393, 1, '11', 0, '2026-05-25 16:58:26', '2026-05-25 16:58:26');
+INSERT INTO `egate_logs` VALUES (394, 2, '22', 0, '2026-05-25 16:58:27', '2026-05-25 16:58:27');
+INSERT INTO `egate_logs` VALUES (395, 1, '11', 0, '2026-05-25 16:58:27', '2026-05-25 16:58:27');
+INSERT INTO `egate_logs` VALUES (396, 2, '22', 0, '2026-05-25 16:58:28', '2026-05-25 16:58:28');
+INSERT INTO `egate_logs` VALUES (397, 1, '11', 0, '2026-05-25 16:58:29', '2026-05-25 16:58:29');
+INSERT INTO `egate_logs` VALUES (398, 2, '22', 0, '2026-05-25 16:58:29', '2026-05-25 16:58:29');
+INSERT INTO `egate_logs` VALUES (399, 1, '11', 0, '2026-05-25 16:58:30', '2026-05-25 16:58:30');
+INSERT INTO `egate_logs` VALUES (400, 2, '22', 0, '2026-05-25 16:58:30', '2026-05-25 16:58:30');
+INSERT INTO `egate_logs` VALUES (401, 1, '11', 0, '2026-05-25 16:58:31', '2026-05-25 16:58:31');
+INSERT INTO `egate_logs` VALUES (402, 2, '22', 0, '2026-05-25 16:58:31', '2026-05-25 16:58:31');
+INSERT INTO `egate_logs` VALUES (403, 1, '11', 0, '2026-05-25 16:58:32', '2026-05-25 16:58:32');
+INSERT INTO `egate_logs` VALUES (404, 2, '22', 0, '2026-05-25 16:58:32', '2026-05-25 16:58:32');
+INSERT INTO `egate_logs` VALUES (405, 1, '11', 0, '2026-05-25 16:58:33', '2026-05-25 16:58:33');
+INSERT INTO `egate_logs` VALUES (406, 2, '22', 0, '2026-05-25 16:58:33', '2026-05-25 16:58:33');
+INSERT INTO `egate_logs` VALUES (407, 1, '11', 0, '2026-05-25 16:58:34', '2026-05-25 16:58:34');
+INSERT INTO `egate_logs` VALUES (408, 2, '22', 0, '2026-05-25 16:58:35', '2026-05-25 16:58:35');
+INSERT INTO `egate_logs` VALUES (409, 1, '11', 0, '2026-05-26 10:31:27', '2026-05-26 10:31:27');
+INSERT INTO `egate_logs` VALUES (410, 1, '11', 0, '2026-05-26 10:31:30', '2026-05-26 10:31:30');
+INSERT INTO `egate_logs` VALUES (411, 2, '22', 0, '2026-05-26 10:31:32', '2026-05-26 10:31:32');
+INSERT INTO `egate_logs` VALUES (412, 1, '11', 0, '2026-05-26 10:31:32', '2026-05-26 10:31:32');
+INSERT INTO `egate_logs` VALUES (413, 2, '22', 0, '2026-05-26 10:31:33', '2026-05-26 10:31:33');
+INSERT INTO `egate_logs` VALUES (414, 1, '11', 0, '2026-05-26 10:31:34', '2026-05-26 10:31:34');
+INSERT INTO `egate_logs` VALUES (415, 2, '22', 0, '2026-05-26 10:31:34', '2026-05-26 10:31:34');
+INSERT INTO `egate_logs` VALUES (416, 1, '11', 0, '2026-05-26 10:31:36', '2026-05-26 10:31:36');
+INSERT INTO `egate_logs` VALUES (417, 2, '22', 0, '2026-05-26 10:31:36', '2026-05-26 10:31:36');
+INSERT INTO `egate_logs` VALUES (418, 1, '11', 0, '2026-05-26 10:31:37', '2026-05-26 10:31:37');
+INSERT INTO `egate_logs` VALUES (419, 2, '22', 0, '2026-05-26 10:31:38', '2026-05-26 10:31:38');
+INSERT INTO `egate_logs` VALUES (420, 1, '11', 0, '2026-05-26 10:31:41', '2026-05-26 10:31:41');
+INSERT INTO `egate_logs` VALUES (421, 2, '22', 0, '2026-05-26 10:31:41', '2026-05-26 10:31:41');
+INSERT INTO `egate_logs` VALUES (422, 1, '11', 0, '2026-05-26 10:35:29', '2026-05-26 10:35:29');
+INSERT INTO `egate_logs` VALUES (423, 2, '22', 0, '2026-05-26 10:35:32', '2026-05-26 10:35:32');
+INSERT INTO `egate_logs` VALUES (424, 2, '22', 0, '2026-05-26 10:35:33', '2026-05-26 10:35:33');
+INSERT INTO `egate_logs` VALUES (425, 1, '11', 0, '2026-05-26 10:35:34', '2026-05-26 10:35:34');
+INSERT INTO `egate_logs` VALUES (426, 2, '22', 0, '2026-05-26 10:35:35', '2026-05-26 10:35:35');
+INSERT INTO `egate_logs` VALUES (427, 1, '11', 0, '2026-05-26 10:35:36', '2026-05-26 10:35:36');
+INSERT INTO `egate_logs` VALUES (428, 2, '22', 0, '2026-05-26 10:35:38', '2026-05-26 10:35:38');
+INSERT INTO `egate_logs` VALUES (429, 1, '11', 0, '2026-05-26 10:35:40', '2026-05-26 10:35:40');
+INSERT INTO `egate_logs` VALUES (430, 1, '11', 0, '2026-05-26 10:35:45', '2026-05-26 10:35:45');
+INSERT INTO `egate_logs` VALUES (431, 2, '22', 0, '2026-05-26 10:35:47', '2026-05-26 10:35:47');
+INSERT INTO `egate_logs` VALUES (432, 1, '11', 0, '2026-05-26 10:35:50', '2026-05-26 10:35:50');
+INSERT INTO `egate_logs` VALUES (433, 2, '22', 0, '2026-05-26 10:35:51', '2026-05-26 10:35:51');
+INSERT INTO `egate_logs` VALUES (434, 1, '11', 0, '2026-05-26 10:35:52', '2026-05-26 10:35:52');
+INSERT INTO `egate_logs` VALUES (435, 2, '22', 0, '2026-05-26 10:35:52', '2026-05-26 10:35:52');
+INSERT INTO `egate_logs` VALUES (436, 1, '11', 0, '2026-05-26 10:35:55', '2026-05-26 10:35:55');
+INSERT INTO `egate_logs` VALUES (437, 2, '22', 0, '2026-05-26 10:35:56', '2026-05-26 10:35:56');
+INSERT INTO `egate_logs` VALUES (438, 1, '11', 0, '2026-05-26 10:35:57', '2026-05-26 10:35:57');
+INSERT INTO `egate_logs` VALUES (439, 2, '22', 0, '2026-05-26 10:35:58', '2026-05-26 10:35:58');
+INSERT INTO `egate_logs` VALUES (440, 1, '11', 0, '2026-05-26 10:35:59', '2026-05-26 10:35:59');
+INSERT INTO `egate_logs` VALUES (441, 2, '22', 0, '2026-05-26 10:35:59', '2026-05-26 10:35:59');
+INSERT INTO `egate_logs` VALUES (442, 1, '11', 0, '2026-05-26 10:36:01', '2026-05-26 10:36:01');
+INSERT INTO `egate_logs` VALUES (443, 2, '22', 0, '2026-05-26 10:36:01', '2026-05-26 10:36:01');
+INSERT INTO `egate_logs` VALUES (444, 1, '11', 0, '2026-05-26 10:36:02', '2026-05-26 10:36:02');
+INSERT INTO `egate_logs` VALUES (445, 2, '22', 0, '2026-05-26 10:36:03', '2026-05-26 10:36:03');
+INSERT INTO `egate_logs` VALUES (446, 1, '11', 0, '2026-05-26 10:36:05', '2026-05-26 10:36:05');
+INSERT INTO `egate_logs` VALUES (447, 1, '11', 0, '2026-05-26 10:36:09', '2026-05-26 10:36:09');
+INSERT INTO `egate_logs` VALUES (448, 1, '11', 0, '2026-05-26 10:36:13', '2026-05-26 10:36:13');
+INSERT INTO `egate_logs` VALUES (449, 2, '22', 0, '2026-05-26 10:36:14', '2026-05-26 10:36:14');
+INSERT INTO `egate_logs` VALUES (450, 1, '11', 0, '2026-05-26 10:36:17', '2026-05-26 10:36:17');
+INSERT INTO `egate_logs` VALUES (451, 2, '22', 0, '2026-05-26 10:36:21', '2026-05-26 10:36:21');
+INSERT INTO `egate_logs` VALUES (452, 1, '11', 0, '2026-05-26 10:36:24', '2026-05-26 10:36:24');
+INSERT INTO `egate_logs` VALUES (453, 2, '22', 0, '2026-05-26 10:36:25', '2026-05-26 10:36:25');
+INSERT INTO `egate_logs` VALUES (454, 1, '11', 0, '2026-05-26 10:36:25', '2026-05-26 10:36:25');
+INSERT INTO `egate_logs` VALUES (455, 2, '22', 0, '2026-05-26 10:36:26', '2026-05-26 10:36:26');
+INSERT INTO `egate_logs` VALUES (456, 1, '11', 0, '2026-05-26 10:36:27', '2026-05-26 10:36:27');
+INSERT INTO `egate_logs` VALUES (457, 2, '22', 0, '2026-05-26 10:36:28', '2026-05-26 10:36:28');
+INSERT INTO `egate_logs` VALUES (458, 1, '11', 0, '2026-05-26 10:36:28', '2026-05-26 10:36:28');
+INSERT INTO `egate_logs` VALUES (459, 2, '22', 0, '2026-05-26 10:36:29', '2026-05-26 10:36:29');
+INSERT INTO `egate_logs` VALUES (460, 1, '11', 1, '2026-05-26 10:37:26', '2026-05-26 10:37:26');
+INSERT INTO `egate_logs` VALUES (461, 2, '22', 1, '2026-05-26 10:37:27', '2026-05-26 10:37:27');
+INSERT INTO `egate_logs` VALUES (462, 1, '11', 1, '2026-05-26 10:37:28', '2026-05-26 10:37:28');
+INSERT INTO `egate_logs` VALUES (463, 1, '11', 1, '2026-05-26 10:37:30', '2026-05-26 10:37:30');
+INSERT INTO `egate_logs` VALUES (464, 2, '22', 1, '2026-05-26 10:37:30', '2026-05-26 10:37:30');
+INSERT INTO `egate_logs` VALUES (465, 1, '11', 1, '2026-05-26 10:43:03', '2026-05-26 10:43:03');
+INSERT INTO `egate_logs` VALUES (466, 2, '22', 1, '2026-05-26 10:43:03', '2026-05-26 10:43:03');
+INSERT INTO `egate_logs` VALUES (467, 1, '11', 1, '2026-05-26 10:43:04', '2026-05-26 10:43:04');
+INSERT INTO `egate_logs` VALUES (468, 1, '11', 1, '2026-05-26 10:43:06', '2026-05-26 10:43:06');
+INSERT INTO `egate_logs` VALUES (469, 2, '22', 1, '2026-05-26 10:43:07', '2026-05-26 10:43:07');
+INSERT INTO `egate_logs` VALUES (470, 1, '11', 1, '2026-05-26 10:43:08', '2026-05-26 10:43:08');
+INSERT INTO `egate_logs` VALUES (471, 2, '22', 1, '2026-05-26 10:43:08', '2026-05-26 10:43:08');
+INSERT INTO `egate_logs` VALUES (472, 1, '11', 1, '2026-05-26 10:43:12', '2026-05-26 10:43:12');
+INSERT INTO `egate_logs` VALUES (473, 2, '22', 1, '2026-05-26 10:43:13', '2026-05-26 10:43:13');
+INSERT INTO `egate_logs` VALUES (474, 1, '11', 1, '2026-05-26 10:43:14', '2026-05-26 10:43:14');
+INSERT INTO `egate_logs` VALUES (475, 2, '22', 1, '2026-05-26 10:43:14', '2026-05-26 10:43:14');
+INSERT INTO `egate_logs` VALUES (476, 1, '11', 1, '2026-05-26 10:43:16', '2026-05-26 10:43:16');
+INSERT INTO `egate_logs` VALUES (477, 2, '22', 1, '2026-05-26 10:43:16', '2026-05-26 10:43:16');
+INSERT INTO `egate_logs` VALUES (478, 1, '11', 1, '2026-05-26 10:43:17', '2026-05-26 10:43:17');
+INSERT INTO `egate_logs` VALUES (479, 2, '22', 1, '2026-05-26 10:43:18', '2026-05-26 10:43:18');
+INSERT INTO `egate_logs` VALUES (480, 1, '11', 1, '2026-05-26 10:43:19', '2026-05-26 10:43:19');
+INSERT INTO `egate_logs` VALUES (481, 1, '11', 1, '2026-05-26 10:48:37', '2026-05-26 10:48:37');
+INSERT INTO `egate_logs` VALUES (482, 1, '11', 1, '2026-05-26 10:48:40', '2026-05-26 10:48:40');
+INSERT INTO `egate_logs` VALUES (483, 2, '22', 1, '2026-05-26 10:48:41', '2026-05-26 10:48:41');
+INSERT INTO `egate_logs` VALUES (484, 1, '11', 1, '2026-05-26 10:48:45', '2026-05-26 10:48:45');
+INSERT INTO `egate_logs` VALUES (485, 2, '22', 1, '2026-05-26 10:48:46', '2026-05-26 10:48:46');
+INSERT INTO `egate_logs` VALUES (486, 1, '11', 1, '2026-05-26 10:52:54', '2026-05-26 10:52:54');
+INSERT INTO `egate_logs` VALUES (487, 2, '22', 1, '2026-05-26 10:52:55', '2026-05-26 10:52:55');
+INSERT INTO `egate_logs` VALUES (488, 3, '33', 1, '2026-05-26 11:31:27', '2026-05-26 11:31:27');
+INSERT INTO `egate_logs` VALUES (489, 3, '33', 1, '2026-05-26 11:31:28', '2026-05-26 11:31:28');
+INSERT INTO `egate_logs` VALUES (490, 3, '33', 1, '2026-05-26 11:31:28', '2026-05-26 11:31:28');
+INSERT INTO `egate_logs` VALUES (491, 3, '33', 1, '2026-05-26 11:31:29', '2026-05-26 11:31:29');
+INSERT INTO `egate_logs` VALUES (492, 3, '33', 0, '2026-05-26 11:31:38', '2026-05-26 11:31:38');
+INSERT INTO `egate_logs` VALUES (493, 3, '33', 0, '2026-05-26 11:31:40', '2026-05-26 11:31:40');
+INSERT INTO `egate_logs` VALUES (494, 3, '33', 0, '2026-05-26 11:31:42', '2026-05-26 11:31:42');
+INSERT INTO `egate_logs` VALUES (495, 3, '33', 0, '2026-05-26 11:31:42', '2026-05-26 11:31:42');
+INSERT INTO `egate_logs` VALUES (496, 3, '33', 0, '2026-05-26 11:31:42', '2026-05-26 11:31:42');
+INSERT INTO `egate_logs` VALUES (497, 3, '33', 0, '2026-05-26 11:31:43', '2026-05-26 11:31:43');
+INSERT INTO `egate_logs` VALUES (498, 3, '33', 0, '2026-05-26 11:31:44', '2026-05-26 11:31:44');
+INSERT INTO `egate_logs` VALUES (499, 3, '33', 0, '2026-05-26 11:31:45', '2026-05-26 11:31:45');
+INSERT INTO `egate_logs` VALUES (500, 3, '33', 0, '2026-05-26 11:31:46', '2026-05-26 11:31:46');
+INSERT INTO `egate_logs` VALUES (501, 3, '33', 0, '2026-05-26 11:31:46', '2026-05-26 11:31:46');
+INSERT INTO `egate_logs` VALUES (502, 1, '11', 1, '2026-05-26 12:49:11', '2026-05-26 12:49:11');
+INSERT INTO `egate_logs` VALUES (503, 2, '22', 1, '2026-05-26 12:49:14', '2026-05-26 12:49:14');
+INSERT INTO `egate_logs` VALUES (504, 1, '11', 1, '2026-05-26 12:49:15', '2026-05-26 12:49:15');
+INSERT INTO `egate_logs` VALUES (505, 2, '22', 1, '2026-05-26 12:49:16', '2026-05-26 12:49:16');
+INSERT INTO `egate_logs` VALUES (506, 1, '11', 0, '2026-05-26 12:49:32', '2026-05-26 12:49:32');
+INSERT INTO `egate_logs` VALUES (507, 2, '22', 0, '2026-05-26 12:49:32', '2026-05-26 12:49:32');
+INSERT INTO `egate_logs` VALUES (508, 1, '11', 0, '2026-05-26 12:50:56', '2026-05-26 12:50:56');
+INSERT INTO `egate_logs` VALUES (509, 1, '11', 0, '2026-05-26 12:50:58', '2026-05-26 12:50:58');
+INSERT INTO `egate_logs` VALUES (510, 1, '11', 0, '2026-05-26 12:51:01', '2026-05-26 12:51:01');
+INSERT INTO `egate_logs` VALUES (511, 2, '22', 0, '2026-05-26 12:51:02', '2026-05-26 12:51:02');
+INSERT INTO `egate_logs` VALUES (512, 1, '11', 0, '2026-05-26 12:51:03', '2026-05-26 12:51:03');
+INSERT INTO `egate_logs` VALUES (513, 2, '22', 0, '2026-05-26 12:51:03', '2026-05-26 12:51:03');
+INSERT INTO `egate_logs` VALUES (514, 1, '11', 0, '2026-05-26 12:51:07', '2026-05-26 12:51:07');
+INSERT INTO `egate_logs` VALUES (515, 2, '22', 0, '2026-05-26 12:51:08', '2026-05-26 12:51:08');
+INSERT INTO `egate_logs` VALUES (516, 1, '11', 0, '2026-05-26 12:51:08', '2026-05-26 12:51:08');
+INSERT INTO `egate_logs` VALUES (517, 2, '22', 0, '2026-05-26 12:51:09', '2026-05-26 12:51:09');
+INSERT INTO `egate_logs` VALUES (518, 1, '11', 0, '2026-05-26 12:51:09', '2026-05-26 12:51:09');
+INSERT INTO `egate_logs` VALUES (519, 2, '22', 0, '2026-05-26 12:51:10', '2026-05-26 12:51:10');
+INSERT INTO `egate_logs` VALUES (520, 1, '11', 0, '2026-05-26 12:51:12', '2026-05-26 12:51:12');
+INSERT INTO `egate_logs` VALUES (521, 2, '22', 0, '2026-05-26 12:51:13', '2026-05-26 12:51:13');
+INSERT INTO `egate_logs` VALUES (522, 1, '11', 1, '2026-05-26 13:02:27', '2026-05-26 13:02:27');
+INSERT INTO `egate_logs` VALUES (523, 2, '22', 1, '2026-05-26 13:02:31', '2026-05-26 13:02:31');
+INSERT INTO `egate_logs` VALUES (524, 1, '11', 1, '2026-05-26 13:02:32', '2026-05-26 13:02:32');
 
 -- ----------------------------
 -- Table structure for failed_jobs
@@ -288,7 +421,7 @@ CREATE TABLE `model_has_roles`  (
 -- ----------------------------
 INSERT INTO `model_has_roles` VALUES (1, 'App\\Models\\User', 1);
 INSERT INTO `model_has_roles` VALUES (6, 'App\\Models\\User', 2);
-INSERT INTO `model_has_roles` VALUES (5, 'App\\Models\\User', 3);
+INSERT INTO `model_has_roles` VALUES (9, 'App\\Models\\User', 3);
 INSERT INTO `model_has_roles` VALUES (1, 'App\\Models\\User', 4);
 
 -- ----------------------------
@@ -431,12 +564,11 @@ INSERT INTO `role_has_permissions` VALUES (41, 5);
 INSERT INTO `role_has_permissions` VALUES (42, 5);
 INSERT INTO `role_has_permissions` VALUES (21, 6);
 INSERT INTO `role_has_permissions` VALUES (22, 6);
-INSERT INTO `role_has_permissions` VALUES (23, 6);
-INSERT INTO `role_has_permissions` VALUES (24, 6);
-INSERT INTO `role_has_permissions` VALUES (32, 6);
-INSERT INTO `role_has_permissions` VALUES (35, 6);
 INSERT INTO `role_has_permissions` VALUES (36, 6);
 INSERT INTO `role_has_permissions` VALUES (37, 6);
+INSERT INTO `role_has_permissions` VALUES (40, 6);
+INSERT INTO `role_has_permissions` VALUES (41, 6);
+INSERT INTO `role_has_permissions` VALUES (42, 6);
 INSERT INTO `role_has_permissions` VALUES (1, 8);
 INSERT INTO `role_has_permissions` VALUES (4, 8);
 INSERT INTO `role_has_permissions` VALUES (10, 8);
@@ -468,7 +600,6 @@ INSERT INTO `role_has_permissions` VALUES (35, 9);
 INSERT INTO `role_has_permissions` VALUES (41, 9);
 INSERT INTO `role_has_permissions` VALUES (42, 9);
 INSERT INTO `role_has_permissions` VALUES (44, 9);
-INSERT INTO `role_has_permissions` VALUES (45, 9);
 INSERT INTO `role_has_permissions` VALUES (46, 9);
 INSERT INTO `role_has_permissions` VALUES (47, 9);
 INSERT INTO `role_has_permissions` VALUES (48, 9);
@@ -568,7 +699,7 @@ CREATE TABLE `sessions`  (
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('Mt2JGTFPhXQlm2p42Amsbv10SWQAt2acsQXumyU1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNTRzVHFuZU9mdVl0Nk1xemFLWFRCRjJ2dUpBRmVuUnhiOTczTEFHeSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9yb2xlcy9mZXRjaD9wYWdlPTEiO3M6NToicm91dGUiO3M6MTc6ImFkbWluLnJvbGVzLmZldGNoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1779688798);
+INSERT INTO `sessions` VALUES ('RBg95kVRidUk0j9AO16B56yVWdxf3Jmw2mBxKpRP', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQW9LU0EzQmRGNXExZ1cwdTFNMm1BSHVTZ0xuYzBTNDg4NFVkbzQ5dCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9nZXQtc3R1ZGVudHMvaW4iO3M6NToicm91dGUiO3M6MTU6ImdldC1zdHVkZW50cy5pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1779861518);
 
 -- ----------------------------
 -- Table structure for users
@@ -591,6 +722,6 @@ CREATE TABLE `users`  (
 -- ----------------------------
 INSERT INTO `users` VALUES (1, 'admin', 'test@example.com', '$2y$12$S88gxvq3CmEyr8zyeDGWkuNM29C4kq05FY3gGImpGCqWY.ATF6dIy', '2026-05-22 01:37:28', '2026-05-22 01:37:28');
 INSERT INTO `users` VALUES (2, 'guard', 'guard@gmail.com', '$2y$12$S88gxvq3CmEyr8zyeDGWkuNM29C4kq05FY3gGImpGCqWY.ATF6dIy', '2026-05-21 01:21:44', '2026-05-21 01:21:44');
-INSERT INTO `users` VALUES (3, 'staff', 'staff@gmail.com', '$2y$12$S88gxvq3CmEyr8zyeDGWkuNM29C4kq05FY3gGImpGCqWY.ATF6dIy', '2026-05-21 02:54:22', '2026-05-21 02:54:22');
+INSERT INTO `users` VALUES (3, 'hraccount', 'hraccount@gmail.com', '$2y$12$S88gxvq3CmEyr8zyeDGWkuNM29C4kq05FY3gGImpGCqWY.ATF6dIy', '2026-05-21 02:54:22', '2026-05-26 12:18:41');
 
 SET FOREIGN_KEY_CHECKS = 1;

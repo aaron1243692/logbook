@@ -336,14 +336,33 @@
 }
 
 .eg-access-permission-parent {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
     border-bottom: 1px solid #e5edf7;
     padding-bottom: 0.65rem;
+    line-height: 1.2;
 }
 
 .eg-access-permission-child-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
     border-radius: 0.7rem;
     background: #ffffff;
     padding: 0.55rem 0.65rem;
+    line-height: 1.2;
+}
+
+.eg-access-permission-parent input,
+.eg-access-permission-child-row input {
+    flex: 0 0 1rem;
+    margin: 0;
+}
+
+.eg-access-permission-parent span,
+.eg-access-permission-child-row span {
+    display: block;
 }
 
 @media (max-width: 900px) {

@@ -317,10 +317,10 @@
                     <th rowspan="2">Absent</th>
                 </tr>
                 <tr>
-                    <th>In</th>
-                    <th>Out</th>
-                    <th>In</th>
-                    <th>Out</th>
+                    <th>Earliest In</th>
+                    <th>Latest Out</th>
+                    <th>Earliest In</th>
+                    <th>Latest Out</th>
                 </tr>
             </thead>
             <tbody>
@@ -412,7 +412,4 @@
     </script>
 </body>
 </html>
-
-
-
 

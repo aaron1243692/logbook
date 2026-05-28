@@ -349,13 +349,13 @@ class EmployeeLogController extends Controller
         foreach ($logs as $log) {
             $time = Carbon::parse($log->created_at);
 
-            if ((int) $log->status === 1 && $time->hour < 12 && $times['am_in'] === null) {
+            if ((int) $log->status === 1 && $time->hour < 12 && ($times['am_in'] === null || $time->lt($times['am_in']))) {
                 $times['am_in'] = $time;
-            } elseif ((int) $log->status === 0 && $time->hour < 12) {
+            } elseif ((int) $log->status === 0 && $time->hour < 12 && ($times['am_out'] === null || $time->gt($times['am_out']))) {
                 $times['am_out'] = $time;
-            } elseif ((int) $log->status === 1 && $time->hour >= 12 && $times['pm_in'] === null) {
+            } elseif ((int) $log->status === 1 && $time->hour >= 12 && ($times['pm_in'] === null || $time->lt($times['pm_in']))) {
                 $times['pm_in'] = $time;
-            } elseif ((int) $log->status === 0 && $time->hour >= 12) {
+            } elseif ((int) $log->status === 0 && $time->hour >= 12 && ($times['pm_out'] === null || $time->gt($times['pm_out']))) {
                 $times['pm_out'] = $time;
             }
         }

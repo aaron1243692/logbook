@@ -528,9 +528,8 @@ async function openEmployeeLogsModal(studentId) {
 
         const rows = payload.rows || [];
         const summary = payload.summary || {};
-
         viewLogsContent.innerHTML = `
-            <div class="min-w-[760px] p-4 font-serif text-black">
+            <div class="min-w-[620px] p-4 font-serif text-black">
                 <div class="mb-3 text-xs leading-relaxed">
                     <div>${escapeHtml(payload.period)}</div>
                     <div>Name: ${escapeHtml(payload.employee.name)}</div>
@@ -541,15 +540,15 @@ async function openEmployeeLogsModal(studentId) {
 
                 <table class="w-full table-fixed border-collapse text-[10px]">
                     <colgroup>
-                        <col class="w-[10%]">
-                        <col class="w-[10%]">
-                        <col class="w-[11%]">
-                        <col class="w-[11%]">
-                        <col class="w-[11%]">
-                        <col class="w-[11%]">
-                        <col class="w-[13%]">
+                        <col class="w-[9%]">
+                        <col class="w-[9%]">
                         <col class="w-[12%]">
-                        <col class="w-[11%]">
+                        <col class="w-[12%]">
+                        <col class="w-[12%]">
+                        <col class="w-[12%]">
+                        <col class="w-[12%]">
+                        <col class="w-[12%]">
+                        <col class="w-[10%]">
                     </colgroup>
                     <thead>
                         <tr>
@@ -557,14 +556,14 @@ async function openEmployeeLogsModal(studentId) {
                             <th colspan="2" class="border border-black px-1 py-1 font-normal">AM</th>
                             <th colspan="2" class="border border-black px-1 py-1 font-normal">PM</th>
                             <th rowspan="2" class="border border-black px-1 py-1 font-normal">Late</th>
-                            <th rowspan="2" class="border border-black px-1 py-1 font-normal">Under time</th>
-                            <th rowspan="2" class="border border-black px-1 py-1 font-normal">Abs</th>
+                            <th rowspan="2" class="border border-black px-1 py-1 font-normal">Undertime</th>
+                            <th rowspan="2" class="border border-black px-1 py-1 font-normal">Absence</th>
                         </tr>
                         <tr>
-                            <th class="border border-black px-1 py-1 font-normal">In</th>
-                            <th class="border border-black px-1 py-1 font-normal">Out</th>
-                            <th class="border border-black px-1 py-1 font-normal">In</th>
-                            <th class="border border-black px-1 py-1 font-normal">Out</th>
+                            <th class="border border-black px-1 py-1 font-normal">Earliest In</th>
+                            <th class="border border-black px-1 py-1 font-normal">Latest Out</th>
+                            <th class="border border-black px-1 py-1 font-normal">Earliest In</th>
+                            <th class="border border-black px-1 py-1 font-normal">Latest Out</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -584,11 +583,23 @@ async function openEmployeeLogsModal(studentId) {
                     </tbody>
                 </table>
 
-                <div class="mt-2 text-xs leading-relaxed">
-                    <div>Total Time: ${escapeHtml(summary.total_time || '')}</div>
-                    <div>Late: ${escapeHtml(summary.late || '')}</div>
-                    <div>Undertime: ${escapeHtml(summary.undertime || '')}</div>
-                    <div>Absents: ${escapeHtml(summary.absence || '')}</div>
+                <div class="mt-2 grid grid-cols-4 border border-black border-r-0 text-center text-xs">
+                    <div class="border-r border-black px-2 py-1">
+                        <div class="text-[10px] uppercase text-slate-600">Total Time</div>
+                        <div>${escapeHtml(summary.total_time || '')}</div>
+                    </div>
+                    <div class="border-r border-black px-2 py-1">
+                        <div class="text-[10px] uppercase text-slate-600">Late</div>
+                        <div>${escapeHtml(summary.late || '')}</div>
+                    </div>
+                    <div class="border-r border-black px-2 py-1">
+                        <div class="text-[10px] uppercase text-slate-600">Undertime</div>
+                        <div>${escapeHtml(summary.undertime || '')}</div>
+                    </div>
+                    <div class="border-r border-black px-2 py-1">
+                        <div class="text-[10px] uppercase text-slate-600">Absences</div>
+                        <div>${escapeHtml(summary.absence || '')}</div>
+                    </div>
                 </div>
             </div>
         `;

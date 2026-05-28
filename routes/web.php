@@ -75,6 +75,7 @@ Route::middleware(['auth', 'no_store'])->group(function () {
         Route::get('/export', 'export')->name('.export')->middleware('permission:data.export');
         Route::post('/', 'store')->name('.store')->middleware('permission:data.create');
         Route::get('/{id}', 'show')->name('.show')->middleware('permission:data.view');
+        Route::patch('/{id}/rfid', 'registerRfid')->name('.rfid')->middleware('permission:data.update');
         Route::put('/{id}', 'update')->name('.update')->middleware('permission:data.update');
         Route::delete('/{id}', 'destroy')->name('.destroy')->middleware('permission:data.delete');
     })->middleware('permission:data.view');

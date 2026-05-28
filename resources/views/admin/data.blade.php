@@ -143,13 +143,13 @@
             <div class="overflow-y-auto px-4 py-3">
                 <div class="grid gap-3 md:grid-cols-2">
                     <div class="flex flex-col gap-1">
-                        <label for="form-student-number">ST No / LRN</label>
+                        <label for="form-student-number">ID No / LRN</label>
                         <input id="form-student-number" type="text" class="w-full rounded-full border border-black/70 px-3 py-2 outline-none" required>
                     </div>
 
                     <div class="flex flex-col gap-1">
                         <label for="form-rfid">RFID</label>
-                        <input id="form-rfid" type="number" class="w-full rounded-full border border-black/70 px-3 py-2 outline-none">
+                        <input id="form-rfid" type="text" inputmode="numeric" pattern="[0-9]*" class="w-full rounded-full border border-black/70 px-3 py-2 outline-none">
                     </div>
 
                     <div class="flex flex-col gap-1">
@@ -220,7 +220,7 @@
         <div class="overflow-y-auto px-4 py-3">
             <form class="grid gap-3 md:grid-cols-2">
                 <div class="flex flex-col gap-1">
-                    <label>ST No / LRN</label>
+                    <label>ID No / LRN</label>
                     <input id="detail-stno-lrn" type="text" readonly class="w-full rounded-full border border-black/70 px-3 py-2 outline-none bg-slate-50">
                 </div>
 
@@ -301,6 +301,25 @@
     </div>
 </div>
 
+<div id="rfid-modal" class="eg-report-modal fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm px-4">
+    <div class="eg-report-modal-panel w-full max-w-sm rounded-xl bg-white p-4 shadow-2xl flex flex-col items-center text-center">
+        <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50">
+            <img src="{{ asset('icons/id-card.png') }}" class="h-7 w-7" alt="">
+        </div>
+        <div class="space-y-2">
+            <h4 class="text-xl font-semibold text-gray-900">RFID Registration</h4>
+            <p id="rfid-modal-name" class="text-sm font-medium text-slate-700"></p>
+            <p id="rfid-scan-status" class="text-sm text-gray-500 leading-relaxed">Scan the RFID card now.</p>
+        </div>
+        <div class="mt-4 flex h-2 w-full overflow-hidden rounded-full bg-slate-100">
+            <span id="rfid-scan-progress" class="h-full w-0 rounded-full bg-blue-500 transition-all duration-150"></span>
+        </div>
+        <button type="button" data-close-modal="rfid-modal" class="mt-6 w-full rounded-full bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-gray-800 active:scale-[0.98]">
+            Cancel
+        </button>
+    </div>
+</div>
+
 <div id="message-modal" class="eg-report-modal fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm px-4">
     <div id="message-modal-panel" class="eg-report-modal-panel w-full max-w-sm scale-95 rounded-xl bg-white p-4 text-center opacity-0 shadow-2xl transition duration-200">
         <div id="message-modal-icon" class="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-500">
@@ -328,8 +347,10 @@
         export: @json(route('admin.data.export')),
     };
     const canPrintData = @json(auth()->user()?->can('data.print'));
+    const canExportData = @json(auth()->user()?->can('data.export'));
     const canUpdateData = @json(auth()->user()?->can('data.update'));
     const canDeleteData = @json(auth()->user()?->can('data.delete'));
+    const canRegisterRfid = canUpdateData;
 
     const searchDataInput = document.getElementById('search-data');
     const filterNameSort = document.getElementById('filter-name-sort');
@@ -342,6 +363,10 @@
     const detailsModal = document.getElementById('details-modal');
     const dataModal = document.getElementById('data-modal');
     const deleteModal = document.getElementById('delete-modal');
+    const rfidModal = document.getElementById('rfid-modal');
+    const rfidModalName = document.getElementById('rfid-modal-name');
+    const rfidScanStatus = document.getElementById('rfid-scan-status');
+    const rfidScanProgress = document.getElementById('rfid-scan-progress');
     const messageModal = document.getElementById('message-modal');
     const messageModalPanel = document.getElementById('message-modal-panel');
     const messageModalIcon = document.getElementById('message-modal-icon');
@@ -363,6 +388,13 @@
     let searchTimer = null;
     let messageHideTimer = null;
     let dataToDelete = null;
+    let rfidRegistration = {
+        id: null,
+        name: '',
+        buffer: '',
+        scanTimer: null,
+        isSaving: false,
+    };
 
     function escapeHtml(value) {
         return String(value ?? '')
@@ -441,6 +473,10 @@
         };
 
         return roles[Number(value)] || value || '';
+    }
+
+    function normalizeRfidValue(value) {
+        return String(value ?? '').replace(/\D/g, '');
     }
 
     function getDataFilterFields() {
@@ -536,9 +572,19 @@
                             <img src="{{ asset('icons/print.png') }}" class="w-7 h-7" alt="print data">
                         </button>
                 ` : '',
+                canExportData ? `
+                        <button type="button" data-action="export" data-id="${record.id}" class="transition duration-200 hover:scale-110">
+                            <img src="{{ asset('icons/export.png') }}" class="w-7 h-7" alt="export data">
+                        </button>
+                ` : '',
                 canUpdateData ? `
                         <button type="button" data-action="edit" data-id="${record.id}" class="transition duration-200 hover:scale-110">
                             <img src="{{ asset('icons/list.png') }}" class="w-7 h-7" alt="edit data">
+                        </button>
+                ` : '',
+                canRegisterRfid ? `
+                        <button type="button" data-action="rfid" data-id="${record.id}" data-name="${escapeHtml(formatNameCell(record))}" class="transition duration-200 hover:scale-110" aria-label="Register RFID">
+                            <img src="{{ asset('icons/id-card.png') }}" class="w-7 h-7" alt="register rfid">
                         </button>
                 ` : '',
                 canDeleteData ? `
@@ -658,6 +704,13 @@
         return url;
     }
 
+    function buildSingleDataExportUrl(id) {
+        const url = buildDataFilterUrl(dataRoutes.export);
+        url.searchParams.set('record_id', id);
+
+        return url;
+    }
+
     function fillDetails(record) {
         document.getElementById('detail-stno-lrn').value = record.student_number || record.lrn || 'N/A';
         document.getElementById('detail-rfid').value = record.rfid || '';
@@ -721,6 +774,70 @@
         dataToDelete = id;
         deleteModalText.textContent = `Are you sure you want to delete ${name}?`;
         openModal(deleteModal);
+    }
+
+    function resetRfidRegistration() {
+        if (rfidRegistration.scanTimer) {
+            window.clearTimeout(rfidRegistration.scanTimer);
+        }
+
+        rfidRegistration = {
+            id: null,
+            name: '',
+            buffer: '',
+            scanTimer: null,
+            isSaving: false,
+        };
+        rfidScanStatus.textContent = 'Scan the RFID card now.';
+        rfidScanProgress.style.width = '0%';
+    }
+
+    function openRfidRegistrationModal(id, name) {
+        hideMessage();
+        resetRfidRegistration();
+        rfidRegistration.id = id;
+        rfidRegistration.name = name || 'this record';
+        rfidModalName.textContent = rfidRegistration.name;
+        openModal(rfidModal);
+    }
+
+    async function saveScannedRfid() {
+        const rfid = normalizeRfidValue(rfidRegistration.buffer);
+
+        if (!rfid || rfidRegistration.isSaving) {
+            return;
+        }
+
+        rfidRegistration.isSaving = true;
+        rfidScanStatus.textContent = 'Saving RFID...';
+        rfidScanProgress.style.width = '100%';
+
+        const formData = new FormData();
+        formData.set('rfid', rfid);
+
+        try {
+            const payload = await sendRequest(`${dataRoutes.base}/${rfidRegistration.id}/rfid`, 'PATCH', formData);
+            closeModal(rfidModal);
+            resetRfidRegistration();
+            showMessage(payload.message || 'RFID registered successfully.', 'success');
+            fetchData(dataCurrentPage);
+        } catch (error) {
+            closeModal(rfidModal);
+            resetRfidRegistration();
+            showMessage(error.message || 'RFID registration failed.', 'error');
+        }
+    }
+
+    function queueRfidAutoSave() {
+        if (rfidRegistration.scanTimer) {
+            window.clearTimeout(rfidRegistration.scanTimer);
+        }
+
+        rfidScanStatus.textContent = 'RFID scan received. Saving...';
+        rfidScanProgress.style.width = '70%';
+        rfidRegistration.scanTimer = window.setTimeout(() => {
+            saveScannedRfid();
+        }, 300);
     }
 
     async function sendRequest(url, method, body) {
@@ -789,6 +906,14 @@
                 window.location.href = buildSingleDataPrintUrl(id).toString();
             }
 
+            if (action === 'export') {
+                window.location.href = buildSingleDataExportUrl(id).toString();
+            }
+
+            if (action === 'rfid') {
+                openRfidRegistrationModal(id, name);
+            }
+
             if (action === 'delete') {
                 openDeleteModal(id, name);
             }
@@ -804,7 +929,7 @@
         const recordId = dataIdInput.value;
         const formData = new FormData();
         formData.set('student_number', document.getElementById('form-student-number').value);
-        formData.set('rfid', document.getElementById('form-rfid').value);
+        formData.set('rfid', normalizeRfidValue(document.getElementById('form-rfid').value));
         formData.set('name', document.getElementById('form-name').value);
         formData.set('role', document.getElementById('form-role').value);
         formData.set('email', document.getElementById('form-email').value);
@@ -851,11 +976,16 @@
 
     document.querySelectorAll('[data-close-modal]').forEach((button) => {
         button.addEventListener('click', () => {
-            closeModal(document.getElementById(button.dataset.closeModal));
+            const modal = document.getElementById(button.dataset.closeModal);
+            closeModal(modal);
+
+            if (modal === rfidModal) {
+                resetRfidRegistration();
+            }
         });
     });
 
-    [detailsModal, dataModal, deleteModal, messageModal].forEach((modal) => {
+    [detailsModal, dataModal, deleteModal, rfidModal, messageModal].forEach((modal) => {
         modal.addEventListener('click', (event) => {
             if (event.target === modal) {
                 if (modal === messageModal) {
@@ -864,8 +994,46 @@
                 }
 
                 closeModal(modal);
+
+                if (modal === rfidModal) {
+                    resetRfidRegistration();
+                }
             }
         });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (rfidModal.classList.contains('hidden') || rfidRegistration.isSaving) {
+            return;
+        }
+
+        if (event.key === 'Escape') {
+            closeModal(rfidModal);
+            resetRfidRegistration();
+            return;
+        }
+
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            saveScannedRfid();
+            return;
+        }
+
+        if (event.key.length !== 1 || event.ctrlKey || event.altKey || event.metaKey) {
+            return;
+        }
+
+        event.preventDefault();
+        const digit = normalizeRfidValue(event.key);
+
+        if (digit === '') {
+            return;
+        }
+
+        rfidRegistration.buffer += digit;
+        rfidScanStatus.textContent = 'Reading RFID scan...';
+        rfidScanProgress.style.width = '35%';
+        queueRfidAutoSave();
     });
 
     document.getElementById('close-message-modal').addEventListener('click', () => {

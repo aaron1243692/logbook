@@ -6,6 +6,7 @@ use App\Models\EgateLog;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Validation\ValidationException;
 
@@ -88,10 +89,11 @@ class DataController extends Controller
         abort_unless(auth()->user()?->can('data.export'), 403);
 
         $records = $this->buildFilteredQuery($request)
+            ->when($request->filled('record_id'), fn ($query) => $query->whereKey($request->integer('record_id')))
             ->orderBy('name', $this->resolveNameSortDirection($request))
             ->get();
 
-        $filename = 'student-data-' . now()->format('Y-m-d_H-i-s') . '.xls';
+        $filename = ($request->filled('record_id') ? 'student-data-record-' : 'student-data-') . now()->format('Y-m-d_H-i-s') . '.xls';
         $html = view('admin.export-data', [
             'records' => $records,
         ])->render();
@@ -108,6 +110,10 @@ class DataController extends Controller
         abort_unless(auth()->user()?->can('data.create'), 403);
 
         try {
+            $request->merge([
+                'rfid' => $this->normalizeIntegerInput($request->input('rfid')),
+            ]);
+
             $validated = $request->validate($this->rules());
 
             $record = EgateLog::query()->create($this->dataForSave($validated));
@@ -137,6 +143,10 @@ class DataController extends Controller
 
         try {
             $record = EgateLog::query()->findOrFail($id);
+            $request->merge([
+                'rfid' => $this->normalizeIntegerInput($request->input('rfid')),
+            ]);
+
             $validated = $request->validate($this->rules($record->id));
             $record->update($this->dataForSave($validated));
 
@@ -155,6 +165,47 @@ class DataController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error updating student data: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function registerRfid(Request $request, int $id): JsonResponse
+    {
+        abort_unless(auth()->user()?->can('data.update'), 403);
+
+        try {
+            $record = EgateLog::query()->findOrFail($id);
+            $request->merge([
+                'rfid' => $this->normalizeIntegerInput($request->input('rfid')),
+            ]);
+
+            $validated = $request->validate([
+                'rfid' => [
+                    'required',
+                    'regex:/^\d+$/',
+                    Rule::unique('egate_data', 'rfid')->ignore($record->id),
+                ],
+            ]);
+
+            $record->update([
+                'rfid' => (int) $validated['rfid'],
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'RFID registered successfully.',
+                'record' => $record->fresh(),
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => collect($e->errors())->flatten()->first() ?? 'RFID registration failed.',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error registering RFID: ' . $e->getMessage(),
             ], 500);
         }
     }
@@ -184,7 +235,7 @@ class DataController extends Controller
         return [
             'student_number' => ['required', 'string', 'max:255', 'unique:egate_data,student_number' . ($ignoreId ? ',' . $ignoreId : '')],
             'lrn' => ['nullable', 'digits_between:1,20'],
-            'rfid' => ['nullable', 'integer'],
+            'rfid' => ['nullable', 'regex:/^\d+$/'],
             'name' => ['required', 'string', 'max:150'],
             'role' => ['nullable', 'integer', 'in:1,2'],
             'email' => ['nullable', 'email', 'max:100'],
@@ -197,12 +248,19 @@ class DataController extends Controller
         ];
     }
 
+    private function normalizeIntegerInput(mixed $value): ?string
+    {
+        $digits = preg_replace('/\D+/', '', (string) $value);
+
+        return $digits === '' ? null : $digits;
+    }
+
     private function dataForSave(array $validated): array
     {
         return [
             'student_number' => $validated['student_number'],
             'lrn' => $validated['lrn'] ?? null,
-            'rfid' => $validated['rfid'] ?? null,
+            'rfid' => isset($validated['rfid']) && $validated['rfid'] !== '' ? (int) $validated['rfid'] : null,
             'name' => $this->normalizeName($validated['name']),
             'role' => $validated['role'] ?? null,
             'email' => $validated['email'] ?? null,

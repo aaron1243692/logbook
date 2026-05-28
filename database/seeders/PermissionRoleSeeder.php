@@ -16,7 +16,7 @@ class PermissionRoleSeeder extends Seeder
         $guard = Role::findOrCreate('Guard', 'web');
 
         $parents = collect([
-            'data' => 'Data',
+            'data' => 'Registration',
             'logs' => 'Logs',
             'roles' => 'Roles',
             'setschedcehed' => 'Setup Sched Schedule',
@@ -54,12 +54,12 @@ class PermissionRoleSeeder extends Seeder
         }
 
         $definitions = [
-            ['name' => 'View Data', 'code' => 'data.view', 'parent_id' => $parents['data']->id],
-            ['name' => 'Create Data', 'code' => 'data.create', 'parent_id' => $parents['data']->id],
-            ['name' => 'Update Data', 'code' => 'data.update', 'parent_id' => $parents['data']->id],
-            ['name' => 'Delete Data', 'code' => 'data.delete', 'parent_id' => $parents['data']->id],
-            ['name' => 'Print Data', 'code' => 'data.print', 'parent_id' => $parents['data']->id],
-            ['name' => 'Export Data', 'code' => 'data.export', 'parent_id' => $parents['data']->id],
+            ['name' => 'View Registration', 'code' => 'data.view', 'parent_id' => $parents['data']->id],
+            ['name' => 'Create Registration', 'code' => 'data.create', 'parent_id' => $parents['data']->id],
+            ['name' => 'Update Registration', 'code' => 'data.update', 'parent_id' => $parents['data']->id],
+            ['name' => 'Delete Registration', 'code' => 'data.delete', 'parent_id' => $parents['data']->id],
+            ['name' => 'Print Registration', 'code' => 'data.print', 'parent_id' => $parents['data']->id],
+            ['name' => 'Export Registration', 'code' => 'data.export', 'parent_id' => $parents['data']->id],
             ['name' => 'View Logs', 'code' => 'logs.view', 'parent_id' => $parents['logs']->id],
             ['name' => 'Update Logs', 'code' => 'logs.update', 'parent_id' => $parents['logs']->id],
             ['name' => 'Delete Logs', 'code' => 'logs.delete', 'parent_id' => $parents['logs']->id],

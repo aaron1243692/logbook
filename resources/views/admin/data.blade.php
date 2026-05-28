@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', 'Student Data')
+@section('title', 'Registration')
 @section('content')
 
 <main class="eg-report-page">
     <header class="eg-report-header">
         <div>
-            <p class="eg-report-kicker">Records Management</p>
-            <h1 class="eg-report-title">Student Data</h1>
+            <p class="eg-report-kicker">Setup</p>
+            <h1 class="eg-report-title">Registration</h1>
             <p class="eg-report-subtitle">Manage registered students, RFID records, departments, courses, and grade levels.</p>
         </div>
     </header>
@@ -16,7 +16,7 @@
             <div class="eg-report-toolbar-panel">
                 <div class="eg-report-toolbar">
                     <div class="eg-report-search">
-                        <label for="search-data" class="sr-only">Search student data</label>
+                        <label for="search-data" class="sr-only">Search registration records</label>
                         <input
                             id="search-data"
                             type="text"
@@ -31,7 +31,7 @@
                             type="button"
                             id="print-data-button"
                             class="eg-report-button eg-report-button--ghost"
-                            aria-label="Print student data"
+                            aria-label="Print registration records"
                         >
                             <img src="{{ asset('icons/print.png') }}" alt="">
                             <span>Print</span>
@@ -42,7 +42,7 @@
                             type="button"
                             id="export-data-button"
                             class="eg-report-button eg-report-button--success"
-                            aria-label="Export student data"
+                            aria-label="Export registration records"
                         >
                             <img src="{{ asset('icons/export.png') }}" alt="">
                             <span>Export</span>
@@ -54,7 +54,7 @@
                             id="open-add-data-modal"
                             class="eg-report-button eg-report-button--primary"
                         >
-                            Add Data
+                            Add Registration
                         </button>
                         @endcan
                     </div>
@@ -116,14 +116,14 @@
 
                     <tbody id="data-table-body" class="divide-y divide-black">
                         <tr>
-                            <td colspan="6" class="px-3 py-5 text-center text-slate-500">Loading data...</td>
+                            <td colspan="6" class="px-3 py-5 text-center text-slate-500">Loading registrations...</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="eg-report-footer">
-                <p id="table-summary" class="text-sm text-slate-600">Preparing data list...</p>
+                <p id="table-summary" class="text-sm text-slate-600">Preparing registration list...</p>
                 <div id="pagination" class="flex flex-wrap items-center justify-end gap-1.5"></div>
             </div>
         </div>
@@ -136,7 +136,7 @@
             <input type="hidden" id="data-id">
 
             <div class="flex items-center justify-between px-4 py-3 border-b border-slate-200">
-                <h4 id="data-modal-title" class="text-lg font-bold text-gray-900">Add Data</h4>
+                <h4 id="data-modal-title" class="text-lg font-bold text-gray-900">Add Registration</h4>
                 <button type="button" data-close-modal="data-modal" class="rounded-full px-2 py-1 text-sm text-gray-500 transition hover:bg-gray-100 hover:text-gray-700">X</button>
             </div>
 
@@ -203,7 +203,7 @@
                     Cancel
                 </button>
                 <button type="submit" id="data-submit-button" class="rounded-full bg-blue-500 px-4 py-1.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-blue-600 hover:scale-105">
-                    Save Data
+                    Save Registration
                 </button>
             </div>
         </form>
@@ -287,7 +287,7 @@
             </svg>
         </div>
         <div class="space-y-2">
-            <h4 class="text-xl font-semibold text-gray-900">Delete Data</h4>
+            <h4 class="text-xl font-semibold text-gray-900">Delete Registration</h4>
             <p id="delete-modal-text" class="text-sm text-gray-500 leading-relaxed">Are you sure you want to delete this record?</p>
         </div>
         <div class="mt-6 w-full grid grid-cols-2 gap-2 justify-items-center">
@@ -648,7 +648,7 @@
         dataCurrentPage = page;
         dataTableBody.innerHTML = `
             <tr>
-                <td colspan="6" class="px-3 py-5 text-center text-slate-500">Loading data...</td>
+                <td colspan="6" class="px-3 py-5 text-center text-slate-500">Loading registrations...</td>
             </tr>
         `;
 
@@ -672,11 +672,11 @@
         } catch (error) {
             dataTableBody.innerHTML = `
                 <tr>
-                    <td colspan="6" class="px-3 py-5 text-center text-rose-600">Unable to load data right now.</td>
+                    <td colspan="6" class="px-3 py-5 text-center text-rose-600">Unable to load registrations right now.</td>
                 </tr>
             `;
-            dataTableSummary.textContent = 'Data list unavailable';
-            showMessage('Unable to load data right now.', 'error');
+            dataTableSummary.textContent = 'Registration list unavailable';
+            showMessage('Unable to load registrations right now.', 'error');
         }
     }
 
@@ -714,8 +714,8 @@
     function resetDataForm(isEdit = false) {
         dataForm.reset();
         dataIdInput.value = '';
-        dataModalTitle.textContent = isEdit ? 'Edit Data' : 'Add Data';
-        dataSubmitButton.textContent = isEdit ? 'Update Data' : 'Save Data';
+        dataModalTitle.textContent = isEdit ? 'Edit Registration' : 'Add Registration';
+        dataSubmitButton.textContent = isEdit ? 'Update Registration' : 'Save Registration';
     }
 
     function fillDataForm(record) {

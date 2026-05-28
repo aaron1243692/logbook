@@ -1,9 +1,9 @@
 @php
     $canSetupSchedules = auth()->user()->can('setschedcehed.view');
     $canSetupEmployees = auth()->user()->can('setschedem.view');
-    $canSetup = $canSetupSchedules || $canSetupEmployees;
-    $canRecords = auth()->user()->can('data.view')
-        || auth()->user()->can('logs.view')
+    $canRegistration = auth()->user()->can('data.view');
+    $canSetup = $canSetupSchedules || $canSetupEmployees || $canRegistration;
+    $canRecords = auth()->user()->can('logs.view')
         || auth()->user()->can('emlog.view');
     $canAccessControl = auth()->user()->can('roles.view')
         || auth()->user()->can('users.view');
@@ -62,8 +62,16 @@
 
             @if ($canSetup)
                 <section class="eg-rb-group">
-                    <div class="eg-rb-group-title">Configuration</div>
+                    <div class="eg-rb-group-title">Setup</div>
                     <div class="eg-rb-items">
+                        @if ($canRegistration)
+                            <a class="eg-rb-tile {{ request()->routeIs('admin.data*') ? 'is-active' : '' }}" href="{{ route('admin.data') }}">
+                                <span class="eg-rb-icon eg-rb-icon--image">
+                                    <img src="{{ asset('icons/folder.png') }}" alt="" aria-hidden="true">
+                                </span>
+                                <span>Registration</span>
+                            </a>
+                        @endif
                         @if ($canSetupSchedules)
                             <a class="eg-rb-tile {{ request()->routeIs('admin.setup.schedules*') ? 'is-active' : '' }}" href="{{ route('admin.setup.schedules') }}">
                                 <span class="eg-rb-icon eg-rb-icon--image">
@@ -88,14 +96,6 @@
                 <section class="eg-rb-group">
                     <div class="eg-rb-group-title">Records</div>
                     <div class="eg-rb-items">
-                        @can('data.view')
-                            <a class="eg-rb-tile {{ request()->routeIs('admin.data*') ? 'is-active' : '' }}" href="{{ route('admin.data') }}">
-                                <span class="eg-rb-icon eg-rb-icon--image">
-                                    <img src="{{ asset('icons/folder.png') }}" alt="" aria-hidden="true">
-                                </span>
-                                <span>Data</span>
-                            </a>
-                        @endcan
                         @can('logs.view')
                             <a class="eg-rb-tile {{ request()->routeIs('admin.logs*') ? 'is-active' : '' }}" href="{{ route('admin.logs') }}">
                                 <span class="eg-rb-icon eg-rb-icon--image">

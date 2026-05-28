@@ -286,14 +286,14 @@
 
             if (canUpdateRoles) {
                 buttons.push(`
-                    <button type="button" data-action="edit" data-id="${role.id}" class="eg-access-action" aria-label="Edit role">
+                    <button type="button" data-action="edit" data-id="${role.id}" class="eg-access-action eg-action-tooltip" data-label="Edit" title="Edit" aria-label="Edit role">
                         <img src="{{ asset('icons/list.png') }}" class="w-7 h-7" alt="edit role">
                         <span>Edit</span>
                     </button>
                 `);
 
                 buttons.push(`
-                    <button type="button" data-action="permissions" data-id="${role.id}" data-name="${escapeHtml(role.name)}" class="eg-access-action" aria-label="Manage permissions">
+                    <button type="button" data-action="permissions" data-id="${role.id}" data-name="${escapeHtml(role.name)}" class="eg-access-action eg-action-tooltip" data-label="Permissions" title="Permissions" aria-label="Manage permissions">
                         <img src="{{ asset('icons/crown.png') }}" class="w-7 h-7" alt="modify permissions">
                         <span>Permissions</span>
                     </button>
@@ -302,7 +302,7 @@
 
             if (canDeleteRoles) {
                 buttons.push(`
-                    <button type="button" data-action="delete" data-id="${role.id}" data-name="${escapeHtml(role.name)}" class="eg-access-action eg-access-action--danger" aria-label="Delete role">
+                    <button type="button" data-action="delete" data-id="${role.id}" data-name="${escapeHtml(role.name)}" class="eg-access-action eg-access-action--danger eg-action-tooltip" data-label="Delete" title="Delete" aria-label="Delete role">
                         <img src="{{ asset('icons/delete.png') }}" class="w-7 h-7" alt="delete role">
                         <span>Delete</span>
                     </button>

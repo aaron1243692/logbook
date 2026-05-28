@@ -425,12 +425,12 @@
         logsTableBody.innerHTML = logs.map((log, index) => {
             const actionButtons = [
                 canPrintLogs ? `
-                        <button type="button" data-action="print" data-student-id="${escapeHtml(log.student_id)}" class="transition duration-200 hover:scale-110">
+                        <button type="button" data-action="print" data-student-id="${escapeHtml(log.student_id)}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Print" title="Print" aria-label="Print student logs">
                             <img src="{{ asset('icons/print.png') }}" class="w-7 h-7" alt="print student logs">
                         </button>
                 ` : '',
                 canDeleteLogs ? `
-                        <button type="button" data-action="delete" data-id="${log.id}" data-name="${escapeHtml(log.student_id)}" class="transition duration-200 hover:scale-110">
+                        <button type="button" data-action="delete" data-id="${log.id}" data-name="${escapeHtml(log.student_id)}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Delete" title="Delete" aria-label="Delete log">
                             <img src="{{ asset('icons/delete.png') }}" class="w-7 h-7" alt="delete log">
                         </button>
                 ` : '',

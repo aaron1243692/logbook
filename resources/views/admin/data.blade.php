@@ -347,7 +347,6 @@
         export: @json(route('admin.data.export')),
     };
     const canPrintData = @json(auth()->user()?->can('data.print'));
-    const canExportData = @json(auth()->user()?->can('data.export'));
     const canUpdateData = @json(auth()->user()?->can('data.update'));
     const canDeleteData = @json(auth()->user()?->can('data.delete'));
     const canRegisterRfid = canUpdateData;
@@ -568,27 +567,22 @@
         dataTableBody.innerHTML = records.map((record, index) => {
             const actionButtons = [
                 canPrintData ? `
-                        <button type="button" data-action="print" data-id="${record.id}" class="transition duration-200 hover:scale-110">
+                        <button type="button" data-action="print" data-id="${record.id}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Print" title="Print" aria-label="Print data">
                             <img src="{{ asset('icons/print.png') }}" class="w-7 h-7" alt="print data">
                         </button>
                 ` : '',
-                canExportData ? `
-                        <button type="button" data-action="export" data-id="${record.id}" class="transition duration-200 hover:scale-110">
-                            <img src="{{ asset('icons/export.png') }}" class="w-7 h-7" alt="export data">
-                        </button>
-                ` : '',
                 canUpdateData ? `
-                        <button type="button" data-action="edit" data-id="${record.id}" class="transition duration-200 hover:scale-110">
+                        <button type="button" data-action="edit" data-id="${record.id}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Edit" title="Edit" aria-label="Edit data">
                             <img src="{{ asset('icons/list.png') }}" class="w-7 h-7" alt="edit data">
                         </button>
                 ` : '',
                 canRegisterRfid ? `
-                        <button type="button" data-action="rfid" data-id="${record.id}" data-name="${escapeHtml(formatNameCell(record))}" class="transition duration-200 hover:scale-110" aria-label="Register RFID">
+                        <button type="button" data-action="rfid" data-id="${record.id}" data-name="${escapeHtml(formatNameCell(record))}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Register RFID" title="Register RFID" aria-label="Register RFID">
                             <img src="{{ asset('icons/id-card.png') }}" class="w-7 h-7" alt="register rfid">
                         </button>
                 ` : '',
                 canDeleteData ? `
-                        <button type="button" data-action="delete" data-id="${record.id}" data-name="${escapeHtml(formatNameCell(record))}" class="transition duration-200 hover:scale-110">
+                        <button type="button" data-action="delete" data-id="${record.id}" data-name="${escapeHtml(formatNameCell(record))}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Delete" title="Delete" aria-label="Delete data">
                             <img src="{{ asset('icons/delete.png') }}" class="w-7 h-7" alt="delete data">
                         </button>
                 ` : '',
@@ -699,13 +693,6 @@
 
     function buildSingleDataPrintUrl(id) {
         const url = buildDataFilterUrl(dataRoutes.print);
-        url.searchParams.set('record_id', id);
-
-        return url;
-    }
-
-    function buildSingleDataExportUrl(id) {
-        const url = buildDataFilterUrl(dataRoutes.export);
         url.searchParams.set('record_id', id);
 
         return url;
@@ -904,10 +891,6 @@
 
             if (action === 'print') {
                 window.location.href = buildSingleDataPrintUrl(id).toString();
-            }
-
-            if (action === 'export') {
-                window.location.href = buildSingleDataExportUrl(id).toString();
             }
 
             if (action === 'rfid') {

@@ -11,23 +11,10 @@
     $canTimeOut = canAccessWithParent(auth()->user(), 'time.out');
     $canGate = $canTimeIn || $canTimeOut;
 
-    $activeTab = match (true) {
-        request()->routeIs('admin.setup.*') => 'setup',
-        request()->routeIs('admin.data*', 'admin.logs*', 'admin.employee_logs*') => 'records',
-        request()->routeIs('admin.roles*', 'admin.users.*', 'admin.permissions*') => 'access',
-        default => 'dashboard',
-    };
-
-    if (
-        ($activeTab === 'setup' && !$canSetup)
-        || ($activeTab === 'records' && !$canRecords)
-        || ($activeTab === 'access' && !$canAccessControl)
-    ) {
-        $activeTab = 'dashboard';
-    }
+    $isDashboard = request()->routeIs('admin.dashboard');
 @endphp
 
-<header class="eg-rb {{ $activeTab === 'dashboard' ? 'is-flat' : '' }}" data-eg-ribbon>
+<header class="eg-rb" data-eg-ribbon>
     <div class="eg-rb-top">
         <a class="eg-rb-brand" href="{{ route('admin.dashboard') }}" aria-label="OSMIS eGATE dashboard">
             <img src="{{ asset('images/olpcc-logo-removebg.png') }}" alt="">
@@ -35,19 +22,7 @@
         </a>
 
         <nav class="eg-rb-tabs" aria-label="Admin navigation">
-            <a class="eg-rb-tab {{ $activeTab === 'dashboard' ? 'is-active' : '' }}" href="{{ route('admin.dashboard') }}">Dashboard</a>
-            @if ($canSetup)
-                <button class="eg-rb-tab {{ $activeTab === 'setup' ? 'is-active' : '' }}" type="button" data-eg-ribbon-tab="setup">Setup</button>
-            @endif
-            @if ($canRecords)
-                <button class="eg-rb-tab {{ $activeTab === 'records' ? 'is-active' : '' }}" type="button" data-eg-ribbon-tab="records">Records</button>
-            @endif
-            @if ($canAccessControl)
-                <button class="eg-rb-tab {{ $activeTab === 'access' ? 'is-active' : '' }}" type="button" data-eg-ribbon-tab="access">Access Control</button>
-            @endif
-            @if ($canGate)
-                <button class="eg-rb-tab" type="button" data-eg-ribbon-tab="gate">Gate</button>
-            @endif
+            <button class="eg-rb-tab is-active" type="button" data-eg-ribbon-tab="menu">Menu</button>
         </nav>
 
         <div class="eg-rb-user">
@@ -72,8 +47,20 @@
     </div>
 
     <div class="eg-rb-ribbon">
-        @if ($canSetup)
-            <div class="eg-rb-page {{ $activeTab === 'setup' ? 'is-active' : '' }}" data-eg-ribbon-page="setup">
+        <div class="eg-rb-page is-active" data-eg-ribbon-page="menu">
+            <section class="eg-rb-group">
+                <div class="eg-rb-group-title">Dashboard</div>
+                <div class="eg-rb-items">
+                    <a class="eg-rb-tile {{ $isDashboard ? 'is-active' : '' }}" href="{{ route('admin.dashboard') }}">
+                        <span class="eg-rb-icon eg-rb-icon--image">
+                            <img src="{{ asset('icons/list.png') }}" alt="" aria-hidden="true">
+                        </span>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+            </section>
+
+            @if ($canSetup)
                 <section class="eg-rb-group">
                     <div class="eg-rb-group-title">Configuration</div>
                     <div class="eg-rb-items">
@@ -95,11 +82,9 @@
                         @endif
                     </div>
                 </section>
-            </div>
-        @endif
+            @endif
 
-        @if ($canRecords)
-            <div class="eg-rb-page {{ $activeTab === 'records' ? 'is-active' : '' }}" data-eg-ribbon-page="records">
+            @if ($canRecords)
                 <section class="eg-rb-group">
                     <div class="eg-rb-group-title">Records</div>
                     <div class="eg-rb-items">
@@ -129,11 +114,9 @@
                         @endcan
                     </div>
                 </section>
-            </div>
-        @endif
+            @endif
 
-        @if ($canAccessControl)
-            <div class="eg-rb-page {{ $activeTab === 'access' ? 'is-active' : '' }}" data-eg-ribbon-page="access">
+            @if ($canAccessControl)
                 <section class="eg-rb-group">
                     <div class="eg-rb-group-title">Access Control</div>
                     <div class="eg-rb-items">
@@ -155,11 +138,9 @@
                         @endcan
                     </div>
                 </section>
-            </div>
-        @endif
+            @endif
 
-        @if ($canGate)
-            <div class="eg-rb-page" data-eg-ribbon-page="gate">
+            @if ($canGate)
                 <section class="eg-rb-group">
                     <div class="eg-rb-group-title">Gate</div>
                     <div class="eg-rb-items">
@@ -177,7 +158,7 @@
                         @endif
                     </div>
                 </section>
-            </div>
-        @endif
+            @endif
+        </div>
     </div>
 </header>

@@ -25,3 +25,78 @@
 button{
     border-radius: 1.5rem;
 }
+
+.eg-action-tooltip {
+    position: relative;
+}
+
+.eg-action-floating-tooltip {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2147483647;
+    min-height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: min(16rem, calc(100vw - 1rem));
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 0.7rem;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 42%),
+        linear-gradient(135deg, #0f172a 0%, #1e293b 58%, #0b1220 100%);
+    box-shadow:
+        0 18px 42px rgba(15, 23, 42, 0.34),
+        0 7px 16px rgba(15, 23, 42, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    padding: 0.48rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+    opacity: 0;
+    overflow-wrap: anywhere;
+    pointer-events: none;
+    transform: translate(-50%, 0.32rem) scale(0.94);
+    transform-origin: top center;
+    transition: opacity 140ms ease, transform 170ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    white-space: nowrap;
+}
+
+.eg-action-floating-tooltip::before {
+    position: absolute;
+    top: -0.33rem;
+    left: 50%;
+    width: 0.68rem;
+    height: 0.68rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.24);
+    border-left: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 0.12rem;
+    background: #111827;
+    content: "";
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.eg-action-floating-tooltip.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+}
+
+.eg-action-floating-tooltip.is-above {
+    transform: translate(-50%, -0.32rem) scale(0.94);
+    transform-origin: bottom center;
+}
+
+.eg-action-floating-tooltip.is-above::before {
+    top: auto;
+    bottom: -0.33rem;
+    border: 0;
+    border-right: 1px solid rgba(148, 163, 184, 0.24);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.24);
+    background: #0b1220;
+}
+
+.eg-action-floating-tooltip.is-visible.is-above {
+    transform: translate(-50%, 0) scale(1);
+}

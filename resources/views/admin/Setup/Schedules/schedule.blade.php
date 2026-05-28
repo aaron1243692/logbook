@@ -351,17 +351,17 @@
         schedulesTableBody.innerHTML = schedules.map((schedule, index) => {
             const actionButtons = [
                 canUpdateSchedule ? `
-                        <button type="button" data-action="edit" data-id="${schedule.id}" class="eg-setup-icon-button">
+                        <button type="button" data-action="edit" data-id="${schedule.id}" class="eg-setup-icon-button eg-action-tooltip" data-label="Edit" title="Edit" aria-label="Edit schedule">
                             <img src="{{ asset('icons/list.png') }}" class="w-7 h-7" alt="edit schedule name">
                         </button>
                 ` : '',
                 `
-                        <button type="button" data-action="details" data-id="${schedule.id}" class="eg-setup-icon-button">
+                        <button type="button" data-action="details" data-id="${schedule.id}" class="eg-setup-icon-button eg-action-tooltip" data-label="Details" title="Details" aria-label="View schedule details">
                             <img src="{{ asset('icons/schedule.png') }}" class="w-7 h-7" alt="view schedule details">
                         </button>
                 `,
                 canDeleteSchedule ? `
-                        <button type="button" data-action="delete" data-id="${schedule.id}" data-name="${escapeHtml(schedule.name || 'this schedule')}" class="eg-setup-icon-button eg-setup-icon-button--danger">
+                        <button type="button" data-action="delete" data-id="${schedule.id}" data-name="${escapeHtml(schedule.name || 'this schedule')}" class="eg-setup-icon-button eg-setup-icon-button--danger eg-action-tooltip" data-label="Delete" title="Delete" aria-label="Delete schedule">
                             <img src="{{ asset('icons/delete.png') }}" class="w-7 h-7" alt="delete schedule">
                         </button>
                 ` : '',

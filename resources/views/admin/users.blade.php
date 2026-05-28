@@ -366,7 +366,7 @@
 
             if (canUpdateUsers) {
                 buttons.push(`
-                    <button type="button" class="eg-access-action" data-action="edit" data-id="${user.id}" aria-label="Edit user">
+                    <button type="button" class="eg-access-action eg-action-tooltip" data-action="edit" data-id="${user.id}" data-label="Edit" title="Edit" aria-label="Edit user">
                         <img src="{{ asset('icons/list.png') }}" class="w-7 h-7" alt="edit user">
                         <span>Edit</span>
                     </button>
@@ -375,7 +375,7 @@
 
             if (canUpdateUserPasswords) {
                 buttons.push(`
-                    <button type="button" class="eg-access-action" data-action="password" data-id="${user.id}" data-username="${escapeHtml(user.username)}" aria-label="Change password">
+                    <button type="button" class="eg-access-action eg-action-tooltip" data-action="password" data-id="${user.id}" data-username="${escapeHtml(user.username)}" data-label="Password" title="Password" aria-label="Change password">
                         <img src="{{ asset('icons/key.png') }}" class="w-7 h-7" alt="change password">
                         <span>Password</span>
                     </button>
@@ -384,7 +384,7 @@
 
             if (canDeleteUsers) {
                 buttons.push(`
-                    <button type="button" class="eg-access-action eg-access-action--danger" data-action="delete" data-id="${user.id}" data-username="${escapeHtml(user.username)}" aria-label="Delete user">
+                    <button type="button" class="eg-access-action eg-access-action--danger eg-action-tooltip" data-action="delete" data-id="${user.id}" data-username="${escapeHtml(user.username)}" data-label="Delete" title="Delete" aria-label="Delete user">
                         <img src="{{ asset('icons/delete.png') }}" class="w-7 h-7" alt="delete user">
                         <span>Delete</span>
                     </button>

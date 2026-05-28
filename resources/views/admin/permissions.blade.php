@@ -268,10 +268,10 @@
                 <td class="px-3 py-2.5">${escapeHtml(permission.name)}</td>
                 <td class="px-3 py-2.5">
                     <div class="flex flex-row justify-center items-center gap-2.5">
-                        <button type="button" class="transition duration-200 hover:scale-110" data-action="edit" data-id="${permission.id}">
+                        <button type="button" class="eg-action-tooltip transition duration-200 hover:scale-110" data-action="edit" data-id="${permission.id}" data-label="Edit" title="Edit" aria-label="Edit permission">
                             <img src="{{ asset('icons/list.png') }}" class="w-7 h-7" alt="edit permission">
                         </button>
-                        <button type="button" class="transition duration-200 hover:scale-110" data-action="delete" data-id="${permission.id}" data-name="${escapeHtml(permission.name)}">
+                        <button type="button" class="eg-action-tooltip transition duration-200 hover:scale-110" data-action="delete" data-id="${permission.id}" data-name="${escapeHtml(permission.name)}" data-label="Delete" title="Delete" aria-label="Delete permission">
                             <img src="{{ asset('icons/delete.png') }}" class="w-7 h-7" alt="delete permission">
                         </button>
                     </div>

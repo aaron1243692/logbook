@@ -365,15 +365,15 @@ function renderEmployeeRows(employees, from) {
     logsTableBody.innerHTML = employees.map((emp, index) => {
         const employeeId = emp.student_number || emp.id;
         const actionButtons = `
-                <button type="button" data-action="print" data-student-id="${escapeHtml(employeeId)}" class="transition duration-200 hover:scale-110">
+                <button type="button" data-action="print" data-student-id="${escapeHtml(employeeId)}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Print" title="Print" aria-label="Print employee logs">
                     <img src="{{ asset('icons/print.png') }}" class="w-7 h-7" alt="print data">
                 </button>
 
-                <button type="button" data-action="view" data-student-id="${escapeHtml(employeeId)}" class="transition duration-200 hover:scale-110">
+                <button type="button" data-action="view" data-student-id="${escapeHtml(employeeId)}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="View Logs" title="View Logs" aria-label="View employee logs">
                     <img src="{{ asset('icons/list.png') }}" class="w-7 h-7" alt="view logs">
                 </button>
 
-                <button type="button" data-action="delete" class="transition duration-200 hover:scale-110">
+                <button type="button" data-action="delete" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Delete" title="Delete" aria-label="Delete employee log">
                     <img src="{{ asset('icons/delete.png') }}" class="w-7 h-7" alt="delete data">
                 </button>
             `;

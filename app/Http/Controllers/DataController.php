@@ -89,11 +89,10 @@ class DataController extends Controller
         abort_unless(auth()->user()?->can('data.export'), 403);
 
         $records = $this->buildFilteredQuery($request)
-            ->when($request->filled('record_id'), fn ($query) => $query->whereKey($request->integer('record_id')))
             ->orderBy('name', $this->resolveNameSortDirection($request))
             ->get();
 
-        $filename = ($request->filled('record_id') ? 'student-data-record-' : 'student-data-') . now()->format('Y-m-d_H-i-s') . '.xls';
+        $filename = 'student-data-' . now()->format('Y-m-d_H-i-s') . '.xls';
         $html = view('admin.export-data', [
             'records' => $records,
         ])->render();

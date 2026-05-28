@@ -257,16 +257,33 @@ body.eg-admin-shell {
 .eg-rb-group {
     position: relative;
     min-width: max-content;
-    padding: 4px 12px;
+    padding: 4px 16px;
+}
+
+.eg-rb-group + .eg-rb-group {
+    margin-left: 4px;
+    border-left: 1px solid rgba(17, 24, 39, 0.45);
+}
+
+.eg-rb-group + .eg-rb-group::before {
+    position: absolute;
+    top: 8px;
+    bottom: 6px;
+    left: -1px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.7);
+    content: "";
+    pointer-events: none;
 }
 
 .eg-rb-group-title {
-    margin-bottom: 6px;
-    color: var(--eg-rb-blue-deep);
+    margin: 0 0 6px;
+    color: #111827;
     font-size: 11px;
     font-weight: 700;
     line-height: 1.15;
-    text-align: center;
+    text-align: left;
+    white-space: nowrap;
 }
 
 .eg-rb-items {

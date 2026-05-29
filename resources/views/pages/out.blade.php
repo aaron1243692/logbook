@@ -86,8 +86,8 @@ class="w-full h-full">
 
                 <div class="eg-kiosk-scanbox">
                     <div>
-                        <p class="eg-kiosk-scan-title">Tap or scan RFID card</p>
-                        <p class="eg-kiosk-scan-hint">Waiting for student RFID or manual student number...</p>
+                        <p class="eg-kiosk-scan-title">Tap or scan RFID / Gate Pass</p>
+                        <p class="eg-kiosk-scan-hint">Waiting for student RFID, gate pass, or manual ID number...</p>
                     </div>
 
                     @if ($manualEntryEnabled)
@@ -122,9 +122,9 @@ class="w-full h-full">
 
                     <p id="submit-feedback" class="text-sm text-slate-500">
                         @if ($manualEntryEnabled)
-                            Enter a student number or scan an RFID card.
+                            Enter an ID number or scan an RFID / gate pass.
                         @elseif($rfidLoginEnabled)
-                            Ready to accept RFID scan.
+                            Ready to accept RFID / gate pass scan.
                         @else
                             Manual login and RFID login are currently disabled.
                         @endif
@@ -760,7 +760,7 @@ class="w-full h-full">
                     return;
                 }
 
-                setSubmitFeedback('Enter a student ID or scan an RFID first.', 'error');
+                setSubmitFeedback('Enter an ID number or scan an RFID / gate pass first.', 'error');
                 focusManualEntry();
                 focusRfidListener();
             }
@@ -858,7 +858,7 @@ class="w-full h-full">
 
                             const value = studentIdInput.value.trim();
                             if (value === '') {
-                                setSubmitFeedback('Enter a student ID first.', 'error');
+                                setSubmitFeedback('Enter an ID number first.', 'error');
                                 return;
                             }
 

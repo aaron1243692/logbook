@@ -222,6 +222,45 @@ class DataController extends Controller
         }
     }
 
+    public function registerGatePass(Request $request, int $id): JsonResponse
+    {
+        abort_unless(auth()->user()?->can('data.update'), 403);
+
+        try {
+            $record = EgateLog::query()->findOrFail($id);
+
+            $validated = $request->validate([
+                'gatepass_no' => [
+                    'required',
+                    'string',
+                    'max:100',
+                    Rule::unique('egate_data', 'gatepass_no')->ignore($record->id),
+                ],
+            ]);
+
+            $record->update([
+                'gatepass_no' => trim($validated['gatepass_no']),
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Gate pass registered successfully.',
+                'record' => $record->fresh(),
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => collect($e->errors())->flatten()->first() ?? 'Gate pass registration failed.',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error registering gate pass: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function destroy(int $id): JsonResponse
     {
         abort_unless(auth()->user()?->can('data.delete'), 403);
@@ -248,6 +287,7 @@ class DataController extends Controller
             'student_number' => ['required', 'string', 'max:255', 'unique:egate_data,student_number' . ($ignoreId ? ',' . $ignoreId : '')],
             'lrn' => ['nullable', 'digits_between:1,20'],
             'rfid' => ['nullable', 'regex:/^\d+$/'],
+            'gatepass_no' => ['nullable', 'string', 'max:100'],
             'name' => ['required', 'string', 'max:150'],
             'role' => ['nullable', 'integer', 'in:1,2'],
             'email' => ['nullable', 'email', 'max:100'],
@@ -274,6 +314,7 @@ class DataController extends Controller
             'student_number' => $validated['student_number'],
             'lrn' => $validated['lrn'] ?? null,
             'rfid' => isset($validated['rfid']) && $validated['rfid'] !== '' ? (int) $validated['rfid'] : null,
+            'gatepass_no' => trim((string) ($validated['gatepass_no'] ?? '')) ?: null,
             'name' => $this->normalizeName($validated['name']),
             'role' => $validated['role'] ?? null,
             'email' => $validated['email'] ?? null,
@@ -341,6 +382,7 @@ class DataController extends Controller
                         ->where('student_number', 'like', "%{$search}%")
                         ->orWhere('lrn', 'like', "%{$search}%")
                         ->orWhere('rfid', 'like', "%{$search}%")
+                        ->orWhere('gatepass_no', 'like', "%{$search}%")
                         ->orWhere('name', 'like', "%{$search}%")
                         ->orWhere('role', 'like', "%{$search}%")
                         ->orWhere('email', 'like', "%{$search}%")

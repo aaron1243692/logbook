@@ -20,6 +20,7 @@ class EgateLog extends Model
         'student_number',
         'lrn',
         'rfid',
+        'gatepass_no',
         'name',
         'role',
         'email',

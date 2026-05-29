@@ -46,19 +46,26 @@ class GateEntryController extends Controller
 
         if ($lookup === '') {
             return response()->json([
-                'message' => 'Scan an RFID or enter a student number / LRN first.',
+                'message' => 'Scan an RFID / gate pass or enter a student number / LRN first.',
             ], 422);
         }
 
         $student = EgateData::query()
-            ->where('student_number', $lookup)
-            ->orWhere('lrn', $lookup)
-            ->orWhere('rfid', $lookup)
+            ->when($rfidInput !== '', function ($query) use ($lookup) {
+                $query
+                    ->where('rfid', $lookup)
+                    ->orWhere('gatepass_no', $lookup);
+            })
+            ->when($rfidInput === '', function ($query) use ($lookup) {
+                $query
+                    ->where('student_number', $lookup)
+                    ->orWhere('lrn', $lookup);
+            })
             ->first();
 
         if (! $student) {
             return response()->json([
-                'message' => 'No matching student was found in egate_data.',
+                'message' => 'No matching RFID, gate pass, student number, or LRN was found in egate_data.',
             ], 404);
         }
 
@@ -84,6 +91,7 @@ class GateEntryController extends Controller
             'student_id' => $student->student_number,
             'student_number' => $student->student_number,
             'lrn' => $student->lrn,
+            'gatepass_no' => $student->gatepass_no,
             'student_name' => $student->name ?: $student->student_number,
             'department' => $student->department,
             'course' => $student->course,

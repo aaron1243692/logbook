@@ -72,9 +72,11 @@ class PermissionController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error creating permission: ' . $e->getMessage(),
+                'message' => 'Unable to create permission right now.',
             ], 500);
         }
     }
@@ -138,9 +140,11 @@ class PermissionController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error updating permission: ' . $e->getMessage(),
+                'message' => 'Unable to update permission right now.',
             ], 500);
         }
     }
@@ -159,9 +163,11 @@ class PermissionController extends Controller
                 'message' => 'Permission deleted successfully.',
             ]);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error deleting permission: ' . $e->getMessage(),
+                'message' => 'Unable to delete permission right now.',
             ], 500);
         }
     }

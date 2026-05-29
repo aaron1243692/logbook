@@ -197,9 +197,11 @@ class LogController extends Controller
                 'message' => 'Log deleted successfully.',
             ]);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error deleting log: ' . $e->getMessage(),
+                'message' => 'Unable to delete log right now.',
             ], 500);
         }
     }

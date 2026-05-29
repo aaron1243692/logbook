@@ -76,9 +76,11 @@ class UserController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error creating user: ' . $e->getMessage(),
+                'message' => 'Unable to create user right now.',
             ], 500);
         }
     }
@@ -139,9 +141,11 @@ class UserController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error updating user: ' . $e->getMessage(),
+                'message' => 'Unable to update user right now.',
             ], 500);
         }
     }
@@ -175,9 +179,11 @@ class UserController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error updating password: ' . $e->getMessage(),
+                'message' => 'Unable to update password right now.',
             ], 500);
         }
     }
@@ -207,9 +213,11 @@ class UserController extends Controller
             ]);
 
         } catch (\Exception $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error deleting user: ' . $e->getMessage(),
+                'message' => 'Unable to delete user right now.',
             ], 500);
         }
     }
@@ -229,9 +237,11 @@ class UserController extends Controller
             ]);
 
         } catch (\Exception $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error fetching roles: ' . $e->getMessage(),
+                'message' => 'Unable to load roles right now.',
             ], 500);
         }
     }

@@ -205,6 +205,32 @@
     let searchTimer = null;
     let messageHideTimer = null;
 
+    function safeUserMessage(message, fallback = 'Unable to complete request right now.') {
+        const text = String(message ?? '').trim();
+
+        if (!text) {
+            return fallback;
+        }
+
+        const backendPatterns = [
+            /SQLSTATE/i,
+            /PDOException/i,
+            /QueryException/i,
+            /Illuminate\\/i,
+            /select .* from /i,
+            /insert into/i,
+            /update .* set /i,
+            /delete from/i,
+            /constraint failed/i,
+            /no such table/i,
+            /unknown column/i,
+            /stack trace/i,
+            /syntax error/i,
+        ];
+
+        return backendPatterns.some((pattern) => pattern.test(text)) ? fallback : text;
+    }
+
     function showMessage(message, tone = 'success') {
         if (messageHideTimer) {
             window.clearTimeout(messageHideTimer);
@@ -220,7 +246,7 @@
         const activeTone = tones[tone] || tones.info;
         messageModalIcon.className = `mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full ${activeTone.icon}`;
         messageModalTitle.textContent = activeTone.title;
-        messageModalText.textContent = message;
+        messageModalText.textContent = safeUserMessage(message);
 
         messageModal.classList.remove('hidden');
         messageModal.classList.add('flex');

@@ -342,10 +342,11 @@ class="w-full h-full">
 
                 if (messageModalTimer) {
                     clearTimeout(messageModalTimer);
+                    messageModalTimer = null;
                 }
 
                 messageModalTitle.textContent = title;
-                messageModalText.textContent = message;
+                messageModalText.textContent = safeUserMessage(message, 'Unable to submit entry right now.');
                 messageModal.classList.remove('hidden');
                 messageModal.classList.add('flex');
 
@@ -364,8 +365,39 @@ class="w-full h-full">
                     messageModalTimer = null;
                 }
 
+                if (messageModal.classList.contains('hidden')) {
+                    return;
+                }
+
                 messageModal.classList.add('hidden');
                 messageModal.classList.remove('flex');
+                messageModalText.textContent = '';
+            }
+
+            function safeUserMessage(message, fallback = 'Unable to complete request right now.') {
+                const text = String(message ?? '').trim();
+
+                if (!text) {
+                    return fallback;
+                }
+
+                const backendPatterns = [
+                    /SQLSTATE/i,
+                    /PDOException/i,
+                    /QueryException/i,
+                    /Illuminate\\/i,
+                    /select .* from /i,
+                    /insert into/i,
+                    /update .* set /i,
+                    /delete from/i,
+                    /constraint failed/i,
+                    /no such table/i,
+                    /unknown column/i,
+                    /stack trace/i,
+                    /syntax error/i,
+                ];
+
+                return backendPatterns.some((pattern) => pattern.test(text)) ? fallback : text;
             }
 
             function showShortcutModal() {

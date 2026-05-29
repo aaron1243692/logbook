@@ -235,6 +235,11 @@ const viewLogsModal = document.getElementById('view-logs-modal');
 const viewLogsTitle = document.getElementById('view-logs-title');
 const viewLogsPeriod = document.getElementById('view-logs-period');
 const viewLogsContent = document.getElementById('view-logs-content');
+const messageModal = document.getElementById('message-modal');
+const messageModalPanel = document.getElementById('message-modal-panel');
+const messageModalIcon = document.getElementById('message-modal-icon');
+const messageModalTitle = document.getElementById('message-modal-title');
+const messageModalText = document.getElementById('message-modal-text');
 const defaultEmployeeYear = filterYear.value;
 const defaultEmployeeMonth = filterMonth.value;
 const employeeFilterStorageKey = 'admin.employee_logs.filters';
@@ -242,6 +247,8 @@ const employeeFilterRestoreKey = 'admin.employee_logs.restore_filters';
 
 let logsCurrentPage = 1;
 let logsSearchTimer = null;
+let messageHideTimer = null;
+let messageCloseTimer = null;
 let logToDelete = null;
 
 /* ---------------- helpers ---------------- */
@@ -263,6 +270,95 @@ function openModal(modal) {
 function closeModal(modal) {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
+}
+
+function safeUserMessage(message, fallback = 'Unable to complete request right now.') {
+    const text = String(message ?? '').trim();
+
+    if (!text) {
+        return fallback;
+    }
+
+    const backendPatterns = [
+        /SQLSTATE/i,
+        /PDOException/i,
+        /QueryException/i,
+        /Illuminate\\/i,
+        /select .* from /i,
+        /insert into/i,
+        /update .* set /i,
+        /delete from/i,
+        /constraint failed/i,
+        /no such table/i,
+        /unknown column/i,
+        /stack trace/i,
+        /syntax error/i,
+    ];
+
+    return backendPatterns.some((pattern) => pattern.test(text)) ? fallback : text;
+}
+
+function showMessage(message, tone = 'success') {
+    if (messageHideTimer) {
+        window.clearTimeout(messageHideTimer);
+        messageHideTimer = null;
+    }
+
+    if (messageCloseTimer) {
+        window.clearTimeout(messageCloseTimer);
+        messageCloseTimer = null;
+    }
+
+    const tones = {
+        success: {
+            icon: 'bg-emerald-50 text-emerald-500',
+            title: 'Success',
+        },
+        error: {
+            icon: 'bg-rose-50 text-rose-500',
+            title: 'Error',
+        },
+    };
+
+    const config = tones[tone] || tones.success;
+    messageModalIcon.className = `mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full ${config.icon}`;
+    messageModalTitle.textContent = config.title;
+    messageModalText.textContent = safeUserMessage(message);
+
+    openModal(messageModal);
+    requestAnimationFrame(() => {
+        messageModalPanel.classList.remove('scale-95', 'opacity-0');
+        messageModalPanel.classList.add('scale-100', 'opacity-100');
+    });
+
+    messageHideTimer = window.setTimeout(() => {
+        hideMessage();
+    }, 2000);
+}
+
+function hideMessage() {
+    if (messageHideTimer) {
+        window.clearTimeout(messageHideTimer);
+        messageHideTimer = null;
+    }
+
+    if (messageCloseTimer) {
+        window.clearTimeout(messageCloseTimer);
+        messageCloseTimer = null;
+    }
+
+    if (messageModal.classList.contains('hidden')) {
+        return;
+    }
+
+    messageModalPanel.classList.remove('scale-100', 'opacity-100');
+    messageModalPanel.classList.add('scale-95', 'opacity-0');
+
+    messageCloseTimer = window.setTimeout(() => {
+        closeModal(messageModal);
+        messageModalText.textContent = '';
+        messageCloseTimer = null;
+    }, 200);
 }
 
 function getEmployeeFilterFields() {
@@ -439,6 +535,7 @@ async function fetchLogs(page = 1) {
         `;
 
         logsTableSummary.textContent = 'Error loading data';
+        showMessage('Failed to load employees.', 'error');
     }
 }
 
@@ -604,7 +701,8 @@ async function openEmployeeLogsModal(studentId) {
             </div>
         `;
     } catch (error) {
-        viewLogsContent.innerHTML = `<div class="px-3 py-5 text-center text-sm text-rose-600">${escapeHtml(error.message || 'Unable to load employee logs.')}</div>`;
+        viewLogsContent.innerHTML = `<div class="px-3 py-5 text-center text-sm text-rose-600">${escapeHtml(safeUserMessage(error.message || 'Unable to load employee logs.'))}</div>`;
+        showMessage(error.message || 'Unable to load employee logs.', 'error');
     }
 }
 
@@ -658,9 +756,18 @@ document.querySelectorAll('[data-close-modal]').forEach((button) => {
     });
 });
 
-[deleteLogModal, viewLogsModal].forEach((modal) => {
+document.getElementById('close-message-modal')?.addEventListener('click', () => {
+    hideMessage();
+});
+
+[deleteLogModal, viewLogsModal, messageModal].forEach((modal) => {
     modal.addEventListener('click', (event) => {
         if (event.target === modal) {
+            if (modal === messageModal) {
+                hideMessage();
+                return;
+            }
+
             closeModal(modal);
         }
     });

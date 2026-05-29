@@ -79,9 +79,11 @@ class SetSchEmployeeController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error updating employee schedule: ' . $e->getMessage(),
+                'message' => 'Unable to update employee schedule right now.',
             ], 500);
         }
     }

@@ -67,9 +67,11 @@ class RoleController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error creating role: ' . $e->getMessage(),
+                'message' => 'Unable to create role right now.',
             ], 500);
         }
     }
@@ -140,9 +142,11 @@ class RoleController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error updating role: ' . $e->getMessage(),
+                'message' => 'Unable to update role right now.',
             ], 500);
         }
     }
@@ -171,9 +175,11 @@ class RoleController extends Controller
                 'message' => 'Role deleted successfully.',
             ]);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error deleting role: ' . $e->getMessage(),
+                'message' => 'Unable to delete role right now.',
             ], 500);
         }
     }
@@ -277,9 +283,11 @@ class RoleController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error updating role permissions: ' . $e->getMessage(),
+                'message' => 'Unable to update role permissions right now.',
             ], 500);
         }
     }

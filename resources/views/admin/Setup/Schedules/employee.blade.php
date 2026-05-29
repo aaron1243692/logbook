@@ -92,6 +92,7 @@
     let currentPage = 1;
     let searchTimer = null;
     let messageHideTimer = null;
+    let messageCloseTimer = null;
     let scheduleOptions = [];
 
     function escapeHtml(value) {
@@ -113,9 +114,41 @@
         modal.classList.remove('flex');
     }
 
+    function safeUserMessage(message, fallback = 'Unable to complete request right now.') {
+        const text = String(message ?? '').trim();
+
+        if (!text) {
+            return fallback;
+        }
+
+        const backendPatterns = [
+            /SQLSTATE/i,
+            /PDOException/i,
+            /QueryException/i,
+            /Illuminate\\/i,
+            /select .* from /i,
+            /insert into/i,
+            /update .* set /i,
+            /delete from/i,
+            /constraint failed/i,
+            /no such table/i,
+            /unknown column/i,
+            /stack trace/i,
+            /syntax error/i,
+        ];
+
+        return backendPatterns.some((pattern) => pattern.test(text)) ? fallback : text;
+    }
+
     function showMessage(message, tone = 'success') {
         if (messageHideTimer) {
             window.clearTimeout(messageHideTimer);
+            messageHideTimer = null;
+        }
+
+        if (messageCloseTimer) {
+            window.clearTimeout(messageCloseTimer);
+            messageCloseTimer = null;
         }
 
         const tones = {
@@ -126,7 +159,7 @@
 
         messageModalIcon.className = `mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full ${config.icon}`;
         messageModalTitle.textContent = config.title;
-        messageModalText.textContent = message;
+        messageModalText.textContent = safeUserMessage(message);
 
         openModal(messageModal);
         requestAnimationFrame(() => {
@@ -140,12 +173,26 @@
     function hideMessage() {
         if (messageHideTimer) {
             window.clearTimeout(messageHideTimer);
+            messageHideTimer = null;
+        }
+
+        if (messageCloseTimer) {
+            window.clearTimeout(messageCloseTimer);
+            messageCloseTimer = null;
+        }
+
+        if (messageModal.classList.contains('hidden')) {
+            return;
         }
 
         messageModalPanel.classList.remove('scale-100', 'opacity-100');
         messageModalPanel.classList.add('scale-95', 'opacity-0');
 
-        window.setTimeout(() => closeModal(messageModal), 150);
+        messageCloseTimer = window.setTimeout(() => {
+            closeModal(messageModal);
+            messageModalText.textContent = '';
+            messageCloseTimer = null;
+        }, 200);
     }
 
     function renderScheduleOptions(selectedId) {

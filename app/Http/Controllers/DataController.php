@@ -112,9 +112,11 @@ class DataController extends Controller
         try {
             $request->merge([
                 'rfid' => $this->normalizeIntegerInput($request->input('rfid')),
+                'gatepass_no' => $this->normalizeStringInput($request->input('gatepass_no')),
+                'email' => $this->normalizeEmailInput($request->input('email')),
             ]);
 
-            $validated = $request->validate($this->rules());
+            $validated = $request->validate($this->rules(), $this->validationMessages());
             $data = $this->dataForSave($validated);
 
             if ($imagePath = $this->storeUploadedImage($request)) {
@@ -135,9 +137,11 @@ class DataController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error creating student data: ' . $e->getMessage(),
+                'message' => 'Unable to create student data right now.',
             ], 500);
         }
     }
@@ -150,9 +154,11 @@ class DataController extends Controller
             $record = EgateLog::query()->findOrFail($id);
             $request->merge([
                 'rfid' => $this->normalizeIntegerInput($request->input('rfid')),
+                'gatepass_no' => $this->normalizeStringInput($request->input('gatepass_no')),
+                'email' => $this->normalizeEmailInput($request->input('email')),
             ]);
 
-            $validated = $request->validate($this->rules($record->id));
+            $validated = $request->validate($this->rules($record->id), $this->validationMessages());
             $data = $this->dataForSave($validated);
 
             if ($imagePath = $this->storeUploadedImage($request)) {
@@ -174,9 +180,11 @@ class DataController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error updating student data: ' . $e->getMessage(),
+                'message' => 'Unable to update student data right now.',
             ], 500);
         }
     }
@@ -197,7 +205,7 @@ class DataController extends Controller
                     'regex:/^\d+$/',
                     Rule::unique('egate_data', 'rfid')->ignore($record->id),
                 ],
-            ]);
+            ], $this->validationMessages());
 
             $record->update([
                 'rfid' => (int) $validated['rfid'],
@@ -215,9 +223,11 @@ class DataController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error registering RFID: ' . $e->getMessage(),
+                'message' => 'Unable to register RFID right now.',
             ], 500);
         }
     }
@@ -228,6 +238,9 @@ class DataController extends Controller
 
         try {
             $record = EgateLog::query()->findOrFail($id);
+            $request->merge([
+                'gatepass_no' => $this->normalizeStringInput($request->input('gatepass_no')),
+            ]);
 
             $validated = $request->validate([
                 'gatepass_no' => [
@@ -236,7 +249,7 @@ class DataController extends Controller
                     'max:100',
                     Rule::unique('egate_data', 'gatepass_no')->ignore($record->id),
                 ],
-            ]);
+            ], $this->validationMessages());
 
             $record->update([
                 'gatepass_no' => trim($validated['gatepass_no']),
@@ -254,9 +267,11 @@ class DataController extends Controller
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error registering gate pass: ' . $e->getMessage(),
+                'message' => 'Unable to register gate pass right now.',
             ], 500);
         }
     }
@@ -274,9 +289,11 @@ class DataController extends Controller
                 'message' => 'Student data deleted successfully.',
             ]);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error deleting student data: ' . $e->getMessage(),
+                'message' => 'Unable to delete student data right now.',
             ], 500);
         }
     }
@@ -286,11 +303,25 @@ class DataController extends Controller
         return [
             'student_number' => ['required', 'string', 'max:255', 'unique:egate_data,student_number' . ($ignoreId ? ',' . $ignoreId : '')],
             'lrn' => ['nullable', 'digits_between:1,20'],
-            'rfid' => ['nullable', 'regex:/^\d+$/'],
-            'gatepass_no' => ['nullable', 'string', 'max:100'],
+            'rfid' => [
+                'nullable',
+                'regex:/^\d+$/',
+                Rule::unique('egate_data', 'rfid')->ignore($ignoreId),
+            ],
+            'gatepass_no' => [
+                'nullable',
+                'string',
+                'max:100',
+                Rule::unique('egate_data', 'gatepass_no')->ignore($ignoreId),
+            ],
             'name' => ['required', 'string', 'max:150'],
             'role' => ['nullable', 'integer', 'in:1,2'],
-            'email' => ['nullable', 'email', 'max:100'],
+            'email' => [
+                'nullable',
+                'email',
+                'max:100',
+                Rule::unique('egate_data', 'email')->ignore($ignoreId),
+            ],
             'contact' => ['nullable', 'string', 'max:100'],
             'sex' => ['nullable', 'string', 'max:20'],
             'department' => ['nullable', 'string', 'max:100'],
@@ -301,11 +332,34 @@ class DataController extends Controller
         ];
     }
 
+    private function validationMessages(): array
+    {
+        return [
+            'rfid.unique' => 'This RFID is already registered.',
+            'gatepass_no.unique' => 'This gate pass number is already registered.',
+            'email.unique' => 'This email is already registered.',
+        ];
+    }
+
     private function normalizeIntegerInput(mixed $value): ?string
     {
         $digits = preg_replace('/\D+/', '', (string) $value);
 
         return $digits === '' ? null : $digits;
+    }
+
+    private function normalizeStringInput(mixed $value): ?string
+    {
+        $text = trim((string) $value);
+
+        return $text === '' ? null : $text;
+    }
+
+    private function normalizeEmailInput(mixed $value): ?string
+    {
+        $email = strtolower(trim((string) $value));
+
+        return $email === '' ? null : $email;
     }
 
     private function dataForSave(array $validated): array

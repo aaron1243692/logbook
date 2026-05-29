@@ -67,9 +67,11 @@ class SetSchScheduleController extends Controller
         } catch (ValidationException $e) {
             return $this->validationError($e);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error creating schedule: ' . $e->getMessage(),
+                'message' => 'Unable to create schedule right now.',
             ], 500);
         }
     }
@@ -100,9 +102,11 @@ class SetSchScheduleController extends Controller
         } catch (ValidationException $e) {
             return $this->validationError($e);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error updating schedule: ' . $e->getMessage(),
+                'message' => 'Unable to update schedule right now.',
             ], 500);
         }
     }
@@ -128,9 +132,11 @@ class SetSchScheduleController extends Controller
                 'message' => 'Schedule deleted successfully.',
             ]);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error deleting schedule: ' . $e->getMessage(),
+                'message' => 'Unable to delete schedule right now.',
             ], 500);
         }
     }
@@ -237,9 +243,11 @@ class SetSchScheduleController extends Controller
         } catch (ValidationException $e) {
             return $this->validationError($e);
         } catch (\Throwable $e) {
+            report($e);
+
             return response()->json([
                 'success' => false,
-                'message' => 'Error saving schedule details: ' . $e->getMessage(),
+                'message' => 'Unable to save schedule details right now.',
             ], 500);
         }
     }

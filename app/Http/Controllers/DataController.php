@@ -6,6 +6,7 @@ use App\Models\EgateLog;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Validation\ValidationException;
@@ -114,8 +115,13 @@ class DataController extends Controller
             ]);
 
             $validated = $request->validate($this->rules());
+            $data = $this->dataForSave($validated);
 
-            $record = EgateLog::query()->create($this->dataForSave($validated));
+            if ($imagePath = $this->storeUploadedImage($request)) {
+                $data['image'] = $imagePath;
+            }
+
+            $record = EgateLog::query()->create($data);
 
             return response()->json([
                 'success' => true,
@@ -147,7 +153,14 @@ class DataController extends Controller
             ]);
 
             $validated = $request->validate($this->rules($record->id));
-            $record->update($this->dataForSave($validated));
+            $data = $this->dataForSave($validated);
+
+            if ($imagePath = $this->storeUploadedImage($request)) {
+                $this->deleteStoredImage($record->image);
+                $data['image'] = $imagePath;
+            }
+
+            $record->update($data);
 
             return response()->json([
                 'success' => true,
@@ -244,6 +257,7 @@ class DataController extends Controller
             'course' => ['nullable', 'string', 'max:100'],
             'school_level' => ['nullable', 'string', 'max:100'],
             'grade_level' => ['nullable', 'string', 'max:100'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ];
     }
 
@@ -270,6 +284,30 @@ class DataController extends Controller
             'school_level' => $validated['school_level'] ?? null,
             'grade_level' => $validated['grade_level'] ?? null,
         ];
+    }
+
+    private function storeUploadedImage(Request $request): ?string
+    {
+        if (! $request->hasFile('image')) {
+            return null;
+        }
+
+        $path = $request->file('image')->store('registration-images', 'public');
+
+        return $path ? '/storage/' . ltrim($path, '/') : null;
+    }
+
+    private function deleteStoredImage(?string $image): void
+    {
+        if (! $image || ! str_starts_with($image, '/storage/')) {
+            return;
+        }
+
+        $path = ltrim(substr($image, strlen('/storage/')), '/');
+
+        if ($path !== '') {
+            Storage::disk('public')->delete($path);
+        }
     }
 
     private function resolveNameSortDirection(Request $request): string

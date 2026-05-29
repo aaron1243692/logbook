@@ -89,7 +89,7 @@ class GateEntryController extends Controller
             'course' => $student->course,
             'year_level' => $student->school_level ?: $student->grade_level,
             'grade_level' => $student->grade_level,
-            'image' => $student->image,
+            'image' => EgateDashboardController::resolveStudentImageUrl($student->image),
             'status' => $status,
             'status_label' => match ($status) {
                 1 => 'Time In',

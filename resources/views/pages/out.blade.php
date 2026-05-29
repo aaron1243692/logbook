@@ -43,7 +43,7 @@ class="w-full h-full">
             <div class="eg-kiosk-brand">
                 <img src="{{ asset('images/olpcc-logo.png') }}" alt="OLPCC logo" class="eg-kiosk-logo">
                 <div>
-                    <h1 id="kiosk-title" class="eg-kiosk-title">EGate Time Out</h1>
+                    <h1 id="kiosk-title" class="eg-kiosk-title">eGate Time Out</h1>
                     <p>OLPCC / OSMIS-eGATE Scanner</p>
                 </div>
             </div>
@@ -92,7 +92,7 @@ class="w-full h-full">
 
                     @if ($manualEntryEnabled)
                         <div class="eg-kiosk-manual-row">
-                            <label for="student_id">Student ID</label>
+                            <label for="student_id">ID No.</label>
                             <input
                                 autofocus
                                 type="text"
@@ -132,28 +132,53 @@ class="w-full h-full">
                 </div>
             </section>
 
-            <section class="eg-kiosk-card eg-kiosk-previous">
-                <div class="eg-kiosk-card-head">
-                    <h2>Previous Scan</h2>
-                </div>
-
-                <div class="eg-kiosk-profile">
-                    <img id="previous-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f1f5f9'/%3E%3Ccircle cx='150' cy='112' r='46' fill='%23cbd5e1'/%3E%3Cpath d='M72 244c16-42 52-68 78-68s62 26 78 68' fill='%23cbd5e1'/%3E%3C/svg%3E"
-                        class="eg-kiosk-profile-image" alt="Previous student image" />
-
-                    <div class="eg-kiosk-details">
-                        <span id="previous-status" class="px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full bg-slate-100 text-stone-700 border border-slate-200">
-                            Pending...
-                        </span>
-                        <p><span class="eg-kiosk-label">Name</span><span id="previous-name" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">ID No.</span><span id="previous-id" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">Grade Level</span><span id="previous-grade" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">Department</span><span id="previous-department" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">Course</span><span id="previous-course" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">Time</span><span id="previous-time" class="eg-kiosk-value">Pending...</span></p>
+            <div class="eg-kiosk-previous-stack">
+                <section class="eg-kiosk-card eg-kiosk-previous">
+                    <div class="eg-kiosk-card-head">
+                        <h2>Previous Scan</h2>
                     </div>
-                </div>
-            </section>
+
+                    <div class="eg-kiosk-profile">
+                        <img id="previous-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f1f5f9'/%3E%3Ccircle cx='150' cy='112' r='46' fill='%23cbd5e1'/%3E%3Cpath d='M72 244c16-42 52-68 78-68s62 26 78 68' fill='%23cbd5e1'/%3E%3C/svg%3E"
+                            class="eg-kiosk-profile-image" alt="Previous student image" />
+
+                        <div class="eg-kiosk-details">
+                            <span id="previous-status" class="px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full bg-slate-100 text-stone-700 border border-slate-200">
+                                Pending...
+                            </span>
+                            <p><span class="eg-kiosk-label">Name</span><span id="previous-name" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">ID No.</span><span id="previous-id" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Grade Level</span><span id="previous-grade" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Department</span><span id="previous-department" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Course</span><span id="previous-course" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Time</span><span id="previous-time" class="eg-kiosk-value">Pending...</span></p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="eg-kiosk-card eg-kiosk-previous">
+                    <div class="eg-kiosk-card-head">
+                        <h2>Earlier Scan</h2>
+                    </div>
+
+                    <div class="eg-kiosk-profile">
+                        <img id="previous2-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23f1f5f9'/%3E%3Ccircle cx='150' cy='112' r='46' fill='%23cbd5e1'/%3E%3Cpath d='M72 244c16-42 52-68 78-68s62 26 78 68' fill='%23cbd5e1'/%3E%3C/svg%3E"
+                            class="eg-kiosk-profile-image" alt="Earlier student image" />
+
+                        <div class="eg-kiosk-details">
+                            <span id="previous2-status" class="px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full bg-slate-100 text-stone-700 border border-slate-200">
+                                Pending...
+                            </span>
+                            <p><span class="eg-kiosk-label">Name</span><span id="previous2-name" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">ID No.</span><span id="previous2-id" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Grade Level</span><span id="previous2-grade" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Department</span><span id="previous2-department" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Course</span><span id="previous2-course" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Time</span><span id="previous2-time" class="eg-kiosk-value">Pending...</span></p>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </main>
 
         <div id="message-modal" class="eg-kiosk-modal fixed inset-0 z-50 hidden items-center justify-center bg-black/50 px-4">
@@ -502,7 +527,7 @@ class="w-full h-full">
                 document.body.classList.toggle('eg-kiosk-page--out', !isTimeIn);
 
                 if (kioskTitleEl) {
-                    kioskTitleEl.textContent = isTimeIn ? 'EGate Time In' : 'EGate Time Out';
+                    kioskTitleEl.textContent = isTimeIn ? 'eGate Time In' : 'eGate Time Out';
                 }
 
                 if (kioskClockModeEl) {
@@ -561,11 +586,13 @@ class="w-full h-full">
                     : filteredStudents;
                 const currentStudent = visibleStudents[0] || null;
                 const previousStudent = visibleStudents[1] || null;
+                const earlierStudent = visibleStudents[2] || null;
 
                 fillStudent('current', currentStudent);
                 fillStudent('previous', previousStudent);
+                fillStudent('previous2', earlierStudent);
 
-                if (currentStudent || previousStudent) {
+                if (currentStudent || previousStudent || earlierStudent) {
                     setSystemStatus('online', `Success to Load Records`);
                     return;
                 }
@@ -599,6 +626,7 @@ class="w-full h-full">
                 } catch (error) {
                     fillPending('current');
                     fillPending('previous');
+                    fillPending('previous2');
                     setSystemStatus('offline', 'Failed to load data');
                 }
             }

@@ -132,7 +132,7 @@
 
 <div id="data-modal" class="eg-report-modal fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm px-4">
     <div class="eg-report-modal-panel w-full max-w-4xl max-h-[90vh] rounded-xl bg-white shadow-2xl flex flex-col overflow-hidden">
-        <form id="data-form" class="flex flex-col min-h-0">
+        <form id="data-form" class="flex flex-col min-h-0" enctype="multipart/form-data">
             <input type="hidden" id="data-id">
 
             <div class="flex items-center justify-between px-4 py-3 border-b border-slate-200">
@@ -141,6 +141,32 @@
             </div>
 
             <div class="overflow-y-auto px-4 py-3">
+                <div class="mb-4 flex justify-center">
+                    <label
+                        for="form-image"
+                        class="group flex w-40 cursor-pointer flex-col items-center gap-2 text-center"
+                    >
+                        <span class="relative flex aspect-square w-40 items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 shadow-sm transition group-hover:border-blue-400 group-hover:bg-blue-50">
+                            <img
+                                id="form-image-preview"
+                                src=""
+                                alt=""
+                                class="hidden h-full w-full object-cover"
+                            >
+                            <span id="form-image-placeholder" class="px-3 text-sm font-semibold text-slate-500">
+                                Upload Image
+                            </span>
+                        </span>
+                        <span id="form-image-help" class="text-xs text-slate-500">JPG, PNG, or WebP. Max 4 MB.</span>
+                    </label>
+                    <input
+                        id="form-image"
+                        type="file"
+                        accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                        class="sr-only"
+                    >
+                </div>
+
                 <div class="grid gap-3 md:grid-cols-2">
                     <div class="flex flex-col gap-1">
                         <label for="form-student-number">ID No / LRN</label>
@@ -375,6 +401,9 @@
     const dataIdInput = document.getElementById('data-id');
     const dataModalTitle = document.getElementById('data-modal-title');
     const dataSubmitButton = document.getElementById('data-submit-button');
+    const dataImageInput = document.getElementById('form-image');
+    const dataImagePreview = document.getElementById('form-image-preview');
+    const dataImagePlaceholder = document.getElementById('form-image-placeholder');
     const deleteModalText = document.getElementById('delete-modal-text');
     const openAddDataModalButton = document.getElementById('open-add-data-modal');
     const printDataButton = document.getElementById('print-data-button');
@@ -386,6 +415,7 @@
     let dataCurrentPage = 1;
     let searchTimer = null;
     let messageHideTimer = null;
+    let dataImagePreviewUrl = null;
     let dataToDelete = null;
     let rfidRegistration = {
         id: null,
@@ -711,11 +741,63 @@
         document.getElementById('detail-grade-level').value = record.grade_level || '';
     }
 
+    function resolveRegistrationImageUrl(image) {
+        const value = String(image || '').trim();
+
+        if (!value) {
+            return '';
+        }
+
+        if (/^(?:https?:)?\/\//i.test(value) || value.startsWith('data:image/')) {
+            return value;
+        }
+
+        const normalized = value.replaceAll('\\', '/').replace(/^\/+/, '');
+
+        if (normalized.startsWith('storage/') || normalized.startsWith('db_img/') || normalized.startsWith('images/')) {
+            return `/${normalized}`;
+        }
+
+        if (normalized.startsWith('registration-images/')) {
+            return `/storage/${normalized}`;
+        }
+
+        if (normalized.includes('/')) {
+            return `/${normalized}`;
+        }
+
+        return `/db_img/${normalized}`;
+    }
+
+    function setDataImagePreview(src = '') {
+        if (!dataImagePreview || !dataImagePlaceholder) {
+            return;
+        }
+
+        if (dataImagePreviewUrl && dataImagePreviewUrl !== src) {
+            URL.revokeObjectURL(dataImagePreviewUrl);
+        }
+
+        dataImagePreviewUrl = src.startsWith('blob:') ? src : null;
+
+        if (src) {
+            dataImagePreview.src = src;
+            dataImagePreview.classList.remove('hidden');
+            dataImagePlaceholder.classList.add('hidden');
+            return;
+        }
+
+        dataImagePreview.removeAttribute('src');
+        dataImagePreview.classList.add('hidden');
+        dataImagePlaceholder.classList.remove('hidden');
+    }
+
     function resetDataForm(isEdit = false) {
         dataForm.reset();
         dataIdInput.value = '';
         dataModalTitle.textContent = isEdit ? 'Edit Registration' : 'Add Registration';
         dataSubmitButton.textContent = isEdit ? 'Update Registration' : 'Save Registration';
+        setDataImagePreview();
     }
 
     function fillDataForm(record) {
@@ -730,6 +812,7 @@
         document.getElementById('form-course').value = record.course || '';
         document.getElementById('form-school-level').value = record.school_level || '';
         document.getElementById('form-grade-level').value = record.grade_level || '';
+        setDataImagePreview(resolveRegistrationImageUrl(record.image));
     }
 
     function openAddDataModal() {
@@ -910,6 +993,12 @@
         hideMessage();
 
         const recordId = dataIdInput.value;
+        const imageFile = dataImageInput?.files?.[0] || null;
+
+        if (imageFile && !isValidRegistrationImage(imageFile)) {
+            return;
+        }
+
         const formData = new FormData();
         formData.set('student_number', document.getElementById('form-student-number').value);
         formData.set('rfid', normalizeRfidValue(document.getElementById('form-rfid').value));
@@ -921,6 +1010,10 @@
         formData.set('course', document.getElementById('form-course').value);
         formData.set('school_level', document.getElementById('form-school-level').value);
         formData.set('grade_level', document.getElementById('form-grade-level').value);
+
+        if (imageFile) {
+            formData.set('image', imageFile);
+        }
 
         if (recordId) {
             formData.set('_method', 'PUT');
@@ -940,6 +1033,45 @@
             showMessage(error.message, 'error');
         }
     });
+
+    dataImageInput?.addEventListener('change', () => {
+        const imageFile = dataImageInput.files?.[0] || null;
+
+        if (!imageFile) {
+            setDataImagePreview();
+            return;
+        }
+
+        if (!isValidRegistrationImage(imageFile)) {
+            setDataImagePreview();
+            return;
+        }
+
+        setDataImagePreview(URL.createObjectURL(imageFile));
+    });
+
+    dataImagePreview?.addEventListener('error', () => {
+        setDataImagePreview();
+    });
+
+    function isValidRegistrationImage(file) {
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        const maxSize = 4 * 1024 * 1024;
+
+        if (!allowedTypes.includes(file.type)) {
+            showMessage('Image must be JPG, PNG, or WebP only.', 'error');
+            dataImageInput.value = '';
+            return false;
+        }
+
+        if (file.size > maxSize) {
+            showMessage('Image must not be larger than 4 MB.', 'error');
+            dataImageInput.value = '';
+            return false;
+        }
+
+        return true;
+    }
 
     confirmDeleteDataButton.addEventListener('click', async () => {
         hideMessage();

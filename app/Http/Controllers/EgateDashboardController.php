@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EgateDashboardController extends Controller
 {
@@ -106,7 +107,7 @@ class EgateDashboardController extends Controller
                     'course' => $student->course,
                     'year_level' => $student->school_level ?: $student->grade_level,
                     'grade_level' => $student->grade_level,
-                    'image' => $student->image,
+                    'image' => self::resolveStudentImageUrl($student->image),
                     'status' => $status,
                     'logged_at' => $student->created_at,
                 ];
@@ -118,8 +119,49 @@ class EgateDashboardController extends Controller
                     default => $student['status'] !== '1' && $student['status'] !== '0',
                 };
             })
-            ->take(2)
+            ->take(3)
             ->values();
+    }
+
+    public static function resolveStudentImageUrl(?string $image): ?string
+    {
+        $image = trim((string) $image);
+
+        if ($image === '') {
+            return null;
+        }
+
+        if (preg_match('/^(?:https?:)?\/\//i', $image) || str_starts_with($image, 'data:image/')) {
+            return $image;
+        }
+
+        $normalized = ltrim(str_replace('\\', '/', $image), '/');
+
+        if (str_starts_with($normalized, 'storage/')) {
+            return '/' . $normalized;
+        }
+
+        if (str_starts_with($normalized, 'registration-images/')) {
+            return '/storage/' . $normalized;
+        }
+
+        if (str_contains($normalized, '/')) {
+            return '/' . $normalized;
+        }
+
+        if (file_exists(public_path('db_img/' . $normalized))) {
+            return '/db_img/' . $normalized;
+        }
+
+        if (file_exists(public_path('images/' . $normalized))) {
+            return '/images/' . $normalized;
+        }
+
+        if (Storage::disk('public')->exists($normalized)) {
+            return '/storage/' . $normalized;
+        }
+
+        return '/db_img/' . $normalized;
     }
 
     public function submitLogin(Request $request): RedirectResponse

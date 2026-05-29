@@ -378,8 +378,18 @@
     align-items: stretch;
 }
 
+.eg-kiosk-current .eg-kiosk-profile {
+    flex: 1 1 auto;
+    grid-template-columns: minmax(190px, 0.72fr) minmax(0, 1.18fr);
+    align-items: center;
+    align-content: center;
+}
+
 .eg-kiosk-current .eg-kiosk-profile-image {
-    min-height: 22rem;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    min-height: 19rem;
+    max-height: 27rem;
 }
 
 .eg-kiosk-profile-image {
@@ -425,6 +435,29 @@
     color: #0f172a;
     font-weight: 800;
     overflow-wrap: anywhere;
+}
+
+.eg-kiosk-card.eg-kiosk-current .eg-kiosk-details {
+    gap: 0.9rem;
+}
+
+.eg-kiosk-card.eg-kiosk-current .eg-kiosk-details > span {
+    font-size: 1.08rem;
+}
+
+.eg-kiosk-card.eg-kiosk-current .eg-kiosk-details p {
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+    padding: 0.92rem 1.05rem;
+}
+
+.eg-kiosk-card.eg-kiosk-current .eg-kiosk-label {
+    font-size: 1.05rem;
+    line-height: 1.15;
+}
+
+.eg-kiosk-card.eg-kiosk-current .eg-kiosk-value {
+    font-size: 1.55rem;
+    line-height: 1.15;
 }
 
 .eg-kiosk-scanbox {
@@ -490,6 +523,14 @@
 
 .eg-kiosk-previous {
     opacity: 0.96;
+    flex: 1 1 0;
+}
+
+.eg-kiosk-previous-stack {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.75rem, 1.5vw, 1rem);
 }
 
 .eg-kiosk-previous .eg-kiosk-profile {

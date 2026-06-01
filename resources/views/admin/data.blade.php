@@ -174,16 +174,6 @@
                     </div>
 
                     <div class="flex flex-col gap-1">
-                        <label for="form-rfid">RFID</label>
-                        <input id="form-rfid" type="text" inputmode="numeric" pattern="[0-9]*" class="w-full rounded-full border border-black/70 px-3 py-2 outline-none">
-                    </div>
-
-                    <div class="flex flex-col gap-1">
-                        <label for="form-gatepass-no">Gate Pass No.</label>
-                        <input id="form-gatepass-no" type="text" class="w-full rounded-full border border-black/70 px-3 py-2 outline-none">
-                    </div>
-
-                    <div class="flex flex-col gap-1">
                         <label for="form-name">Name (FN MN, LN)</label>
                         <input id="form-name" type="text" placeholder="Juan Santos, Dela Cruz" class="w-full rounded-full border border-black/70 px-3 py-2 outline-none" required>
                     </div>
@@ -887,8 +877,6 @@
     function fillDataForm(record) {
         dataIdInput.value = record.id || '';
         document.getElementById('form-student-number').value = record.student_number || record.lrn || '';
-        document.getElementById('form-rfid').value = record.rfid || '';
-        document.getElementById('form-gatepass-no').value = record.gatepass_no || '';
         document.getElementById('form-name').value = record.name || '';
         document.getElementById('form-role').value = record.role || '';
         document.getElementById('form-email').value = record.email || '';
@@ -1154,8 +1142,6 @@
 
         const formData = new FormData();
         formData.set('student_number', document.getElementById('form-student-number').value);
-        formData.set('rfid', normalizeRfidValue(document.getElementById('form-rfid').value));
-        formData.set('gatepass_no', document.getElementById('form-gatepass-no').value);
         formData.set('name', document.getElementById('form-name').value);
         formData.set('role', document.getElementById('form-role').value);
         formData.set('email', document.getElementById('form-email').value);

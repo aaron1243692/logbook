@@ -209,6 +209,10 @@
             grid-column: span 2;
         }
 
+        .field--remaining {
+            grid-column: span 3;
+        }
+
         .field label {
             display: block;
             color: #4b5563;
@@ -325,16 +329,12 @@
                 </div>
             </section>
 
-            <section class="student-form" aria-label="Student information">
+            <section class="student-form" aria-label="Registration information">
                 <div class="field">
                     <label>ID No / LRN</label>
                     <span class="value">{{ $value($record->student_number ?: $record->lrn) }}</span>
                 </div>
-                <div class="field">
-                    <label>RFID</label>
-                    <span class="value">{{ $value($record->rfid) }}</span>
-                </div>
-                <div class="field field--wide">
+                <div class="field field--remaining">
                     <label>Name</label>
                     <span class="value">{{ $value($record->name) }}</span>
                 </div>
@@ -435,26 +435,28 @@
 
             <table class="data-table">
                 <colgroup>
-                    <col style="width: 6%">
-                    <col style="width: 13%">
-                    <col style="width: 10%">
-                    <col style="width: 17%">
-                    <col style="width: 9%">
+                    <col style="width: 5%">
+                    <col style="width: 12%">
                     <col style="width: 16%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
+                    <col style="width: 8%">
+                    <col style="width: 15%">
                     <col style="width: 9%">
+                    <col style="width: 10%">
+                    <col style="width: 10%">
+                    <col style="width: 8%">
+                    <col style="width: 7%">
                 </colgroup>
                 <thead>
                     <tr>
                         <th class="text-center">No.</th>
                         <th>ID No / LRN</th>
-                        <th>RFID</th>
                         <th>Name</th>
                         <th>Role</th>
                         <th>Email</th>
                         <th>Contact</th>
                         <th>Department</th>
+                        <th>Course</th>
+                        <th>School Level</th>
                         <th>Grade Level</th>
                     </tr>
                 </thead>
@@ -463,17 +465,18 @@
                         <tr>
                             <td class="text-center nowrap">{{ $index + 1 }}</td>
                             <td>{{ $record->student_number ?: ($record->lrn ?: 'N/A') }}</td>
-                            <td>{{ $record->rfid ?: 'N/A' }}</td>
                             <td>{{ $record->name ?: 'N/A' }}</td>
                             <td>{{ $roleLabel($record->role) }}</td>
                             <td>{{ $record->email ?: 'N/A' }}</td>
                             <td>{{ $record->contact ?: 'N/A' }}</td>
                             <td>{{ $record->department ?: 'N/A' }}</td>
+                            <td>{{ $record->course ?: 'N/A' }}</td>
+                            <td>{{ $record->school_level ?: 'N/A' }}</td>
                             <td>{{ $record->grade_level ?: 'N/A' }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="text-center">No records found.</td>
+                            <td colspan="10" class="text-center">No records found.</td>
                         </tr>
                     @endforelse
                 </tbody>

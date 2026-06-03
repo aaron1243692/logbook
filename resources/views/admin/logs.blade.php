@@ -71,8 +71,8 @@
                         <label for="filter-status" class="text-sm font-medium text-slate-700">Status</label>
                         <select id="filter-status" class="w-full rounded-full border border-slate-300 px-3 py-1.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white">
                             <option value="">All Status</option>
-                            <option value="1">Time In</option>
-                            <option value="0">Time Out</option>
+                            <option value="1">Login</option>
+                            <option value="0">Logout</option>
                             <option value="2">N/A</option>
                         </select>
                     </div>

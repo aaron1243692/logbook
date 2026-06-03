@@ -49,6 +49,8 @@ body.eg-admin-shell {
 }
 
 .eg-rb-top {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: stretch;
     min-width: 0;
@@ -150,6 +152,7 @@ body.eg-admin-shell {
 
 .eg-rb-user {
     position: relative;
+    z-index: 3;
     flex: 0 0 auto;
     margin-left: 10px;
 }
@@ -163,6 +166,16 @@ body.eg-admin-shell {
     background: rgba(255, 255, 255, 0.22);
     font-size: 12px;
     font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+}
+
+.eg-rb-userbtn::-webkit-details-marker {
+    display: none;
+}
+
+.eg-rb-userbtn::marker {
+    content: "";
 }
 
 .eg-rb-userlabel {
@@ -180,6 +193,7 @@ body.eg-admin-shell {
 
 .eg-rb-usermenu {
     position: absolute;
+    z-index: 50;
     top: calc(100% + 6px);
     right: 0;
     min-width: 212px;
@@ -196,6 +210,7 @@ body.eg-admin-shell {
     transition: opacity 0.16s ease, transform 0.18s ease, visibility 0s linear 0.18s;
 }
 
+.eg-rb-user[open] .eg-rb-usermenu,
 .eg-rb-usermenu.is-open {
     opacity: 1;
     visibility: visible;
@@ -249,6 +264,8 @@ body.eg-admin-shell {
 }
 
 .eg-rb-ribbon {
+    position: relative;
+    z-index: 1;
     min-height: var(--eg-rb-panel);
     padding: 7px 8px;
     overflow-x: auto;

@@ -7,8 +7,8 @@
         || auth()->user()->can('emlog.view');
     $canAccessControl = auth()->user()->can('roles.view')
         || auth()->user()->can('users.view');
-    $canTimeIn = canAccessWithParent(auth()->user(), 'time.in');
-    $canTimeOut = canAccessWithParent(auth()->user(), 'time.out');
+    $canTimeIn = canAccessWithParent(auth()->user(), 'login');
+    $canTimeOut = canAccessWithParent(auth()->user(), 'logout');
     $canGate = $canTimeIn || $canTimeOut;
 
     $isDashboard = request()->routeIs('admin.dashboard');
@@ -16,34 +16,31 @@
 
 <header class="eg-rb" data-eg-ribbon>
     <div class="eg-rb-top">
-        <a class="eg-rb-brand" href="{{ route('admin.dashboard') }}" aria-label="OSMIS eGATE dashboard">
+        <a class="eg-rb-brand" href="{{ route('admin.dashboard') }}" aria-label="LogBook dashboard">
             <img src="{{ asset('images/olpcc-logo-removebg.png') }}" alt="">
-            <span>OLPCC / OSMIS-eGATE</span>
+            <span>OLPCC / LogBook</span>
         </a>
 
         <nav class="eg-rb-tabs" aria-label="Admin navigation">
             <button class="eg-rb-tab is-active" type="button" data-eg-ribbon-tab="menu">Menu</button>
         </nav>
 
-        <div class="eg-rb-user">
-            <button
+        <details class="eg-rb-user" id="egRbUserDropdown">
+            <summary
                 class="eg-rb-userbtn"
-                id="egRbUserBtn"
-                type="button"
                 aria-controls="egRbUserMenu"
-                aria-expanded="false"
             >
                 <span class="eg-rb-userlabel">{{ auth()->user()->username ?? auth()->user()->email }}</span>
                 <span class="eg-rb-usercaret" aria-hidden="true"></span>
-            </button>
-            <div class="eg-rb-usermenu" id="egRbUserMenu">
+            </summary>
+            <div class="eg-rb-usermenu" id="egRbUserMenu" role="menu">
                 <div class="eg-rb-usercaption">Signed in as</div>
                 <div class="eg-rb-username">{{ auth()->user()->username ?? auth()->user()->email }}</div>
-                <a class="eg-rb-usermenu-link eg-rb-usermenu-link--danger" href="{{ route('admin.reauth') }}">
-                    Sign Out / Re-auth
+                <a class="eg-rb-usermenu-link eg-rb-usermenu-link--danger" href="{{ route('admin.reauth') }}" role="menuitem">
+                    Sign Out
                 </a>
             </div>
-        </div>
+        </details>
     </div>
 
     <div class="eg-rb-ribbon">
@@ -142,18 +139,18 @@
 
             @if ($canGate)
                 <section class="eg-rb-group">
-                    <div class="eg-rb-group-title">Gate</div>
+                    <div class="eg-rb-group-title">LogBook</div>
                     <div class="eg-rb-items">
                         @if ($canTimeIn)
                             <a class="eg-rb-tile eg-rb-tile--success" href="{{ route('in') }}">
                                 <span class="eg-rb-icon">IN</span>
-                                <span>Time In</span>
+                                <span>Login</span>
                             </a>
                         @endif
                         @if ($canTimeOut)
                             <a class="eg-rb-tile eg-rb-tile--danger" href="{{ route('out') }}">
                                 <span class="eg-rb-icon">OUT</span>
-                                <span>Time Out</span>
+                                <span>Logout</span>
                             </a>
                         @endif
                     </div>
@@ -162,3 +159,26 @@
         </div>
     </div>
 </header>
+
+@once
+    @push('scripts')
+        <script>
+            document.addEventListener('click', (event) => {
+                const dropdown = document.getElementById('egRbUserDropdown');
+
+                if (dropdown && !dropdown.contains(event.target)) {
+                    dropdown.removeAttribute('open');
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                const dropdown = document.getElementById('egRbUserDropdown');
+
+                if (event.key === 'Escape' && dropdown?.hasAttribute('open')) {
+                    dropdown.removeAttribute('open');
+                    dropdown.querySelector('summary')?.focus();
+                }
+            });
+        </script>
+    @endpush
+@endonce

@@ -296,7 +296,7 @@
                     <img src="{{ asset('images/olpcc-logo.png') }}" class="report-logo" alt="OLPCC logo">
 
                     <div class="agency">
-                        <h1 class="agency-name">OLPCC / OSMIS-eGATE</h1>
+                        <h1 class="agency-name">OLPCC / LogBook</h1>
                         <p class="agency-subtitle">Student Information Management System</p>
                         <p class="agency-system">Official Registration Record</p>
                     </div>
@@ -385,7 +385,7 @@
                     <img src="{{ asset('images/olpcc-logo.png') }}" class="report-logo" alt="OLPCC logo">
 
                     <div class="agency">
-                        <h1 class="agency-name">OLPCC / OSMIS-eGATE</h1>
+                        <h1 class="agency-name">OLPCC / LogBook</h1>
                         <p class="agency-subtitle">Student Information Management System</p>
                         <p class="agency-system">Official Registration Record</p>
                     </div>

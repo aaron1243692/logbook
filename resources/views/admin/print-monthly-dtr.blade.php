@@ -250,7 +250,7 @@
                 <img src="{{ asset('images/olpcc-logo.png') }}" class="report-logo" alt="OLPCC logo">
 
                 <div class="agency">
-                    <h1 class="agency-name">OLPCC / OSMIS-eGATE</h1>
+                    <h1 class="agency-name">OLPCC / LogBook</h1>
                     <p class="agency-subtitle">Employee Attendance Monitoring System</p>
                     <p class="agency-system">Official Monthly Daily Time Record</p>
                 </div>
@@ -360,7 +360,7 @@
         </section>
 
         <p class="certification">
-            I certify that the entries shown above are based on the attendance records captured by the OSMIS-eGATE system for the stated period.
+            I certify that the entries shown above are based on the attendance records captured by the LogBook system for the stated period.
         </p>
 
         <section class="signature-grid" aria-label="Signatures">

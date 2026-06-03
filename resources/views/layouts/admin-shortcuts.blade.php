@@ -6,7 +6,7 @@
         </div>
 
         <div class="grid grid-cols-2 gap-2">
-            @if (canAccessWithParent(auth()->user(), 'time.in'))
+            @if (canAccessWithParent(auth()->user(), 'login'))
             <a
                 href="{{ route('in') }}"
                 data-admin-shortcut-option
@@ -14,11 +14,11 @@
                 data-hover-class="hover:bg-emerald-700"
                 class="flex min-h-[3rem] text-decoration-none flex-col items-center justify-center rounded-2xl border-2 border-transparent bg-emerald-600 px-5 py-3 text-center text-white shadow-lg outline-none transition-all duration-200 hover:bg-emerald-700 focus:border-emerald-200 focus:ring-4 focus:ring-emerald-200/70"
             >
-                <span class="text-base font-bold uppercase tracking-wide">In</span>
+                <span class="text-base font-bold uppercase tracking-wide">Login</span>
             </a>
             @endif
 
-            @if (canAccessWithParent(auth()->user(), 'time.out'))
+            @if (canAccessWithParent(auth()->user(), 'logout'))
             <a
                 href="{{ route('out') }}"
                 data-admin-shortcut-option
@@ -26,7 +26,7 @@
                 data-hover-class="hover:bg-rose-700"
                 class="flex min-h-[3rem] text-decoration-none flex-col items-center justify-center rounded-2xl border-2 border-transparent bg-rose-600 px-5 py-3 text-center text-white shadow-lg outline-none transition-all duration-200 hover:bg-rose-700 focus:border-rose-200 focus:ring-4 focus:ring-rose-200/70"
             >
-                <span class="text-base font-bold uppercase tracking-wide">Out</span>
+                <span class="text-base font-bold uppercase tracking-wide">Logout</span>
             </a>
             @endif
 

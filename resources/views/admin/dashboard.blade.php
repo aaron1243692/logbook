@@ -9,12 +9,12 @@
     $departmentMax = max((int) $departmentBreakdown->max('total'), 1);
     $statusVisuals = [
         [
-            'label' => 'Time In',
+            'label' => 'Login',
             'value' => (int) $logSummary['log_in'],
             'class' => 'is-in',
         ],
         [
-            'label' => 'Time Out',
+            'label' => 'Logout',
             'value' => (int) $logSummary['log_out'],
             'class' => 'is-out',
         ],
@@ -33,8 +33,8 @@
                 <span class="eg-dash-live-dot" aria-hidden="true"></span>
                 Admin Monitoring Panel
             </span>
-            <h1>EGate Dashboard</h1>
-            <p>Real-time overview of student gate logs and registered data.</p>
+            <h1>LogBook Dashboard</h1>
+            <p>Real-time overview of student login and logout records.</p>
         </div>
 
         <div class="eg-dash-hero-side">
@@ -43,17 +43,17 @@
                 <strong data-eg-dash-time>{{ now()->format('h:i A') }}</strong>
             </div>
 
-            <div class="eg-dash-actions" aria-label="Gate quick actions">
-                @if (canAccessWithParent(auth()->user(), 'time.in'))
+            <div class="eg-dash-actions" aria-label="LogBook quick actions">
+                @if (canAccessWithParent(auth()->user(), 'login'))
                     <a href="{{ route('in') }}" class="eg-dash-action eg-dash-action--in">
                         <span class="eg-dash-action-icon">IN</span>
-                        <span>Time In</span>
+                        <span>Login</span>
                     </a>
                 @endif
-                @if (canAccessWithParent(auth()->user(), 'time.out'))
+                @if (canAccessWithParent(auth()->user(), 'logout'))
                     <a href="{{ route('out') }}" class="eg-dash-action eg-dash-action--out">
                         <span class="eg-dash-action-icon">OUT</span>
-                        <span>Time Out</span>
+                        <span>Logout</span>
                     </a>
                 @endif
             </div>
@@ -74,8 +74,8 @@
                 <span>Status</span>
                 <select id="status" name="status">
                     <option value="">All status</option>
-                    <option value="1" @selected($filters['status'] === '1')>Time In</option>
-                    <option value="0" @selected($filters['status'] === '0')>Time Out</option>
+                    <option value="1" @selected($filters['status'] === '1')>Login</option>
+                    <option value="0" @selected($filters['status'] === '0')>Logout</option>
                     <option value="2" @selected($filters['status'] === '2')>N/A</option>
                 </select>
             </label>
@@ -131,7 +131,7 @@
         <div class="eg-dash-section-head">
             <div>
                 <h2>Logs Summary</h2>
-                <p>Gate monitoring totals matching the active filters.</p>
+                <p>LogBook totals matching the active filters.</p>
             </div>
             <span class="eg-dash-pill eg-dash-pill--blue">Live Records</span>
         </div>
@@ -141,17 +141,17 @@
                 <span class="eg-dash-metric-icon">LOG</span>
                 <span class="eg-dash-metric-label">Total Logs</span>
                 <strong data-eg-count="{{ $logSummary['total'] }}">{{ number_format($logSummary['total']) }}</strong>
-                <p>All recorded gate entries</p>
+                <p>All recorded LogBook entries</p>
             </article>
             <article class="eg-dash-metric is-in">
                 <span class="eg-dash-metric-icon">IN</span>
-                <span class="eg-dash-metric-label">Time In</span>
+                <span class="eg-dash-metric-label">Login</span>
                 <strong data-eg-count="{{ $logSummary['log_in'] }}">{{ number_format($logSummary['log_in']) }}</strong>
                 <p>Incoming student scans</p>
             </article>
             <article class="eg-dash-metric is-out">
                 <span class="eg-dash-metric-icon">OUT</span>
-                <span class="eg-dash-metric-label">Time Out</span>
+                <span class="eg-dash-metric-label">Logout</span>
                 <strong data-eg-count="{{ $logSummary['log_out'] }}">{{ number_format($logSummary['log_out']) }}</strong>
                 <p>Outgoing student scans</p>
             </article>

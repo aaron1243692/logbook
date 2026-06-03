@@ -6,7 +6,7 @@ class="w-full h-full">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'EGATE') }}</title>
+        <title>{{ config('app.name', 'LogBook') }}</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
@@ -43,8 +43,8 @@ class="w-full h-full">
             <div class="eg-kiosk-brand">
                 <img src="{{ asset('images/olpcc-logo.png') }}" alt="OLPCC logo" class="eg-kiosk-logo">
                 <div>
-                    <h1 id="kiosk-title" class="eg-kiosk-title">eGate Time Out</h1>
-                    <p>OLPCC / OSMIS-eGATE Scanner</p>
+                    <h1 id="kiosk-title" class="eg-kiosk-title">LogBook Logout</h1>
+                    <p>OLPCC / LogBook Scanner</p>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@ class="w-full h-full">
             </div>
 
             <div class="eg-kiosk-clock">
-                <span id="kiosk-clock-mode" class="eg-kiosk-mode">Time Out</span>
+                <span id="kiosk-clock-mode" class="eg-kiosk-mode">Logout</span>
                 <p id="ph-time" class="text-xl font-semibold text-stone-900">--:--:-- --</p>
                 <p id="ph-date" class="text-md text-black/80">Loading date...</p>
             </div>
@@ -200,7 +200,7 @@ class="w-full h-full">
                         data-shortcut-option
                         class="eg-kiosk-shortcut bg-emerald-600 hover:bg-emerald-700 outline-none transition-all duration-200 focus:border-emerald-200 focus:ring-4 focus:ring-emerald-200/70"
                     >
-                        Time In
+                        Login
                     </a>
 
                     <a
@@ -208,7 +208,7 @@ class="w-full h-full">
                         data-shortcut-option
                         class="eg-kiosk-shortcut bg-rose-600 hover:bg-rose-700 outline-none transition-all duration-200 focus:border-rose-200 focus:ring-4 focus:ring-rose-200/70"
                     >
-                        Time Out
+                        Logout
                     </a>
                 </div>
             </div>
@@ -501,7 +501,7 @@ class="w-full h-full">
                     applyKioskMode(getActiveEntryStatus());
                 }
 
-                statusEl.textContent = normalizedStatus === '1' ? 'Time In' : normalizedStatus === '0' ? 'Time Out' : 'N/A';
+                statusEl.textContent = normalizedStatus === '1' ? 'Login' : normalizedStatus === '0' ? 'Logout' : 'N/A';
                 statusEl.className = 'px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full border';
 
                 if (normalizedStatus === '1') {
@@ -559,11 +559,11 @@ class="w-full h-full">
                 document.body.classList.toggle('eg-kiosk-page--out', !isTimeIn);
 
                 if (kioskTitleEl) {
-                    kioskTitleEl.textContent = isTimeIn ? 'eGate Time In' : 'eGate Time Out';
+                    kioskTitleEl.textContent = isTimeIn ? 'LogBook Login' : 'LogBook Logout';
                 }
 
                 if (kioskClockModeEl) {
-                    kioskClockModeEl.textContent = isTimeIn ? 'Time In' : 'Time Out';
+                    kioskClockModeEl.textContent = isTimeIn ? 'Login' : 'Logout';
                 }
 
                 if (currentScanModeEl) {

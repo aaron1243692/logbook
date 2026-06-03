@@ -7,7 +7,7 @@
         <div>
             <p class="eg-access-kicker">Access Control</p>
             <h1 class="eg-access-title">Role Management</h1>
-            <p class="eg-access-subtitle">Manage system roles and control module permissions for EGate administrators.</p>
+            <p class="eg-access-subtitle">Manage system roles and control module permissions for LogBook administrators.</p>
         </div>
     </section>
 

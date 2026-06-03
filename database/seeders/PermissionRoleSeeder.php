@@ -21,7 +21,7 @@ class PermissionRoleSeeder extends Seeder
             'roles' => 'Roles',
             'setschedcehed' => 'Setup Sched Schedule',
             'setschedem' => 'Setup Sched Employee',
-            'time' => 'Time Log',
+            'login_logout' => 'Login/Logout',
             'users' => 'Users',
         ])->mapWithKeys(function (string $name, string $code) {
             $permission = Permission::query()->updateOrCreate(
@@ -37,19 +37,19 @@ class PermissionRoleSeeder extends Seeder
             ->where('guard_name', 'web')
             ->first();
 
-        $timeOut = Permission::query()
-            ->where('code', 'time.out')
+        $logout = Permission::query()
+            ->where('code', 'logout')
             ->where('guard_name', 'web')
             ->first();
 
-        if ($legacyTimeLogin && ! $timeOut) {
+        if ($legacyTimeLogin && ! $logout) {
             $legacyTimeLogin->update([
-                'name' => 'Out',
-                'code' => 'time.out',
-                'parent_id' => $parents['time']->id,
+                'name' => 'Logout',
+                'code' => 'logout',
+                'parent_id' => $parents['login_logout']->id,
             ]);
-        } elseif ($legacyTimeLogin && $timeOut) {
-            $timeOut->roles()->syncWithoutDetaching($legacyTimeLogin->roles()->pluck('id')->all());
+        } elseif ($legacyTimeLogin && $logout) {
+            $logout->roles()->syncWithoutDetaching($legacyTimeLogin->roles()->pluck('id')->all());
             $legacyTimeLogin->delete();
         }
 
@@ -75,9 +75,9 @@ class PermissionRoleSeeder extends Seeder
             ['name' => 'Delete', 'code' => 'setschedcehed.delete', 'parent_id' => $parents['setschedcehed']->id],
             ['name' => 'View', 'code' => 'setschedem.view', 'parent_id' => $parents['setschedem']->id],
             ['name' => 'Update', 'code' => 'setschedem.update', 'parent_id' => $parents['setschedem']->id],
-            ['name' => 'In', 'code' => 'time.in', 'parent_id' => $parents['time']->id],
-            ['name' => 'Out', 'code' => 'time.out', 'parent_id' => $parents['time']->id],
-            ['name' => 'None', 'code' => 'time.none', 'parent_id' => $parents['time']->id],
+            ['name' => 'Login', 'code' => 'login', 'parent_id' => $parents['login_logout']->id],
+            ['name' => 'Logout', 'code' => 'logout', 'parent_id' => $parents['login_logout']->id],
+            ['name' => 'None', 'code' => 'login_logout.none', 'parent_id' => $parents['login_logout']->id],
             ['name' => 'View Users', 'code' => 'users.view', 'parent_id' => $parents['users']->id],
             ['name' => 'Create Users', 'code' => 'users.create', 'parent_id' => $parents['users']->id],
             ['name' => 'Update Users', 'code' => 'users.update', 'parent_id' => $parents['users']->id],
@@ -110,10 +110,10 @@ class PermissionRoleSeeder extends Seeder
                 'logs.print',
                 'logs.update',
                 'logs.view',
-                'time',
-                'time.in',
-                'time.none',
-                'time.out',
+                'login_logout',
+                'login',
+                'login_logout.none',
+                'logout',
                 'users',
                 'users.view',
                 'users.create',
@@ -132,10 +132,10 @@ class PermissionRoleSeeder extends Seeder
                 'export.logs',
                 'logs.view',
                 'logs.print',
-                'time',
-                'time.in',
-                'time.none',
-                'time.out',
+                'login_logout',
+                'login',
+                'login_logout.none',
+                'logout',
             ])
             ->where('guard_name', 'web')
             ->get();

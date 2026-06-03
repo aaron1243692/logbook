@@ -244,7 +244,7 @@
                         <img src="{{ asset('images/olpcc-logo.png') }}" class="report-logo" alt="OLPCC logo">
 
                         <div class="agency">
-                            <h1 class="agency-name">OLPCC / OSMIS-eGATE</h1>
+                            <h1 class="agency-name">OLPCC / LogBook</h1>
                             <p class="agency-subtitle">Student Attendance Monitoring System</p>
                             <p class="agency-system">Official Student Gate Log Report</p>
                         </div>
@@ -299,11 +299,11 @@
                         <span class="summary-value">{{ $report['summary']['total'] }}</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Time In</span>
+                        <span class="summary-label">Login</span>
                         <span class="summary-value">{{ $report['summary']['time_in'] }}</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Time Out</span>
+                        <span class="summary-label">Logout</span>
                         <span class="summary-value">{{ $report['summary']['time_out'] }}</span>
                     </div>
                 </section>
@@ -349,7 +349,7 @@
                     <img src="{{ asset('images/olpcc-logo.png') }}" class="report-logo" alt="OLPCC logo">
 
                     <div class="agency">
-                        <h1 class="agency-name">OLPCC / OSMIS-eGATE</h1>
+                        <h1 class="agency-name">OLPCC / LogBook</h1>
                         <p class="agency-subtitle">Student Attendance Monitoring System</p>
                         <p class="agency-system">Official Student Gate Log Report</p>
                     </div>
@@ -392,11 +392,11 @@
                     <span class="summary-value">{{ $summary['total'] }}</span>
                 </div>
                 <div class="summary-item">
-                    <span class="summary-label">Time In</span>
+                    <span class="summary-label">Login</span>
                     <span class="summary-value">{{ $summary['time_in'] }}</span>
                 </div>
                 <div class="summary-item">
-                    <span class="summary-label">Time Out</span>
+                    <span class="summary-label">Logout</span>
                     <span class="summary-value">{{ $summary['time_out'] }}</span>
                 </div>
             </section>

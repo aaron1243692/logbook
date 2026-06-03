@@ -5,18 +5,18 @@
 @section('clean')
     <main class="eg-auth-page">
         <div class="eg-auth-shell">
-            <section class="eg-auth-intro" aria-label="EGate branding">
+            <section class="eg-auth-intro" aria-label="LogBook branding">
                 <div class="eg-auth-brand">
                     <img src="{{ asset('images/olpcc-logo.png') }}" alt="OLPCC logo" class="eg-auth-logo">
                     <div>
-                        <p class="eg-auth-kicker">OLPCC / OSMIS-eGATE</p>
-                        <p class="eg-auth-brand-title">EGate</p>
+                        <p class="eg-auth-kicker">OLPCC / LogBook</p>
+                        <p class="eg-auth-brand-title">LogBook</p>
                     </div>
                 </div>
 
                 <div class="eg-auth-copy">
-                    <h1>Secure campus access, clearly monitored.</h1>
-                    <p>Use your administrator account to manage gate monitoring, records, and access control.</p>
+                    <h1>LogBook records, clearly monitored.</h1>
+                    <p>Use your administrator account to manage login and logout records.</p>
                 </div>
             </section>
 
@@ -24,7 +24,7 @@
                 @csrf
                 <div class="eg-auth-card-header">
                     <h2>Welcome Back</h2>
-                    <p>Sign in to continue to the EGate monitoring system.</p>
+                    <p>Sign in to continue to the LogBook monitoring system.</p>
                 </div>
 
                 <div class="eg-auth-field">
@@ -40,7 +40,7 @@
                 </div>
 
                 <button type="submit" class="eg-auth-button">Sign In</button>
-                <p class="eg-auth-footer">EGate Access Control System</p>
+                <p class="eg-auth-footer">LogBook Monitoring System</p>
             </form>
         </div>
     </main>
@@ -67,7 +67,7 @@
                     data-shortcut-option
                     class="eg-auth-shortcut bg-emerald-600 hover:bg-emerald-700 outline-none transition-all duration-200 focus:border-emerald-200 focus:ring-4 focus:ring-emerald-200/70"
                 >
-                    Time In
+                    Login
                 </a>
 
                 <a
@@ -75,7 +75,7 @@
                     data-shortcut-option
                     class="eg-auth-shortcut bg-rose-600 hover:bg-rose-700 outline-none transition-all duration-200 focus:border-rose-200 focus:ring-4 focus:ring-rose-200/70"
                 >
-                    Time Out
+                    Logout
                 </a>
             </div>
         </div>

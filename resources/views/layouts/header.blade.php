@@ -1,10 +1,7 @@
 @php
-    $canSetupSchedules = auth()->user()->can('setschedcehed.view');
-    $canSetupEmployees = auth()->user()->can('setschedem.view');
     $canRegistration = auth()->user()->can('data.view');
-    $canSetup = $canSetupSchedules || $canSetupEmployees || $canRegistration;
-    $canRecords = auth()->user()->can('logs.view')
-        || auth()->user()->can('emlog.view');
+    $canRecords = auth()->user()->can('logs.view');
+    $canSetup = $canRegistration || $canRecords;
     $canAccessControl = auth()->user()->can('roles.view')
         || auth()->user()->can('users.view');
     $canTimeIn = canAccessWithParent(auth()->user(), 'login');
@@ -69,44 +66,12 @@
                                 <span>Registration</span>
                             </a>
                         @endif
-                        @if ($canSetupSchedules)
-                            <a class="eg-rb-tile {{ request()->routeIs('admin.setup.schedules*') ? 'is-active' : '' }}" href="{{ route('admin.setup.schedules') }}">
-                                <span class="eg-rb-icon eg-rb-icon--image">
-                                    <img src="{{ asset('icons/emsched.png') }}" alt="" aria-hidden="true">
-                                </span>
-                                <span>Schedules</span>
-                            </a>
-                        @endif
-                        @if ($canSetupEmployees)
-                            <a class="eg-rb-tile {{ request()->routeIs('admin.setup.employee.*') ? 'is-active' : '' }}" href="{{ route('admin.setup.employee.index') }}">
-                                <span class="eg-rb-icon eg-rb-icon--image">
-                                    <img src="{{ asset('icons/employee.png') }}" alt="" aria-hidden="true">
-                                </span>
-                                <span>Employees</span>
-                            </a>
-                        @endif
-                    </div>
-                </section>
-            @endif
-
-            @if ($canRecords)
-                <section class="eg-rb-group">
-                    <div class="eg-rb-group-title">Records</div>
-                    <div class="eg-rb-items">
                         @can('logs.view')
                             <a class="eg-rb-tile {{ request()->routeIs('admin.logs*') ? 'is-active' : '' }}" href="{{ route('admin.logs') }}">
                                 <span class="eg-rb-icon eg-rb-icon--image">
                                     <img src="{{ asset('icons/stlog.png') }}" alt="" aria-hidden="true">
                                 </span>
-                                <span>Student Logs</span>
-                            </a>
-                        @endcan
-                        @can('emlog.view')
-                            <a class="eg-rb-tile {{ request()->routeIs('admin.employee_logs*') ? 'is-active' : '' }}" href="{{ route('admin.employee_logs') }}">
-                                <span class="eg-rb-icon eg-rb-icon--image">
-                                    <img src="{{ asset('icons/emlog.png') }}" alt="" aria-hidden="true">
-                                </span>
-                                <span>Employee Logs</span>
+                                <span>Logs</span>
                             </a>
                         @endcan
                     </div>

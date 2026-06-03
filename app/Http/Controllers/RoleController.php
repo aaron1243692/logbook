@@ -22,12 +22,13 @@ class RoleController extends Controller
         abort_unless(auth()->user()?->can('roles.view'), 403);
         $search = trim((string) $request->get('search', ''));
 
-        $roles = DB::table('roles')
+        $query = DB::table('roles')
             ->when($search !== '', function ($query) use ($search) {
                 $query->where('name', 'like', "%{$search}%");
             })
-            ->orderBy('id')
-            ->paginate(10);
+            ->orderBy('id');
+
+        $roles = $query->paginate(max((clone $query)->count(), 1));
 
         return response()->json($roles);
     }

@@ -12,7 +12,6 @@ use App\Http\Controllers\SetSchScheduleController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\LogController;
-use App\Http\Controllers\EmployeeLogController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -46,7 +45,7 @@ Route::middleware(['auth', 'no_store'])->group(function () {
     Route::prefix('admin/setup')->name('admin.setup.')->group(function () {
         Route::get('/', function () {
             return view('admin.Setup.index');
-        })->name('index')->middleware('permission:setschedcehed.view|setschedem.view');
+        })->name('index')->middleware('permission:data.view|logs.view');
 
         Route::get('/schedules', [SetSchScheduleController::class, 'index'])
             ->name('schedules')
@@ -89,15 +88,6 @@ Route::middleware(['auth', 'no_store'])->group(function () {
         Route::delete('/{id}', 'destroy')->name('.destroy')->middleware('permission:logs.delete');
     })->middleware('permission:logs.view');
 
-
-    Route::prefix('admin/employee-logs')->controller(EmployeeLogController::class)->name('admin.employee_logs')->group(function () {
-        Route::get('/', 'index')->middleware('permission:emlog.view');
-        Route::get('/fetch', 'fetchLogs')->name('.fetch')->middleware('permission:emlog.view');
-        Route::get('/{studentId}/logs', 'viewEmployeeLogs')->name('.view_logs')->middleware('permission:emlog.view');
-        Route::get('/print', 'print')->name('.print')->middleware('permission:emlog.print');
-        Route::get('/export', 'export')->name('.export')->middleware('permission:emlog.export');
-        Route::delete('/{id}', 'destroy')->name('.destroy')->middleware('permission:emlog.delete');
-    })->middleware('permission:emlog.view');
 
     Route::prefix('admin/permissions')->controller(PermissionController::class)->name('admin.permissions')->group(function () {
         Route::get('/', 'index');

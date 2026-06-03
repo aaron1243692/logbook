@@ -341,25 +341,6 @@
     </div>
 </div>
 
-<div id="gatepass-modal" class="eg-report-modal fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-sm px-4">
-    <div class="eg-report-modal-panel w-full max-w-sm rounded-xl bg-white p-4 shadow-2xl flex flex-col items-center text-center">
-        <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50">
-            <img src="{{ asset('icons/vehicle.png') }}" class="h-7 w-7" alt="">
-        </div>
-        <div class="space-y-2">
-            <h4 class="text-xl font-semibold text-gray-900">Gate Pass Registration</h4>
-            <p id="gatepass-modal-name" class="text-sm font-medium text-slate-700"></p>
-            <p id="gatepass-scan-status" class="text-sm text-gray-500 leading-relaxed">Scan or enter the gate pass number now.</p>
-        </div>
-        <div class="mt-4 flex h-2 w-full overflow-hidden rounded-full bg-slate-100">
-            <span id="gatepass-scan-progress" class="h-full w-0 rounded-full bg-emerald-500 transition-all duration-150"></span>
-        </div>
-        <button type="button" data-close-modal="gatepass-modal" class="mt-6 w-full rounded-full bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-gray-800 active:scale-[0.98]">
-            Cancel
-        </button>
-    </div>
-</div>
-
 <div id="message-modal" class="eg-report-modal fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm px-4">
     <div id="message-modal-panel" class="eg-report-modal-panel w-full max-w-sm scale-95 rounded-xl bg-white p-4 text-center opacity-0 shadow-2xl transition duration-200">
         <div id="message-modal-icon" class="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-500">
@@ -390,7 +371,6 @@
     const canUpdateData = @json(auth()->user()?->can('data.update'));
     const canDeleteData = @json(auth()->user()?->can('data.delete'));
     const canRegisterRfid = canUpdateData;
-    const canRegisterGatePass = canUpdateData;
 
     const searchDataInput = document.getElementById('search-data');
     const filterNameSort = document.getElementById('filter-name-sort');
@@ -407,10 +387,6 @@
     const rfidModalName = document.getElementById('rfid-modal-name');
     const rfidScanStatus = document.getElementById('rfid-scan-status');
     const rfidScanProgress = document.getElementById('rfid-scan-progress');
-    const gatepassModal = document.getElementById('gatepass-modal');
-    const gatepassModalName = document.getElementById('gatepass-modal-name');
-    const gatepassScanStatus = document.getElementById('gatepass-scan-status');
-    const gatepassScanProgress = document.getElementById('gatepass-scan-progress');
     const messageModal = document.getElementById('message-modal');
     const messageModalPanel = document.getElementById('message-modal-panel');
     const messageModalIcon = document.getElementById('message-modal-icon');
@@ -438,13 +414,6 @@
     let dataImagePreviewUrl = null;
     let dataToDelete = null;
     let rfidRegistration = {
-        id: null,
-        name: '',
-        buffer: '',
-        scanTimer: null,
-        isSaving: false,
-    };
-    let gatepassRegistration = {
         id: null,
         name: '',
         buffer: '',
@@ -678,11 +647,6 @@
                 canRegisterRfid ? `
                         <button type="button" data-action="rfid" data-id="${record.id}" data-name="${escapeHtml(formatNameCell(record))}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Register RFID" title="Register RFID" aria-label="Register RFID">
                             <img src="{{ asset('icons/id-card.png') }}" class="w-7 h-7" alt="register rfid">
-                        </button>
-                ` : '',
-                canRegisterGatePass ? `
-                        <button type="button" data-action="gatepass" data-id="${record.id}" data-name="${escapeHtml(formatNameCell(record))}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Gate Pass Registration" title="Gate Pass Registration" aria-label="Gate Pass Registration">
-                            <img src="{{ asset('icons/vehicle.png') }}" class="w-7 h-7" alt="gate pass registration">
                         </button>
                 ` : '',
                 canDeleteData ? `
@@ -944,70 +908,6 @@
         openModal(rfidModal);
     }
 
-    function resetGatepassRegistration() {
-        if (gatepassRegistration.scanTimer) {
-            window.clearTimeout(gatepassRegistration.scanTimer);
-        }
-
-        gatepassRegistration = {
-            id: null,
-            name: '',
-            buffer: '',
-            scanTimer: null,
-            isSaving: false,
-        };
-        gatepassScanStatus.textContent = 'Scan or enter the gate pass number now.';
-        gatepassScanProgress.style.width = '0%';
-    }
-
-    function openGatepassRegistrationModal(id, name) {
-        hideMessage();
-        resetGatepassRegistration();
-        gatepassRegistration.id = id;
-        gatepassRegistration.name = name || 'this record';
-        gatepassModalName.textContent = gatepassRegistration.name;
-        openModal(gatepassModal);
-    }
-
-    function queueGatepassAutoSave() {
-        if (gatepassRegistration.scanTimer) {
-            window.clearTimeout(gatepassRegistration.scanTimer);
-        }
-
-        gatepassScanStatus.textContent = 'Gate pass scan received. Saving...';
-        gatepassScanProgress.style.width = '70%';
-        gatepassRegistration.scanTimer = window.setTimeout(() => {
-            saveGatepassRegistration();
-        }, 300);
-    }
-
-    async function saveGatepassRegistration() {
-        const gatepassNo = gatepassRegistration.buffer.trim();
-
-        if (!gatepassNo || gatepassRegistration.isSaving) {
-            return;
-        }
-
-        gatepassRegistration.isSaving = true;
-        gatepassScanStatus.textContent = 'Saving gate pass...';
-        gatepassScanProgress.style.width = '100%';
-
-        const formData = new FormData();
-        formData.set('gatepass_no', gatepassNo);
-
-        try {
-            const payload = await sendRequest(`${dataRoutes.base}/${gatepassRegistration.id}/gatepass`, 'PATCH', formData);
-            closeModal(gatepassModal);
-            resetGatepassRegistration();
-            showMessage(payload.message || 'Gate pass registered successfully.', 'success');
-            fetchData(dataCurrentPage);
-        } catch (error) {
-            closeModal(gatepassModal);
-            resetGatepassRegistration();
-            showMessage(error.message || 'Gate pass registration failed.', 'error');
-        }
-    }
-
     async function saveScannedRfid() {
         const rfid = normalizeRfidValue(rfidRegistration.buffer);
 
@@ -1115,10 +1015,6 @@
 
             if (action === 'rfid') {
                 openRfidRegistrationModal(id, name);
-            }
-
-            if (action === 'gatepass') {
-                openGatepassRegistrationModal(id, name);
             }
 
             if (action === 'delete') {
@@ -1238,13 +1134,10 @@
                 resetRfidRegistration();
             }
 
-            if (modal === gatepassModal) {
-                resetGatepassRegistration();
-            }
         });
     });
 
-    [detailsModal, dataModal, deleteModal, rfidModal, gatepassModal, messageModal].forEach((modal) => {
+    [detailsModal, dataModal, deleteModal, rfidModal, messageModal].forEach((modal) => {
         modal.addEventListener('click', (event) => {
             if (event.target === modal) {
                 if (modal === messageModal) {
@@ -1257,44 +1150,11 @@
                 if (modal === rfidModal) {
                     resetRfidRegistration();
                 }
-
-                if (modal === gatepassModal) {
-                    resetGatepassRegistration();
-                }
             }
         });
     });
 
     document.addEventListener('keydown', (event) => {
-        if (!gatepassModal.classList.contains('hidden')) {
-            if (gatepassRegistration.isSaving) {
-                return;
-            }
-
-            if (event.key === 'Escape') {
-                closeModal(gatepassModal);
-                resetGatepassRegistration();
-                return;
-            }
-
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                saveGatepassRegistration();
-                return;
-            }
-
-            if (event.key.length !== 1 || event.ctrlKey || event.altKey || event.metaKey) {
-                return;
-            }
-
-            event.preventDefault();
-            gatepassRegistration.buffer += event.key;
-            gatepassScanStatus.textContent = 'Reading gate pass scan...';
-            gatepassScanProgress.style.width = '35%';
-            queueGatepassAutoSave();
-            return;
-        }
-
         if (rfidModal.classList.contains('hidden') || rfidRegistration.isSaving) {
             return;
         }

@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', 'Student Logs')
+@section('title', 'Logs')
 @section('content')
 
 <main class="eg-report-page">
     <header class="eg-report-header">
         <div>
             <p class="eg-report-kicker">Attendance Records</p>
-            <h1 class="eg-report-title">Student Logs</h1>
+            <h1 class="eg-report-title">Logs</h1>
             <p class="eg-report-subtitle">Monitor student time-in and time-out records with status and date filters.</p>
         </div>
     </header>
@@ -468,8 +468,8 @@
         logsTableBody.innerHTML = logs.map((log, index) => {
             const actionButtons = [
                 canPrintLogs ? `
-                        <button type="button" data-action="print" data-student-id="${escapeHtml(log.student_id)}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Print" title="Print" aria-label="Print student logs">
-                            <img src="{{ asset('icons/print.png') }}" class="w-7 h-7" alt="print student logs">
+                        <button type="button" data-action="print" data-student-id="${escapeHtml(log.student_id)}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Print" title="Print" aria-label="Print logs">
+                            <img src="{{ asset('icons/print.png') }}" class="w-7 h-7" alt="print logs">
                         </button>
                 ` : '',
                 canDeleteLogs ? `

@@ -65,12 +65,11 @@ class EgateDashboardController extends Controller
                     ->on('egate_data.id', '=', 'egate_logs.egate_data_id')
                     ->orOn('egate_data.student_number', '=', 'egate_logs.student_id');
             })
-            ->orderByDesc('egate_logs.created_at')
+            ->orderByDesc(DB::raw("COALESCE(CONCAT(egate_logs.date, ' ', egate_logs.time), egate_logs.created_at)"))
             ->select([
                 'egate_logs.id as log_id',
                 'egate_logs.student_id',
-                'egate_logs.status as log_status',
-                'egate_logs.created_at',
+                DB::raw("COALESCE(CONCAT(egate_logs.date, ' ', egate_logs.time), egate_logs.created_at) as logged_at"),
                 'egate_data.id',
                 'egate_data.student_number',
                 'egate_data.lrn',
@@ -87,16 +86,6 @@ class EgateDashboardController extends Controller
             ->map(function ($student) {
                 $name = trim((string) $student->name);
 
-                $rawStatus = is_null($student->log_status)
-                    ? null
-                    : trim((string) $student->log_status);
-
-                $status = match ($rawStatus) {
-                    '1' => '1',
-                    '0' => '0',
-                    default => $rawStatus !== '' ? $rawStatus : 'N/A',
-                };
-
                 return [
                     'id' => $student->id,
                     'log_id' => $student->log_id,
@@ -110,16 +99,8 @@ class EgateDashboardController extends Controller
                     'year_level' => $student->school_level ?: $student->grade_level,
                     'grade_level' => $student->grade_level,
                     'image' => self::resolveStudentImageUrl($student->image),
-                    'status' => $status,
-                    'logged_at' => $student->created_at,
+                    'logged_at' => $student->logged_at,
                 ];
-            })
-            ->filter(function ($student) use ($statusGroup) {
-                return match ($statusGroup) {
-                    '1' => $student['status'] === '1',
-                    '0' => $student['status'] === '0',
-                    default => $student['status'] !== '1' && $student['status'] !== '0',
-                };
             })
             ->take(3)
             ->values();

@@ -116,10 +116,6 @@ class="w-full h-full">
                         >
                     @endif
 
-                    @if ($manualEntryEnabled || $rfidLoginEnabled)
-                        <input type="hidden" name="status" id="status" value="1">
-                    @endif
-
                     <p id="submit-feedback" class="text-sm text-slate-500">
                         @if ($manualEntryEnabled)
                             Enter an ID number or scan an RFID / gate pass.
@@ -251,7 +247,7 @@ class="w-full h-full">
             const rfidLoginEnabled = @json($rfidLoginEnabled);
             const getStudentsInUrl = @json(route('get-students.in'));
             const getStudentsOutUrl = @json(route('get-students.out'));
-            const defaultEntryStatus = statusInput?.value || '1';
+            const defaultEntryStatus = '1';
             let lastSignature = null;
             let rfidBuffer = '';
             let lastKeyAt = 0;
@@ -490,34 +486,19 @@ class="w-full h-full">
                     imageEl.src = placeholderImage;
                 };
 
-                const rawStatus = String(student.status ?? student.login ?? student.remarks ?? student.state ?? student.migration_status ?? '').trim();
-                const normalizedStatus = rawStatus === '1' || rawStatus.toLowerCase() === 'login' || rawStatus.toLowerCase() === 'log in' || rawStatus.toLowerCase() === 'time in' || rawStatus.toLowerCase() === 'in'
-                    ? '1'
-                    : rawStatus === '0' || rawStatus.toLowerCase() === 'logout' || rawStatus.toLowerCase() === 'log out' || rawStatus.toLowerCase() === 'time out' || rawStatus.toLowerCase() === 'out'
-                        ? '0'
-                        : 'other';
-
                 if (prefix === 'current') {
                     applyKioskMode(getActiveEntryStatus());
                 }
 
-                statusEl.textContent = normalizedStatus === '1' ? 'Login' : normalizedStatus === '0' ? 'Logout' : 'N/A';
-                statusEl.className = 'px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full border';
-
-                if (normalizedStatus === '1') {
-                    statusEl.classList.add('bg-emerald-100', 'text-emerald-800', 'border-emerald-300');
-                } else if (normalizedStatus === '0') {
-                    statusEl.classList.add('bg-rose-100', 'text-rose-800', 'border-rose-300');
-                } else {
-                    statusEl.classList.add('bg-slate-100', 'text-stone-700', 'border-slate-200');
-                }
+                statusEl.textContent = 'Scan';
+                statusEl.className = 'px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full border bg-slate-100 text-stone-700 border-slate-200';
 
                 document.getElementById(`${prefix}-name`).textContent = student.student_name || student.name || 'Pending...';
                 document.getElementById(`${prefix}-id`).textContent = student.student_id || student.student_number || student.lrn || 'Pending...';
                 document.getElementById(`${prefix}-grade`).textContent = student.year_level || student.grade_level || 'Pending...';
                 document.getElementById(`${prefix}-department`).textContent = student.department || 'Pending...';
                 document.getElementById(`${prefix}-course`).textContent = student.course_name || student.course || 'Pending...';
-                document.getElementById(`${prefix}-time`).textContent = formatLogTime(student.logged_at);
+                document.getElementById(`${prefix}-time`).textContent = formatLogTime(student.logged_at || buildLogTimestamp(student));
             }
 
             function formatLogTime(value) {
@@ -535,6 +516,14 @@ class="w-full h-full">
                     minute: '2-digit',
                     hour12: true,
                 });
+            }
+
+            function buildLogTimestamp(student) {
+                if (student?.date && student?.time) {
+                    return `${student.date} ${student.time}`;
+                }
+
+                return student?.time || student?.date || null;
             }
 
             function normalizeStudentStatus(student) {
@@ -601,21 +590,21 @@ class="w-full h-full">
             }
 
             function getActiveStudentsUrl() {
-                return getActiveEntryStatus() === '1' ? getStudentsInUrl : getStudentsOutUrl;
+                return getStudentsInUrl;
             }
 
             function renderStudents(students) {
-                const activeStatus = getActiveEntryStatus();
-                const filteredStudents = students.filter((student) => normalizeStudentStatus(student) === activeStatus);
-                const activePinnedStudent = pinnedShortcutStudent && normalizeStudentStatus(pinnedShortcutStudent) === activeStatus
-                    ? pinnedShortcutStudent
-                    : null;
-                const visibleStudents = activePinnedStudent
-                    ? [
-                        activePinnedStudent,
-                        ...filteredStudents.filter((student) => String(student.log_id ?? '') !== String(activePinnedStudent.log_id ?? '')),
-                    ]
-                    : filteredStudents;
+                const activePinnedStudent = pinnedShortcutStudent || null;
+                const pinnedLogId = String(activePinnedStudent?.log_id ?? '');
+                const hasPinnedStudent = pinnedLogId !== '' && students.some((student) => String(student.log_id ?? '') === pinnedLogId);
+                const visibleStudents = activePinnedStudent && !hasPinnedStudent
+                    ? [activePinnedStudent, ...students]
+                    : students;
+
+                if (hasPinnedStudent) {
+                    pinnedShortcutStudent = null;
+                }
+
                 const currentStudent = visibleStudents[0] || null;
                 const previousStudent = visibleStudents[1] || null;
                 const earlierStudent = visibleStudents[2] || null;
@@ -664,7 +653,6 @@ class="w-full h-full">
             }
 
             async function submitGateEntry(payload) {
-                const submittedStatus = setEntryStatus(String(payload.status ?? getActiveEntryStatus()));
                 setSubmitFeedback('Submitting entry...', 'sending');
 
                 try {
@@ -706,14 +694,13 @@ class="w-full h-full">
                         student_id: result.student_id,
                         student_number: result.student_number,
                         student_name: result.student_name,
-                        status: String(result.status ?? submittedStatus),
                         logged_at: result.logged_at,
+                        time: result.time,
+                        date: result.date,
                     };
 
                     clearEntryInputs();
-                    pinnedShortcutStudent = submittedStudent.status === defaultEntryStatus
-                        ? null
-                        : submittedStudent;
+                    pinnedShortcutStudent = submittedStudent;
 
                     fillStudent('current', submittedStudent);
                     setSystemStatus('online', 'Success to Load Records');
@@ -743,12 +730,10 @@ class="w-full h-full">
             }
 
             function formDataFromPayload(payload) {
-                const submittedStatus = setEntryStatus(String(payload.status ?? getActiveEntryStatus()));
                 const formData = new FormData();
                 formData.append('_token', csrfToken);
                 formData.append('student_id', payload.student_id || '');
                 formData.append('rfid', payload.rfid || '');
-                formData.append('status', submittedStatus);
 
                 return formData;
             }

@@ -15,7 +15,8 @@ class EgateEntryLog extends Model
     protected $fillable = [
         'egate_data_id',
         'student_id',
-        'status',
+        'time',
+        'date',
     ];
 
     public function egateData(): BelongsTo

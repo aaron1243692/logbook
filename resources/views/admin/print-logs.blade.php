@@ -295,45 +295,51 @@
 
                 <section class="summary-grid" aria-label="Log summary">
                     <div class="summary-item">
-                        <span class="summary-label">Total Logs</span>
+                        <span class="summary-label">Paired Rows</span>
                         <span class="summary-value">{{ $report['summary']['total'] }}</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Login</span>
-                        <span class="summary-value">{{ $report['summary']['time_in'] }}</span>
+                        <span class="summary-label">First Date</span>
+                        <span class="summary-value">{{ $report['logs']->first()['date'] ?? 'N/A' }}</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label">Logout</span>
-                        <span class="summary-value">{{ $report['summary']['time_out'] }}</span>
+                        <span class="summary-label">Last Date</span>
+                        <span class="summary-value">{{ $report['logs']->last()['date'] ?? 'N/A' }}</span>
                     </div>
                 </section>
 
                 <table class="logs-table">
                     <colgroup>
-                        <col style="width: 10%">
-                        <col style="width: 24%">
-                        <col style="width: 22%">
-                        <col style="width: 44%">
+                        <col style="width: 8%">
+                        <col style="width: 18%">
+                        <col style="width: 18%">
+                        <col style="width: 20%">
+                        <col style="width: 18%">
+                        <col style="width: 18%">
                     </colgroup>
                     <thead>
                         <tr>
                             <th class="text-center">No.</th>
-                            <th>Status</th>
+                            <th>Login</th>
+                            <th>Logout</th>
+                            <th>Time Consumed</th>
+                            <th>Date</th>
                             <th>Student ID</th>
-                            <th>DateTime</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($report['logs'] as $index => $log)
                             <tr>
                                 <td class="text-center">{{ $index + 1 }}</td>
-                                <td>{{ $log['status'] }}</td>
+                                <td>{{ $log['login'] }}</td>
+                                <td>{{ $log['logout'] }}</td>
+                                <td>{{ $log['time_consumed'] }}</td>
+                                <td>{{ $log['date'] }}</td>
                                 <td>{{ $log['student_id'] }}</td>
-                                <td>{{ $log['time'] }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">No logs found.</td>
+                                <td colspan="6" class="text-center">No logs found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -388,34 +394,38 @@
 
             <section class="summary-grid" aria-label="Log summary">
                 <div class="summary-item">
-                    <span class="summary-label">Total Logs</span>
+                    <span class="summary-label">Paired Rows</span>
                     <span class="summary-value">{{ $summary['total'] }}</span>
                 </div>
                 <div class="summary-item">
-                    <span class="summary-label">Login</span>
-                    <span class="summary-value">{{ $summary['time_in'] }}</span>
+                    <span class="summary-label">Period</span>
+                    <span class="summary-value">{{ $periodLabel }}</span>
                 </div>
                 <div class="summary-item">
-                    <span class="summary-label">Logout</span>
-                    <span class="summary-value">{{ $summary['time_out'] }}</span>
+                    <span class="summary-label">Generated</span>
+                    <span class="summary-value">{{ $printedAt->format('m/d/Y') }}</span>
                 </div>
             </section>
 
             <table class="logs-table">
                 <colgroup>
-                    <col style="width: 8%">
-                    <col style="width: 18%">
-                    <col style="width: 28%">
-                    <col style="width: 18%">
-                    <col style="width: 28%">
+                    <col style="width: 7%">
+                    <col style="width: 14%">
+                    <col style="width: 27%">
+                    <col style="width: 13%">
+                    <col style="width: 13%">
+                    <col style="width: 16%">
+                    <col style="width: 10%">
                 </colgroup>
                 <thead>
                     <tr>
                         <th class="text-center">No.</th>
                         <th>ID No.</th>
                         <th>Name</th>
-                        <th>Status</th>
-                        <th>DateTime</th>
+                        <th>Login</th>
+                        <th>Logout</th>
+                        <th>Time Consumed</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -424,12 +434,14 @@
                             <td class="text-center">{{ $index + 1 }}</td>
                             <td>{{ $log['student_id'] }}</td>
                             <td>{{ $log['name'] }}</td>
-                            <td>{{ $log['status'] }}</td>
-                            <td>{{ $log['time'] }}</td>
+                            <td>{{ $log['login'] }}</td>
+                            <td>{{ $log['logout'] }}</td>
+                            <td>{{ $log['time_consumed'] }}</td>
+                            <td>{{ $log['date'] }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">No logs found.</td>
+                            <td colspan="7" class="text-center">No logs found.</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -2,12 +2,12 @@
     <thead>
         <tr style="color: #000000;">
             <th>No.</th>
-            <th>Student ID</th>
+            <th>ID</th>
             <th>Name</th>
-            <th>Contact</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>DateTime</th>
+            <th>Login</th>
+            <th>Logout</th>
+            <th>Time Consumed</th>
+            <th>Date</th>
         </tr>
     </thead>
     <tbody>
@@ -16,10 +16,10 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $log['student_id'] }}</td>
                 <td>{{ $log['name'] }}</td>
-                <td>{{ $log['contact'] ?? 'N/A' }}</td>
-                <td>{{ $log['email'] ?? 'N/A' }}</td>
-                <td>{{ $log['status'] }}</td>
-                <td>{{ $log['time'] }}</td>
+                <td>{{ $log['login'] }}</td>
+                <td>{{ $log['logout'] }}</td>
+                <td>{{ $log['time_consumed'] }}</td>
+                <td>{{ $log['date'] }}</td>
             </tr>
         @empty
             <tr>

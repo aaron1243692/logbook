@@ -748,7 +748,6 @@ class="w-full h-full">
                 formData.append('_token', csrfToken);
                 formData.append('student_id', payload.student_id || '');
                 formData.append('rfid', payload.rfid || '');
-                formData.append('status', submittedStatus);
 
                 return formData;
             }

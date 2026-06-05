@@ -24,7 +24,6 @@ class GateEntryController extends Controller
         $validated = $request->validate([
             'student_id' => ['nullable', 'string', 'max:255'],
             'rfid' => ['nullable', 'string', 'max:255'],
-            'status' => ['nullable', 'integer'],
         ]);
 
         $manualInput = trim((string) ($validated['student_id'] ?? ''));
@@ -69,14 +68,17 @@ class GateEntryController extends Controller
             ], 404);
         }
 
-        $status = (int) ($validated['status'] ?? 2);
-        $loggedAt = CarbonImmutable::now(config('app.timezone'))->format('Y-m-d H:i:s');
+        $now = CarbonImmutable::now(config('app.timezone'));
+        $loggedAt = $now->format('Y-m-d H:i:s');
+        $loggedTime = $now->format('H:i:s');
+        $logDate = $now->format('Y-m-d');
 
-        $logId = DB::transaction(function () use ($student, $status, $request, $loggedAt) {
+        $logId = DB::transaction(function () use ($student, $loggedAt, $loggedTime, $logDate) {
             $entryLogId = DB::table('egate_logs')->insertGetId([
                 'egate_data_id' => $student->id,
                 'student_id' => $student->student_number,
-                'status' => $status,
+                'time' => $loggedTime,
+                'date' => $logDate,
                 'created_at' => $loggedAt,
                 'updated_at' => $loggedAt,
             ]);
@@ -98,12 +100,8 @@ class GateEntryController extends Controller
             'year_level' => $student->school_level ?: $student->grade_level,
             'grade_level' => $student->grade_level,
             'image' => EgateDashboardController::resolveStudentImageUrl($student->image),
-            'status' => $status,
-            'status_label' => match ($status) {
-                1 => 'Time In',
-                0 => 'Time Out',
-                default => 'N/A',
-            },
+            'time' => $loggedTime,
+            'date' => $logDate,
             'logged_at' => $loggedAt,
         ]);
     }

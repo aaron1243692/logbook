@@ -24,9 +24,9 @@ class AdminDashboardController extends Controller
 
         $logSummary = [
             'total' => (clone $logsQuery)->count(),
-            'log_in' => (clone $logsQuery)->where('egate_logs.status', 1)->count(),
-            'log_out' => (clone $logsQuery)->where('egate_logs.status', 0)->count(),
-            'na' => (clone $logsQuery)->where('egate_logs.status', 2)->count(),
+            'log_in' => 0,
+            'log_out' => 0,
+            'na' => (clone $logsQuery)->count(),
             'unique_students' => (clone $logsQuery)->distinct()->count('egate_logs.student_id'),
         ];
 
@@ -63,7 +63,6 @@ class AdminDashboardController extends Controller
                     ->on('egate_data.id', '=', 'egate_logs.egate_data_id')
                     ->orOn('egate_data.student_number', '=', 'egate_logs.student_id');
             })
-            ->when($filters['status'] !== '', fn ($query) => $query->where('egate_logs.status', (int) $filters['status']))
             ->when($filters['department'] !== '', fn ($query) => $query->where('egate_data.department', $filters['department']))
             ->when($filters['course'] !== '', fn ($query) => $query->where('egate_data.course', $filters['course']))
             ->when($filters['year_level'] !== '', fn ($query) => $query->where('egate_data.grade_level', $filters['year_level']))

@@ -7,7 +7,7 @@
         <div>
             <p class="eg-report-kicker">Attendance Records</p>
             <h1 class="eg-report-title">Logs</h1>
-            <p class="eg-report-subtitle">Monitor student time-in and time-out records with status and date filters.</p>
+            <p class="eg-report-subtitle">Monitor student scan records by login, logout, and date.</p>
         </div>
     </header>
 
@@ -68,16 +68,6 @@
                     </div>
 
                     <div class="eg-report-field">
-                        <label for="filter-status" class="text-sm font-medium text-slate-700">Status</label>
-                        <select id="filter-status" class="w-full rounded-full border border-slate-300 px-3 py-1.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white">
-                            <option value="">All Status</option>
-                            <option value="1">Login</option>
-                            <option value="0">Logout</option>
-                            <option value="2">N/A</option>
-                        </select>
-                    </div>
-
-                    <div class="eg-report-field">
                         <label for="filter-department" class="text-sm font-medium text-slate-700">Department</label>
                         <select id="filter-department" class="w-full rounded-full border border-slate-300 px-3 py-1.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white">
                             <option value="">All departments</option>
@@ -126,15 +116,17 @@
                             <th class="px-3 py-2.5">No.</th>
                             <th class="px-3 py-2.5">ID</th>
                             <th class="px-3 py-2.5">Name</th>
-                            <th class="px-3 py-2.5">Status</th>
-                            <th class="px-3 py-2.5">DateTime</th>
+                            <th class="px-3 py-2.5">Login</th>
+                            <th class="px-3 py-2.5">Logout</th>
+                            <th class="px-3 py-2.5">Time Consumed</th>
+                            <th class="px-3 py-2.5">Date</th>
                             <th class="px-3 py-2.5 text-center">Action</th>
                         </tr>
                     </thead>
 
                     <tbody id="logs-table-body" class="divide-y divide-black">
                         <tr>
-                            <td colspan="6" class="px-3 py-5 text-center text-slate-500">Loading logs...</td>
+                            <td colspan="8" class="px-3 py-5 text-center text-slate-500">Loading logs...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -203,7 +195,6 @@
     const printLogsButton = document.getElementById('print-logs-button');
     const exportLogsButton = document.getElementById('export-logs-button');
     const filterTimeSort = document.getElementById('filter-time-sort');
-    const filterStatus = document.getElementById('filter-status');
     const filterDepartment = document.getElementById('filter-department');
     const filterCourse = document.getElementById('filter-course');
     const filterGradeLevel = document.getElementById('filter-grade-level');
@@ -336,26 +327,6 @@
         }, 200);
     }
 
-    function formatTime(value) {
-        if (!value) {
-            return 'N/A';
-        }
-
-        const date = new Date(value);
-        if (Number.isNaN(date.getTime())) {
-            return value;
-        }
-
-        return date.toLocaleString(undefined, {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
-        });
-    }
-
     function formatDateTimeFilterValue(date) {
         const pad = (number) => String(number).padStart(2, '0');
 
@@ -380,7 +351,6 @@
         return {
             search: searchLogsInput.value.trim(),
             time_sort: filterTimeSort.value,
-            status: filterStatus.value,
             department: filterDepartment.value,
             course: filterCourse.value,
             grade_level: filterGradeLevel.value,
@@ -392,7 +362,6 @@
     function applyLogFilterFields(filters) {
         searchLogsInput.value = filters.search ?? '';
         filterTimeSort.value = filters.time_sort || 'desc';
-        filterStatus.value = filters.status ?? '';
         filterDepartment.value = filters.department ?? '';
         filterCourse.value = filters.course ?? '';
         filterGradeLevel.value = filters.grade_level ?? '';
@@ -406,7 +375,7 @@
 
         params.set('time_sort', filters.time_sort || 'desc');
 
-        ['search', 'status', 'department', 'course', 'grade_level', 'date_from', 'date_to'].forEach((key) => {
+        ['search', 'department', 'course', 'grade_level', 'date_from', 'date_to'].forEach((key) => {
             if (filters[key] !== '') {
                 params.set(key, filters[key]);
             }
@@ -459,7 +428,7 @@
         if (!logs.length) {
             logsTableBody.innerHTML = `
                 <tr>
-                    <td colspan="6" class="px-3 py-5 text-center text-slate-500">No logs found.</td>
+                    <td colspan="8" class="px-3 py-5 text-center text-slate-500">No logs found.</td>
                 </tr>
             `;
             return;
@@ -472,11 +441,6 @@
                             <img src="{{ asset('icons/print.png') }}" class="w-7 h-7" alt="print logs">
                         </button>
                 ` : '',
-                canDeleteLogs ? `
-                        <button type="button" data-action="delete" data-id="${log.id}" data-name="${escapeHtml(log.student_id)}" class="eg-action-tooltip transition duration-200 hover:scale-110" data-label="Delete" title="Delete" aria-label="Delete log">
-                            <img src="{{ asset('icons/delete.png') }}" class="w-7 h-7" alt="delete log">
-                        </button>
-                ` : '',
             ].join('');
 
             return `
@@ -484,8 +448,10 @@
                 <td class="px-3 py-2.5">${from + index}</td>
                 <td class="px-3 py-2.5">${escapeHtml(log.student_id)}</td>
                 <td class="px-3 py-2.5">${escapeHtml(log.name)}</td>
-                <td class="px-3 py-2.5">${escapeHtml(log.status)}</td>
-                <td class="px-3 py-2.5">${escapeHtml(formatTime(log.time))}</td>
+                <td class="px-3 py-2.5">${escapeHtml(log.login)}</td>
+                <td class="px-3 py-2.5">${escapeHtml(log.logout)}</td>
+                <td class="px-3 py-2.5">${escapeHtml(log.time_consumed)}</td>
+                <td class="px-3 py-2.5">${escapeHtml(log.date)}</td>
                 <td class="px-3 py-2.5">
                     <div class="flex justify-center items-center gap-4">
                         ${actionButtons || '<span class="text-sm text-slate-400">N/A</span>'}
@@ -541,7 +507,7 @@
 
         logsTableBody.innerHTML = `
             <tr>
-                <td colspan="6" class="px-3 py-5 text-center text-slate-500">Loading logs...</td>
+                <td colspan="8" class="px-3 py-5 text-center text-slate-500">Loading logs...</td>
             </tr>
         `;
 
@@ -567,7 +533,7 @@
         } catch (error) {
             logsTableBody.innerHTML = `
                 <tr>
-                    <td colspan="6" class="px-3 py-5 text-center text-rose-600">Unable to load logs right now.</td>
+                    <td colspan="8" class="px-3 py-5 text-center text-rose-600">Unable to load logs right now.</td>
                 </tr>
             `;
             logsTableSummary.textContent = 'Log list unavailable';
@@ -648,7 +614,7 @@
         }, 300);
     });
 
-    [filterTimeSort, filterStatus, filterDepartment, filterCourse, filterGradeLevel, filterDateFrom, filterDateTo].forEach((element) => {
+    [filterTimeSort, filterDepartment, filterCourse, filterGradeLevel, filterDateFrom, filterDateTo].forEach((element) => {
         element.addEventListener('change', () => {
             fetchLogs(1);
         });

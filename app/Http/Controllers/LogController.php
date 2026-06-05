@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\EgateEntryLog;
@@ -46,30 +47,20 @@ class LogController extends Controller
     public function fetchLogs(Request $request): JsonResponse
     {
         abort_unless(auth()->user()?->can('logs.view'), 403);
-        $logs = $this->buildFilteredQuery($request)
-            ->orderBy('egate_logs.created_at', $this->resolveTimeSortDirection($request))
-            ->select([
-                'egate_logs.id',
-                'egate_logs.egate_data_id',
-                'egate_logs.student_id',
-                'egate_logs.status',
-                'egate_logs.created_at',
-                'egate_data.name',
-            ])
-            ->paginate(10)
-            ->through(function ($log) {
-                $name = trim((string) $log->name);
+        $pairedLogs = $this->buildPairedScanLogs($request);
+        $page = max(1, (int) $request->get('page', 1));
+        $perPage = 10;
 
-                $name = $name !== '' ? $name : $log->student_id;
-
-                return [
-                    'id' => $log->id,
-                    'student_id' => $log->student_id,
-                    'name' => $name,
-                    'status' => $this->resolveStatusLabel((int) $log->status),
-                    'time' => $this->formatLogTime($log->created_at),
-                ];
-            });
+        $logs = new LengthAwarePaginator(
+            $pairedLogs->forPage($page, $perPage)->values(),
+            $pairedLogs->count(),
+            $perPage,
+            $page,
+            [
+                'path' => $request->url(),
+                'query' => $request->query(),
+            ],
+        );
 
         return response()->json($logs);
     }
@@ -78,34 +69,13 @@ class LogController extends Controller
     {
         abort_unless(auth()->user()?->can('logs.print'), 403);
 
-        $logs = $this->buildFilteredQuery($request)
-            ->when($request->filled('student_id'), function ($query) use ($request) {
-                $query->where('egate_logs.student_id', $request->get('student_id'));
-            })
-            ->orderBy('egate_logs.created_at', $this->resolveTimeSortDirection($request))
-            ->select([
-                'egate_logs.student_id',
-                'egate_logs.status',
-                'egate_logs.created_at',
-                'egate_data.name',
-                'egate_data.lrn',
-                'egate_data.contact',
-                'egate_data.email',
-            ])
-            ->get()
-            ->map(function ($log) {
-                $name = trim((string) $log->name);
+        $logs = $this->buildPairedScanLogs($request);
 
-                return [
-                    'student_id' => $log->student_id,
-                    'lrn' => $log->lrn,
-                    'name' => $name !== '' ? $name : $log->student_id,
-                    'contact' => $log->contact,
-                    'email' => $log->email,
-                    'status' => $this->resolveStatusLabel((int) $log->status),
-                    'time' => $this->formatLogTime($log->created_at),
-                ];
-            });
+        if ($request->filled('student_id')) {
+            $logs = $logs
+                ->where('student_id', $request->get('student_id'))
+                ->values();
+        }
 
         $reports = $logs
             ->groupBy('student_id')
@@ -123,8 +93,6 @@ class LogController extends Controller
                     'logs' => $studentLogs->values(),
                     'summary' => [
                         'total' => $studentLogs->count(),
-                        'time_in' => $studentLogs->where('status', 'Time In')->count(),
-                        'time_out' => $studentLogs->where('status', 'Time Out')->count(),
                     ],
                 ];
             })
@@ -138,8 +106,6 @@ class LogController extends Controller
             'printedAt' => now(),
             'summary' => [
                 'total' => $logs->count(),
-                'time_in' => $logs->where('status', 'Time In')->count(),
-                'time_out' => $logs->where('status', 'Time Out')->count(),
             ],
         ]);
     }
@@ -148,29 +114,7 @@ class LogController extends Controller
     {
         abort_unless(auth()->user()?->can('export.logs'), 403);
 
-        $logs = $this->buildFilteredQuery($request)
-            ->orderBy('egate_logs.created_at', $this->resolveTimeSortDirection($request))
-            ->select([
-                'egate_logs.student_id',
-                'egate_logs.status',
-                'egate_logs.created_at',
-                'egate_data.name',
-                'egate_data.contact',
-                'egate_data.email',
-            ])
-            ->get()
-            ->map(function ($log) {
-                $name = trim((string) $log->name);
-
-                return [
-                    'student_id' => $log->student_id,
-                    'name' => $name !== '' ? $name : $log->student_id,
-                    'contact' => $log->contact,
-                    'email' => $log->email,
-                    'status' => $this->resolveStatusLabel((int) $log->status),
-                    'time' => $log->created_at,
-                ];
-            });
+        $logs = $this->buildPairedScanLogs($request);
 
         $filename = 'logs-' . now()->format('Y-m-d_H-i-s') . '.xls';
         $html = view('admin.export-logs', [
@@ -206,25 +150,56 @@ class LogController extends Controller
         }
     }
 
-    private function resolveStatusLabel(int $status): string
-    {
-        return match ($status) {
-            0 => 'Time Out',
-            1 => 'Time In',
-            default => 'N/A',
-        };
-    }
-
-    private function formatLogTime(mixed $value): string
+    private function formatLogDate(mixed $value): string
     {
         if (blank($value)) {
             return 'N/A';
         }
 
         try {
-            return Carbon::parse($value)->format('M j, Y g:i A');
+            return Carbon::parse($value)->format('M j, Y');
         } catch (\Throwable) {
             return (string) $value;
+        }
+    }
+
+    private function formatLogTimeOnly(mixed $value): string
+    {
+        if (blank($value)) {
+            return 'N/A';
+        }
+
+        try {
+            return Carbon::parse($value)->format('g:i A');
+        } catch (\Throwable) {
+            return (string) $value;
+        }
+    }
+
+    private function formatTimeConsumed(mixed $date, mixed $loginTime, mixed $logoutTime): string
+    {
+        if (blank($date) || blank($loginTime) || blank($logoutTime)) {
+            return '';
+        }
+
+        try {
+            $login = Carbon::parse($date . ' ' . $loginTime);
+            $logout = Carbon::parse($date . ' ' . $logoutTime);
+            $minutes = (int) floor(abs($login->diffInMinutes($logout)));
+
+            if ($minutes < 1) {
+                return 'Less than 1 min';
+            }
+
+            $hours = intdiv($minutes, 60);
+            $remainingMinutes = $minutes % 60;
+
+            return collect([
+                $hours > 0 ? $hours . ' hr' . ($hours === 1 ? '' : 's') : null,
+                $remainingMinutes > 0 ? $remainingMinutes . ' min' . ($remainingMinutes === 1 ? '' : 's') : null,
+            ])->filter()->implode(' ');
+        } catch (\Throwable) {
+            return '';
         }
     }
 
@@ -257,10 +232,99 @@ class LogController extends Controller
         return $request->get('time_sort') === 'asc' ? 'asc' : 'desc';
     }
 
+    private function buildScanLogsQuery(Request $request): Builder
+    {
+        $direction = $this->resolveTimeSortDirection($request);
+
+        return $this->buildFilteredQuery($request)
+            ->select([
+                'egate_logs.id',
+                'egate_logs.student_id',
+                DB::raw('COALESCE(egate_logs.date, DATE(egate_logs.created_at)) as scan_date'),
+                DB::raw('COALESCE(egate_logs.time, TIME(egate_logs.created_at)) as scan_time'),
+                'egate_data.name',
+                'egate_data.lrn',
+                'egate_data.contact',
+                'egate_data.email',
+            ])
+            ->orderBy('scan_date', $direction)
+            ->orderBy('scan_time', $direction)
+            ->orderBy('egate_logs.id', $direction);
+    }
+
+    private function mapScanLog(object $log): array
+    {
+        $name = trim((string) $log->name);
+
+        return [
+            'id' => $log->id,
+            'student_id' => $log->student_id,
+            'lrn' => $log->lrn,
+            'name' => $name !== '' ? $name : $log->student_id,
+            'contact' => $log->contact,
+            'email' => $log->email,
+            'time' => $this->formatLogTimeOnly($log->scan_time),
+            'date' => $this->formatLogDate($log->scan_date),
+        ];
+    }
+
+    private function buildPairedScanLogs(Request $request)
+    {
+        $direction = $this->resolveTimeSortDirection($request);
+
+        return $this->buildScanLogsQuery($request)
+            ->reorder()
+            ->orderBy('scan_date')
+            ->orderBy('egate_logs.student_id')
+            ->orderBy('scan_time')
+            ->orderBy('egate_logs.id')
+            ->get()
+            ->unique('id')
+            ->values()
+            ->groupBy(function ($log) {
+                return $log->student_id . '|' . $log->scan_date;
+            })
+            ->flatMap(function ($studentDayLogs) {
+                return $studentDayLogs
+                    ->values()
+                    ->chunk(2)
+                    ->map(function ($pair) {
+                        $login = $pair->first();
+                        $logout = $pair->get(1);
+                        $name = trim((string) $login->name);
+
+                        return [
+                            'id' => $login->id,
+                            'student_id' => $login->student_id,
+                            'lrn' => $login->lrn,
+                            'name' => $name !== '' ? $name : $login->student_id,
+                            'contact' => $login->contact,
+                            'email' => $login->email,
+                            'login' => $this->formatLogTimeOnly($login->scan_time),
+                            'logout' => $logout ? $this->formatLogTimeOnly($logout->scan_time) : '',
+                            'time_consumed' => $logout ? $this->formatTimeConsumed($login->scan_date, $login->scan_time, $logout->scan_time) : '',
+                            'date' => $this->formatLogDate($login->scan_date),
+                            'sort_date' => $login->scan_date,
+                            'sort_time' => $login->scan_time,
+                        ];
+                    });
+            })
+            ->sortBy([
+                ['sort_date', $direction],
+                ['sort_time', $direction],
+                ['id', $direction],
+            ])
+            ->map(function (array $log) {
+                unset($log['sort_date'], $log['sort_time']);
+
+                return $log;
+            })
+            ->values();
+    }
+
     private function buildFilteredQuery(Request $request): Builder
     {
         $search = trim((string) $request->get('search', ''));
-        $status = trim((string) $request->get('status', ''));
         $department = trim((string) $request->get('department', ''));
         $course = trim((string) $request->get('course', ''));
         $gradeLevel = trim((string) $request->get('grade_level', ''));
@@ -283,9 +347,6 @@ class LogController extends Controller
                         ->orWhere('egate_data.lrn', 'like', "%{$search}%")
                         ->orWhere('egate_data.name', 'like', "%{$search}%");
                 });
-            })
-            ->when($status !== '', function ($query) use ($status) {
-                $query->where('egate_logs.status', (int) $status);
             })
             ->when($department !== '', function ($query) use ($department) {
                 $query->where('egate_data.department', $department);

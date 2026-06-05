@@ -140,8 +140,8 @@ class EmployeeLogController extends Controller
             ->orderBy('egate_logs.created_at', $this->resolveTimeSortDirection($request))
             ->select([
                 'egate_logs.student_id',
-                'egate_logs.status',
-                'egate_logs.created_at',
+                DB::raw('COALESCE(egate_logs.time, TIME(egate_logs.created_at)) as scan_time'),
+                DB::raw('COALESCE(egate_logs.date, DATE(egate_logs.created_at)) as scan_date'),
                 'egate_data.name',
             ])
             ->get()
@@ -151,8 +151,10 @@ class EmployeeLogController extends Controller
                 return [
                     'student_id' => $log->student_id,
                     'name' => $name !== '' ? $name : $log->student_id,
-                    'status' => $this->resolveStatusLabel((int) $log->status),
-                    'time' => $log->created_at,
+                    'contact' => null,
+                    'email' => null,
+                    'time' => $log->scan_time,
+                    'date' => $log->scan_date,
                 ];
             });
 
@@ -188,15 +190,6 @@ class EmployeeLogController extends Controller
                 'message' => 'Unable to delete log right now.',
             ], 500);
         }
-    }
-
-    private function resolveStatusLabel(int $status): string
-    {
-        return match ($status) {
-            0 => 'Time Out',
-            1 => 'Time In',
-            default => 'N/A',
-        };
     }
 
     private function printMonthlyDtr(Request $request)
@@ -273,9 +266,9 @@ class EmployeeLogController extends Controller
             })
             ->whereBetween('created_at', [$start->format('Y-m-d H:i:s'), $end->format('Y-m-d H:i:s')])
             ->orderBy('created_at')
-            ->get(['status', 'created_at'])
+            ->get(['created_at', 'time', 'date'])
             ->groupBy(function ($log) {
-                return Carbon::parse($log->created_at)->day;
+                return Carbon::parse($log->date ?: $log->created_at)->day;
             });
 
         $rows = [];
@@ -349,15 +342,18 @@ class EmployeeLogController extends Controller
         ];
 
         foreach ($logs as $log) {
-            $time = Carbon::parse($log->created_at);
+            $scanDate = $log->date ?: Carbon::parse($log->created_at)->format('Y-m-d');
+            $scanTime = $log->time ?: Carbon::parse($log->created_at)->format('H:i:s');
+            $time = Carbon::parse($scanDate . ' ' . $scanTime);
+            $isInScan = $logs->search($log) % 2 === 0;
 
-            if ((int) $log->status === 1 && $time->hour < 12 && ($times['am_in'] === null || $time->lt($times['am_in']))) {
+            if ($isInScan && $time->hour < 12 && ($times['am_in'] === null || $time->lt($times['am_in']))) {
                 $times['am_in'] = $time;
-            } elseif ((int) $log->status === 0 && $time->hour < 12 && ($times['am_out'] === null || $time->gt($times['am_out']))) {
+            } elseif (! $isInScan && $time->hour < 12 && ($times['am_out'] === null || $time->gt($times['am_out']))) {
                 $times['am_out'] = $time;
-            } elseif ((int) $log->status === 1 && $time->hour >= 12 && ($times['pm_in'] === null || $time->lt($times['pm_in']))) {
+            } elseif ($isInScan && $time->hour >= 12 && ($times['pm_in'] === null || $time->lt($times['pm_in']))) {
                 $times['pm_in'] = $time;
-            } elseif ((int) $log->status === 0 && $time->hour >= 12 && ($times['pm_out'] === null || $time->gt($times['pm_out']))) {
+            } elseif (! $isInScan && $time->hour >= 12 && ($times['pm_out'] === null || $time->gt($times['pm_out']))) {
                 $times['pm_out'] = $time;
             }
         }
@@ -499,7 +495,6 @@ class EmployeeLogController extends Controller
     private function buildFilteredQuery(Request $request): Builder
     {
         $search = trim((string) $request->get('search', ''));
-        $status = trim((string) $request->get('status', ''));
         $department = trim((string) $request->get('department', ''));
         $dateFrom = trim((string) $request->get('date_from', ''));
         $dateTo = trim((string) $request->get('date_to', ''));
@@ -528,9 +523,6 @@ class EmployeeLogController extends Controller
                         ->orWhere('egate_data.lrn', 'like', "%{$search}%")
                         ->orWhere('egate_data.name', 'like', "%{$search}%");
                 });
-            })
-            ->when($status !== '', function ($query) use ($status) {
-                $query->where('egate_logs.status', (int) $status);
             })
             ->when($department !== '', function ($query) use ($department) {
                 $query->where('egate_data.department', $department);

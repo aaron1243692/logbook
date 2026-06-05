@@ -11,7 +11,7 @@
  Target Server Version : 90700 (9.7.0)
  File Encoding         : 65001
 
- Date: 05/06/2026 09:42:00
+ Date: 06/06/2026 00:46:52
 */
 
 SET NAMES utf8mb4;
@@ -32,6 +32,7 @@ CREATE TABLE `cache`  (
 -- ----------------------------
 -- Records of cache
 -- ----------------------------
+INSERT INTO `cache` VALUES ('egate-cache-spatie.permission.cache', 'a:3:{s:5:\"alias\";a:6:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:4:\"code\";s:1:\"d\";s:9:\"parent_id\";s:1:\"e\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:38:{i:0;a:6:{s:1:\"a\";i:1;s:1:\"b\";s:5:\"Users\";s:1:\"c\";s:5:\"users\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:8;}}i:1;a:6:{s:1:\"a\";i:4;s:1:\"b\";s:12:\"Create Users\";s:1:\"c\";s:12:\"users.create\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:8;}}i:2;a:6:{s:1:\"a\";i:5;s:1:\"b\";s:12:\"Update Users\";s:1:\"c\";s:12:\"users.update\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:3;a:6:{s:1:\"a\";i:6;s:1:\"b\";s:12:\"Delete Users\";s:1:\"c\";s:12:\"users.delete\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:4;a:6:{s:1:\"a\";i:9;s:1:\"b\";s:21:\"Update User Passwords\";s:1:\"c\";s:17:\"users.update.pass\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:6:{s:1:\"a\";i:10;s:1:\"b\";s:10:\"View Users\";s:1:\"c\";s:10:\"users.view\";s:1:\"d\";i:1;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:8;}}i:6;a:6:{s:1:\"a\";i:11;s:1:\"b\";s:5:\"Roles\";s:1:\"c\";s:5:\"roles\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:7;a:6:{s:1:\"a\";i:17;s:1:\"b\";s:10:\"View Roles\";s:1:\"c\";s:10:\"roles.view\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:8;a:6:{s:1:\"a\";i:18;s:1:\"b\";s:12:\"Create Roles\";s:1:\"c\";s:12:\"roles.create\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:9;a:6:{s:1:\"a\";i:19;s:1:\"b\";s:12:\"Update Roles\";s:1:\"c\";s:12:\"roles.update\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:10;a:6:{s:1:\"a\";i:20;s:1:\"b\";s:12:\"Delete Roles\";s:1:\"c\";s:12:\"roles.delete\";s:1:\"d\";i:11;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:11;a:6:{s:1:\"a\";i:21;s:1:\"b\";s:12:\"Student Logs\";s:1:\"c\";s:4:\"logs\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:12;a:6:{s:1:\"a\";i:22;s:1:\"b\";s:9:\"View Logs\";s:1:\"c\";s:9:\"logs.view\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:13;a:6:{s:1:\"a\";i:23;s:1:\"b\";s:12:\"Registration\";s:1:\"c\";s:4:\"Data\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:8;i:3;i:9;}}i:14;a:6:{s:1:\"a\";i:24;s:1:\"b\";s:17:\"View Registration\";s:1:\"c\";s:9:\"data.view\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:8;i:3;i:9;}}i:15;a:6:{s:1:\"a\";i:25;s:1:\"b\";s:19:\"Create Registration\";s:1:\"c\";s:11:\"data.create\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:16;a:6:{s:1:\"a\";i:26;s:1:\"b\";s:19:\"Update Registration\";s:1:\"c\";s:11:\"data.update\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:17;a:6:{s:1:\"a\";i:27;s:1:\"b\";s:19:\"Delete Registration\";s:1:\"c\";s:11:\"data.delete\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:18;a:6:{s:1:\"a\";i:28;s:1:\"b\";s:18:\"Print Registration\";s:1:\"c\";s:10:\"data.print\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:19;a:6:{s:1:\"a\";i:29;s:1:\"b\";s:19:\"Export Registration\";s:1:\"c\";s:11:\"data.export\";s:1:\"d\";i:23;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:20;a:6:{s:1:\"a\";i:31;s:1:\"b\";s:11:\"Delete Logs\";s:1:\"c\";s:11:\"logs.delete\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:21;a:6:{s:1:\"a\";i:32;s:1:\"b\";s:10:\"Print Logs\";s:1:\"c\";s:10:\"logs.print\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:22;a:6:{s:1:\"a\";i:35;s:1:\"b\";s:11:\"Export Logs\";s:1:\"c\";s:11:\"export.logs\";s:1:\"d\";i:21;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:8;i:2;i:9;}}i:23;a:6:{s:1:\"a\";i:36;s:1:\"b\";s:12:\"Login/Logout\";s:1:\"c\";s:12:\"login_logout\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;}}i:24;a:6:{s:1:\"a\";i:37;s:1:\"b\";s:5:\"Login\";s:1:\"c\";s:5:\"login\";s:1:\"d\";i:36;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;}}i:25;a:6:{s:1:\"a\";i:40;s:1:\"b\";s:6:\"Logout\";s:1:\"c\";s:6:\"logout\";s:1:\"d\";i:36;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;}}i:26;a:6:{s:1:\"a\";i:41;s:1:\"b\";s:13:\"Employee Logs\";s:1:\"c\";s:5:\"emlog\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:27;a:6:{s:1:\"a\";i:42;s:1:\"b\";s:4:\"View\";s:1:\"c\";s:10:\"emlog.view\";s:1:\"d\";i:41;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:5:{i:0;i:1;i:1;i:5;i:2;i:6;i:3;i:8;i:4;i:9;}}i:28;a:6:{s:1:\"a\";i:44;s:1:\"b\";s:5:\"Print\";s:1:\"c\";s:11:\"emlog.print\";s:1:\"d\";i:41;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:29;a:6:{s:1:\"a\";i:45;s:1:\"b\";s:6:\"Delete\";s:1:\"c\";s:12:\"emlog.delete\";s:1:\"d\";i:41;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:30;a:6:{s:1:\"a\";i:46;s:1:\"b\";s:20:\"Setup Sched Schedule\";s:1:\"c\";s:13:\"setschedcehed\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:31;a:6:{s:1:\"a\";i:47;s:1:\"b\";s:4:\"View\";s:1:\"c\";s:18:\"setschedcehed.view\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:32;a:6:{s:1:\"a\";i:48;s:1:\"b\";s:6:\"Create\";s:1:\"c\";s:20:\"setschedcehed.create\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:33;a:6:{s:1:\"a\";i:49;s:1:\"b\";s:6:\"Update\";s:1:\"c\";s:20:\"setschedcehed.update\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:34;a:6:{s:1:\"a\";i:50;s:1:\"b\";s:6:\"Delete\";s:1:\"c\";s:20:\"setschedcehed.delete\";s:1:\"d\";i:46;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:35;a:6:{s:1:\"a\";i:51;s:1:\"b\";s:20:\"Setup Sched Employee\";s:1:\"c\";s:10:\"setschedem\";s:1:\"d\";N;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:36;a:6:{s:1:\"a\";i:52;s:1:\"b\";s:4:\"View\";s:1:\"c\";s:15:\"setschedem.view\";s:1:\"d\";i:51;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}i:37;a:6:{s:1:\"a\";i:53;s:1:\"b\";s:6:\"Update\";s:1:\"c\";s:17:\"setschedem.update\";s:1:\"d\";i:51;s:1:\"e\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:9;}}}s:5:\"roles\";a:5:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:5:\"Admin\";s:1:\"e\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:8;s:1:\"b\";s:5:\"Staff\";s:1:\"e\";s:3:\"web\";}i:2;a:3:{s:1:\"a\";i:5;s:1:\"b\";s:8:\"Employee\";s:1:\"e\";s:3:\"web\";}i:3;a:3:{s:1:\"a\";i:6;s:1:\"b\";s:5:\"Guard\";s:1:\"e\";s:3:\"web\";}i:4;a:3:{s:1:\"a\";i:9;s:1:\"b\";s:2:\"HR\";s:1:\"e\";s:3:\"web\";}}}', 1780714489);
 
 -- ----------------------------
 -- Table structure for cache_locks
@@ -65,8 +66,8 @@ CREATE TABLE `config`  (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES (1, 'Manual Login', 0, '2026-05-19 14:04:40', '2026-05-29 17:12:10');
-INSERT INTO `config` VALUES (2, 'RFID Login', 1, '2026-05-19 14:04:40', '2026-05-29 17:12:10');
+INSERT INTO `config` VALUES (1, 'Manual Login', 1, '2026-05-19 14:04:40', '2026-06-06 00:43:22');
+INSERT INTO `config` VALUES (2, 'RFID Login', 1, '2026-05-19 14:04:40', '2026-06-06 00:43:22');
 
 -- ----------------------------
 -- Table structure for egate_data
@@ -128,259 +129,44 @@ CREATE TABLE `egate_logs`  (
   `student_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
-  `time_in` time NULL DEFAULT NULL,
-  `time_out` time NULL DEFAULT NULL,
-  `log_date` date NULL DEFAULT NULL,
+  `time` time NULL DEFAULT NULL,
+  `date` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `egate_logs_egate_data_id_foreign`(`egate_data_id` ASC) USING BTREE,
   CONSTRAINT `egate_logs_egate_data_id_foreign` FOREIGN KEY (`egate_data_id`) REFERENCES `egate_data` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 603 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 683 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of egate_logs
 -- ----------------------------
-INSERT INTO `egate_logs` VALUES (1, 2, '22', '2026-05-19 23:45:18', '2026-05-19 23:45:18', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (2, 1, '11', '2026-05-19 23:45:19', '2026-05-19 23:45:19', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (3, 3, '33', '2026-05-19 23:45:19', '2026-05-19 23:45:19', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (4, 1, '11', '2026-05-19 23:45:21', '2026-05-19 23:45:21', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (5, 2, '22', '2026-05-19 23:45:21', '2026-05-19 23:45:21', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (366, 4, '0595930496', '2026-05-21 10:12:50', '2026-05-21 10:12:50', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (367, 4, '0595930496', '2026-05-21 10:12:51', '2026-05-21 10:12:51', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (368, 4, '0595930496', '2026-05-21 10:12:52', '2026-05-21 10:12:52', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (369, 4, '0595930496', '2026-05-21 10:13:20', '2026-05-21 10:13:20', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (370, 4, '0595930496', '2026-05-21 10:13:22', '2026-05-21 10:13:22', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (371, 4, '0595930496', '2026-05-21 10:13:44', '2026-05-21 10:13:44', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (372, 4, '0595930496', '2026-05-21 10:13:46', '2026-05-21 10:13:46', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (373, 4, '0595930496', '2026-05-21 10:13:49', '2026-05-21 10:13:49', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (374, 4, '0595930496', '2026-05-21 10:13:56', '2026-05-21 10:13:56', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (375, 4, '0595930496', '2026-05-21 12:52:50', '2026-05-21 12:52:50', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (376, 4, '0595930496', '2026-05-21 12:53:06', '2026-05-21 12:53:06', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (377, 1, '11', '2026-05-22 01:54:12', '2026-05-22 01:54:12', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (378, 1, '11', '2026-05-22 01:54:14', '2026-05-22 01:54:14', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (379, 2, '22', '2026-05-22 01:54:16', '2026-05-22 01:54:16', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (380, 3, '33', '2026-05-22 01:54:17', '2026-05-22 01:54:17', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (381, 1, '11', '2026-05-22 01:56:17', '2026-05-22 01:56:17', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (382, 2, '22', '2026-05-22 01:56:17', '2026-05-22 01:56:17', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (383, 3, '33', '2026-05-22 01:56:18', '2026-05-22 01:56:18', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (384, 1, '11', '2026-05-25 10:03:24', '2026-05-25 10:03:24', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (385, 2, '22', '2026-05-25 10:03:25', '2026-05-25 10:03:25', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (386, 1, '11', '2026-05-25 10:03:25', '2026-05-25 10:03:25', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (387, 2, '22', '2026-05-25 10:03:26', '2026-05-25 10:03:26', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (388, 1, '11', '2026-05-25 10:03:29', '2026-05-25 10:03:29', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (389, 2, '22', '2026-05-25 10:03:29', '2026-05-25 10:03:29', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (390, 1, '11', '2026-05-25 10:03:30', '2026-05-25 10:03:30', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (391, 2, '22', '2026-05-25 10:03:30', '2026-05-25 10:03:30', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (392, 1, '11', '2026-05-25 16:58:26', '2026-05-25 16:58:26', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (393, 1, '11', '2026-05-25 16:58:26', '2026-05-25 16:58:26', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (394, 2, '22', '2026-05-25 16:58:27', '2026-05-25 16:58:27', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (395, 1, '11', '2026-05-25 16:58:27', '2026-05-25 16:58:27', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (396, 2, '22', '2026-05-25 16:58:28', '2026-05-25 16:58:28', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (397, 1, '11', '2026-05-25 16:58:29', '2026-05-25 16:58:29', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (398, 2, '22', '2026-05-25 16:58:29', '2026-05-25 16:58:29', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (399, 1, '11', '2026-05-25 16:58:30', '2026-05-25 16:58:30', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (400, 2, '22', '2026-05-25 16:58:30', '2026-05-25 16:58:30', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (401, 1, '11', '2026-05-25 16:58:31', '2026-05-25 16:58:31', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (402, 2, '22', '2026-05-25 16:58:31', '2026-05-25 16:58:31', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (403, 1, '11', '2026-05-25 16:58:32', '2026-05-25 16:58:32', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (404, 2, '22', '2026-05-25 16:58:32', '2026-05-25 16:58:32', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (405, 1, '11', '2026-05-25 16:58:33', '2026-05-25 16:58:33', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (406, 2, '22', '2026-05-25 16:58:33', '2026-05-25 16:58:33', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (407, 1, '11', '2026-05-25 16:58:34', '2026-05-25 16:58:34', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (408, 2, '22', '2026-05-25 16:58:35', '2026-05-25 16:58:35', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (409, 1, '11', '2026-05-26 10:31:27', '2026-05-26 10:31:27', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (410, 1, '11', '2026-05-26 10:31:30', '2026-05-26 10:31:30', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (411, 2, '22', '2026-05-26 10:31:32', '2026-05-26 10:31:32', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (412, 1, '11', '2026-05-26 10:31:32', '2026-05-26 10:31:32', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (413, 2, '22', '2026-05-26 10:31:33', '2026-05-26 10:31:33', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (414, 1, '11', '2026-05-26 10:31:34', '2026-05-26 10:31:34', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (415, 2, '22', '2026-05-26 10:31:34', '2026-05-26 10:31:34', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (416, 1, '11', '2026-05-26 10:31:36', '2026-05-26 10:31:36', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (417, 2, '22', '2026-05-26 10:31:36', '2026-05-26 10:31:36', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (418, 1, '11', '2026-05-26 10:31:37', '2026-05-26 10:31:37', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (419, 2, '22', '2026-05-26 10:31:38', '2026-05-26 10:31:38', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (420, 1, '11', '2026-05-26 10:31:41', '2026-05-26 10:31:41', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (421, 2, '22', '2026-05-26 10:31:41', '2026-05-26 10:31:41', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (422, 1, '11', '2026-05-26 10:35:29', '2026-05-26 10:35:29', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (423, 2, '22', '2026-05-26 10:35:32', '2026-05-26 10:35:32', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (424, 2, '22', '2026-05-26 10:35:33', '2026-05-26 10:35:33', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (425, 1, '11', '2026-05-26 10:35:34', '2026-05-26 10:35:34', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (426, 2, '22', '2026-05-26 10:35:35', '2026-05-26 10:35:35', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (427, 1, '11', '2026-05-26 10:35:36', '2026-05-26 10:35:36', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (428, 2, '22', '2026-05-26 10:35:38', '2026-05-26 10:35:38', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (429, 1, '11', '2026-05-26 10:35:40', '2026-05-26 10:35:40', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (430, 1, '11', '2026-05-26 10:35:45', '2026-05-26 10:35:45', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (431, 2, '22', '2026-05-26 10:35:47', '2026-05-26 10:35:47', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (432, 1, '11', '2026-05-26 10:35:50', '2026-05-26 10:35:50', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (433, 2, '22', '2026-05-26 10:35:51', '2026-05-26 10:35:51', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (434, 1, '11', '2026-05-26 10:35:52', '2026-05-26 10:35:52', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (435, 2, '22', '2026-05-26 10:35:52', '2026-05-26 10:35:52', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (436, 1, '11', '2026-05-26 10:35:55', '2026-05-26 10:35:55', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (437, 2, '22', '2026-05-26 10:35:56', '2026-05-26 10:35:56', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (438, 1, '11', '2026-05-26 10:35:57', '2026-05-26 10:35:57', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (439, 2, '22', '2026-05-26 10:35:58', '2026-05-26 10:35:58', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (440, 1, '11', '2026-05-26 10:35:59', '2026-05-26 10:35:59', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (441, 2, '22', '2026-05-26 10:35:59', '2026-05-26 10:35:59', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (442, 1, '11', '2026-05-26 10:36:01', '2026-05-26 10:36:01', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (443, 2, '22', '2026-05-26 10:36:01', '2026-05-26 10:36:01', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (444, 1, '11', '2026-05-26 10:36:02', '2026-05-26 10:36:02', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (445, 2, '22', '2026-05-26 10:36:03', '2026-05-26 10:36:03', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (446, 1, '11', '2026-05-26 10:36:05', '2026-05-26 10:36:05', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (447, 1, '11', '2026-05-26 10:36:09', '2026-05-26 10:36:09', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (448, 1, '11', '2026-05-26 10:36:13', '2026-05-26 10:36:13', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (449, 2, '22', '2026-05-26 10:36:14', '2026-05-26 10:36:14', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (450, 1, '11', '2026-05-26 10:36:17', '2026-05-26 10:36:17', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (451, 2, '22', '2026-05-26 10:36:21', '2026-05-26 10:36:21', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (452, 1, '11', '2026-05-26 10:36:24', '2026-05-26 10:36:24', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (453, 2, '22', '2026-05-26 10:36:25', '2026-05-26 10:36:25', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (454, 1, '11', '2026-05-26 10:36:25', '2026-05-26 10:36:25', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (455, 2, '22', '2026-05-26 10:36:26', '2026-05-26 10:36:26', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (456, 1, '11', '2026-05-26 10:36:27', '2026-05-26 10:36:27', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (457, 2, '22', '2026-05-26 10:36:28', '2026-05-26 10:36:28', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (458, 1, '11', '2026-05-26 10:36:28', '2026-05-26 10:36:28', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (459, 2, '22', '2026-05-26 10:36:29', '2026-05-26 10:36:29', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (460, 1, '11', '2026-05-26 10:37:26', '2026-05-26 10:37:26', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (461, 2, '22', '2026-05-26 10:37:27', '2026-05-26 10:37:27', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (462, 1, '11', '2026-05-26 10:37:28', '2026-05-26 10:37:28', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (463, 1, '11', '2026-05-26 10:37:30', '2026-05-26 10:37:30', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (464, 2, '22', '2026-05-26 10:37:30', '2026-05-26 10:37:30', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (465, 1, '11', '2026-05-26 10:43:03', '2026-05-26 10:43:03', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (466, 2, '22', '2026-05-26 10:43:03', '2026-05-26 10:43:03', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (467, 1, '11', '2026-05-26 10:43:04', '2026-05-26 10:43:04', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (468, 1, '11', '2026-05-26 10:43:06', '2026-05-26 10:43:06', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (469, 2, '22', '2026-05-26 10:43:07', '2026-05-26 10:43:07', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (470, 1, '11', '2026-05-26 10:43:08', '2026-05-26 10:43:08', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (471, 2, '22', '2026-05-26 10:43:08', '2026-05-26 10:43:08', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (472, 1, '11', '2026-05-26 10:43:12', '2026-05-26 10:43:12', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (473, 2, '22', '2026-05-26 10:43:13', '2026-05-26 10:43:13', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (474, 1, '11', '2026-05-26 10:43:14', '2026-05-26 10:43:14', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (475, 2, '22', '2026-05-26 10:43:14', '2026-05-26 10:43:14', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (476, 1, '11', '2026-05-26 10:43:16', '2026-05-26 10:43:16', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (477, 2, '22', '2026-05-26 10:43:16', '2026-05-26 10:43:16', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (478, 1, '11', '2026-05-26 10:43:17', '2026-05-26 10:43:17', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (479, 2, '22', '2026-05-26 10:43:18', '2026-05-26 10:43:18', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (480, 1, '11', '2026-05-26 10:43:19', '2026-05-26 10:43:19', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (481, 1, '11', '2026-05-26 10:48:37', '2026-05-26 10:48:37', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (482, 1, '11', '2026-05-26 10:48:40', '2026-05-26 10:48:40', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (483, 2, '22', '2026-05-26 10:48:41', '2026-05-26 10:48:41', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (484, 1, '11', '2026-05-26 10:48:45', '2026-05-26 10:48:45', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (485, 2, '22', '2026-05-26 10:48:46', '2026-05-26 10:48:46', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (486, 1, '11', '2026-05-26 10:52:54', '2026-05-26 10:52:54', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (487, 2, '22', '2026-05-26 10:52:55', '2026-05-26 10:52:55', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (488, 3, '33', '2026-05-26 11:31:27', '2026-05-26 11:31:27', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (489, 3, '33', '2026-05-26 11:31:28', '2026-05-26 11:31:28', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (490, 3, '33', '2026-05-26 11:31:28', '2026-05-26 11:31:28', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (491, 3, '33', '2026-05-26 11:31:29', '2026-05-26 11:31:29', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (492, 3, '33', '2026-05-26 11:31:38', '2026-05-26 11:31:38', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (493, 3, '33', '2026-05-26 11:31:40', '2026-05-26 11:31:40', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (494, 3, '33', '2026-05-26 11:31:42', '2026-05-26 11:31:42', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (495, 3, '33', '2026-05-26 11:31:42', '2026-05-26 11:31:42', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (496, 3, '33', '2026-05-26 11:31:42', '2026-05-26 11:31:42', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (497, 3, '33', '2026-05-26 11:31:43', '2026-05-26 11:31:43', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (498, 3, '33', '2026-05-26 11:31:44', '2026-05-26 11:31:44', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (499, 3, '33', '2026-05-26 11:31:45', '2026-05-26 11:31:45', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (500, 3, '33', '2026-05-26 11:31:46', '2026-05-26 11:31:46', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (501, 3, '33', '2026-05-26 11:31:46', '2026-05-26 11:31:46', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (502, 1, '11', '2026-05-26 12:49:11', '2026-05-26 12:49:11', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (503, 2, '22', '2026-05-26 12:49:14', '2026-05-26 12:49:14', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (504, 1, '11', '2026-05-26 12:49:15', '2026-05-26 12:49:15', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (505, 2, '22', '2026-05-26 12:49:16', '2026-05-26 12:49:16', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (506, 1, '11', '2026-05-26 12:49:32', '2026-05-26 12:49:32', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (507, 2, '22', '2026-05-26 12:49:32', '2026-05-26 12:49:32', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (508, 1, '11', '2026-05-26 12:50:56', '2026-05-26 12:50:56', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (509, 1, '11', '2026-05-26 12:50:58', '2026-05-26 12:50:58', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (510, 1, '11', '2026-05-26 12:51:01', '2026-05-26 12:51:01', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (511, 2, '22', '2026-05-26 12:51:02', '2026-05-26 12:51:02', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (512, 1, '11', '2026-05-26 12:51:03', '2026-05-26 12:51:03', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (513, 2, '22', '2026-05-26 12:51:03', '2026-05-26 12:51:03', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (514, 1, '11', '2026-05-26 12:51:07', '2026-05-26 12:51:07', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (515, 2, '22', '2026-05-26 12:51:08', '2026-05-26 12:51:08', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (516, 1, '11', '2026-05-26 12:51:08', '2026-05-26 12:51:08', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (517, 2, '22', '2026-05-26 12:51:09', '2026-05-26 12:51:09', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (518, 1, '11', '2026-05-26 12:51:09', '2026-05-26 12:51:09', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (519, 2, '22', '2026-05-26 12:51:10', '2026-05-26 12:51:10', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (520, 1, '11', '2026-05-26 12:51:12', '2026-05-26 12:51:12', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (521, 2, '22', '2026-05-26 12:51:13', '2026-05-26 12:51:13', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (522, 1, '11', '2026-05-26 13:02:27', '2026-05-26 13:02:27', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (523, 2, '22', '2026-05-26 13:02:31', '2026-05-26 13:02:31', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (524, 1, '11', '2026-05-26 13:02:32', '2026-05-26 13:02:32', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (525, 2, '22', '2026-05-29 10:45:09', '2026-05-29 10:45:09', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (526, 1, '11', '2026-05-29 10:45:10', '2026-05-29 10:45:10', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (527, 2, '22', '2026-05-29 10:45:10', '2026-05-29 10:45:10', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (528, 1, '11', '2026-05-29 10:45:11', '2026-05-29 10:45:11', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (529, 2, '22', '2026-05-29 10:56:07', '2026-05-29 10:56:07', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (530, 1, '11', '2026-05-29 10:56:15', '2026-05-29 10:56:15', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (531, 3, '33', '2026-05-29 10:56:19', '2026-05-29 10:56:19', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (532, 4, '66', '2026-05-29 10:56:20', '2026-05-29 10:56:20', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (533, 1, '11', '2026-05-29 10:56:36', '2026-05-29 10:56:36', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (534, 2, '22', '2026-05-29 10:57:49', '2026-05-29 10:57:49', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (535, 1, '11', '2026-05-29 10:57:51', '2026-05-29 10:57:51', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (536, 3, '33', '2026-05-29 10:57:53', '2026-05-29 10:57:53', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (537, 3, '33', '2026-05-29 11:11:37', '2026-05-29 11:11:37', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (538, 1, '11', '2026-05-29 11:13:53', '2026-05-29 11:13:53', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (539, 2, '22', '2026-05-29 11:13:54', '2026-05-29 11:13:54', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (540, 1, '11', '2026-05-29 11:13:55', '2026-05-29 11:13:55', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (541, 2, '22', '2026-05-29 11:13:56', '2026-05-29 11:13:56', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (542, 1, '11', '2026-05-29 11:13:57', '2026-05-29 11:13:57', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (543, 2, '22', '2026-05-29 11:13:57', '2026-05-29 11:13:57', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (544, 1, '11', '2026-05-29 11:13:58', '2026-05-29 11:13:58', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (545, 1, '11', '2026-05-29 11:22:55', '2026-05-29 11:22:55', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (546, 1, '11', '2026-05-29 11:22:57', '2026-05-29 11:22:57', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (547, 2, '22', '2026-05-29 11:22:58', '2026-05-29 11:22:58', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (548, 1, '11', '2026-05-29 11:22:59', '2026-05-29 11:22:59', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (549, 2, '22', '2026-05-29 11:23:01', '2026-05-29 11:23:01', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (550, 2, '22', '2026-05-29 11:23:02', '2026-05-29 11:23:02', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (551, 2, '22', '2026-05-29 11:23:03', '2026-05-29 11:23:03', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (552, 1, '11', '2026-05-29 11:25:32', '2026-05-29 11:25:32', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (553, 1, '11', '2026-05-29 11:25:34', '2026-05-29 11:25:34', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (554, 1, '11', '2026-05-29 11:25:37', '2026-05-29 11:25:37', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (555, 1, '11', '2026-05-29 11:32:12', '2026-05-29 11:32:12', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (556, 2, '22', '2026-05-29 11:32:14', '2026-05-29 11:32:14', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (557, 2, '22', '2026-05-29 11:32:16', '2026-05-29 11:32:16', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (558, 2, '22', '2026-05-29 11:32:19', '2026-05-29 11:32:19', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (559, 3, '33', '2026-05-29 11:34:09', '2026-05-29 11:34:09', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (560, 3, '33', '2026-05-29 11:34:31', '2026-05-29 11:34:31', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (561, 3, '33', '2026-05-29 11:35:08', '2026-05-29 11:35:08', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (562, 3, '33', '2026-05-29 11:35:10', '2026-05-29 11:35:10', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (563, 3, '33', '2026-05-29 11:35:22', '2026-05-29 11:35:22', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (564, 3, '33', '2026-05-29 11:35:43', '2026-05-29 11:35:43', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (565, 3, '33', '2026-05-29 11:35:46', '2026-05-29 11:35:46', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (566, 3, '33', '2026-05-29 11:35:59', '2026-05-29 11:35:59', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (567, 3, '33', '2026-05-29 11:37:23', '2026-05-29 11:37:23', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (568, 3, '33', '2026-05-29 11:40:30', '2026-05-29 11:40:30', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (569, 2, '22', '2026-05-29 11:45:08', '2026-05-29 11:45:08', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (570, 1, '11', '2026-05-29 11:45:09', '2026-05-29 11:45:09', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (571, 3, '33', '2026-05-29 11:45:10', '2026-05-29 11:45:10', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (572, 3, '33', '2026-05-29 11:45:10', '2026-05-29 11:45:10', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (573, 3, '33', '2026-05-29 11:45:11', '2026-05-29 11:45:11', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (574, 2, '22', '2026-05-29 11:45:12', '2026-05-29 11:45:12', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (575, 2, '22', '2026-05-29 11:45:13', '2026-05-29 11:45:13', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (576, 2, '22', '2026-05-29 11:45:14', '2026-05-29 11:45:14', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (577, 2, '22', '2026-05-29 11:45:15', '2026-05-29 11:45:15', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (578, 3, '33', '2026-05-29 11:47:37', '2026-05-29 11:47:37', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (579, 3, '33', '2026-05-29 11:47:41', '2026-05-29 11:47:41', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (580, 3, '33', '2026-05-29 11:47:45', '2026-05-29 11:47:45', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (581, 3, '33', '2026-05-29 11:47:46', '2026-05-29 11:47:46', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (582, 3, '33', '2026-05-29 11:47:47', '2026-05-29 11:47:47', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (583, 3, '33', '2026-05-29 11:47:48', '2026-05-29 11:47:48', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (584, 3, '33', '2026-05-29 11:47:48', '2026-05-29 11:47:48', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (585, 3, '33', '2026-05-29 11:47:49', '2026-05-29 11:47:49', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (586, 3, '33', '2026-05-29 11:47:50', '2026-05-29 11:47:50', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (587, 3, '33', '2026-05-29 11:48:28', '2026-05-29 11:48:28', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (588, 1, '11', '2026-05-29 12:12:46', '2026-05-29 12:12:46', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (589, 2, '22', '2026-05-29 12:12:48', '2026-05-29 12:12:48', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (590, 1, '11', '2026-05-29 12:12:48', '2026-05-29 12:12:48', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (591, 2, '22', '2026-05-29 12:12:49', '2026-05-29 12:12:49', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (592, 1, '11', '2026-05-29 12:12:49', '2026-05-29 12:12:49', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (593, 13, '23123', '2026-05-29 15:19:12', '2026-05-29 15:19:12', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (594, 13, '23123', '2026-05-29 15:19:20', '2026-05-29 15:19:20', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (595, 13, '23123', '2026-05-29 15:19:22', '2026-05-29 15:19:22', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (596, 13, '23123', '2026-05-29 15:20:25', '2026-05-29 15:20:25', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (597, 13, '23123', '2026-05-29 15:20:27', '2026-05-29 15:20:27', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (598, 3, '33', '2026-05-29 15:25:31', '2026-05-29 15:25:31', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (599, 3, '33', '2026-05-29 15:31:45', '2026-05-29 15:31:45', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (600, 3, '33', '2026-05-29 15:31:49', '2026-05-29 15:31:49', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (601, 3, '33', '2026-05-29 15:31:50', '2026-05-29 15:31:50', NULL, NULL, NULL);
-INSERT INTO `egate_logs` VALUES (602, 3, '33', '2026-05-29 15:31:51', '2026-05-29 15:31:51', NULL, NULL, NULL);
+INSERT INTO `egate_logs` VALUES (1, 2, '22', '2026-05-19 23:45:18', '2026-05-19 23:45:18', NULL, NULL);
+INSERT INTO `egate_logs` VALUES (2, 1, '11', '2026-05-19 23:45:19', '2026-05-19 23:45:19', NULL, NULL);
+INSERT INTO `egate_logs` VALUES (3, 3, '33', '2026-05-19 23:45:19', '2026-05-19 23:45:19', NULL, NULL);
+INSERT INTO `egate_logs` VALUES (658, 3, '33', '2026-06-05 15:47:53', '2026-06-05 15:47:53', '15:47:53', '2026-06-05');
+INSERT INTO `egate_logs` VALUES (659, 3, '33', '2026-06-05 15:47:55', '2026-06-05 15:47:55', '15:47:55', '2026-06-05');
+INSERT INTO `egate_logs` VALUES (660, 3, '33', '2026-06-05 15:47:57', '2026-06-05 15:47:57', '15:47:57', '2026-06-05');
+INSERT INTO `egate_logs` VALUES (661, 2, '22', '2026-06-06 00:32:45', '2026-06-06 00:32:45', '00:32:45', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (662, 1, '11', '2026-06-06 00:32:46', '2026-06-06 00:32:46', '00:32:46', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (663, 3, '33', '2026-06-06 00:32:47', '2026-06-06 00:32:47', '00:32:47', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (664, 2, '22', '2026-06-06 00:32:48', '2026-06-06 00:32:48', '00:32:48', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (665, 1, '11', '2026-06-06 00:32:48', '2026-06-06 00:32:48', '00:32:48', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (666, 2, '22', '2026-06-06 00:32:49', '2026-06-06 00:32:49', '00:32:49', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (667, 3, '33', '2026-06-06 00:32:50', '2026-06-06 00:32:50', '00:32:50', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (668, 1, '11', '2026-06-06 00:32:50', '2026-06-06 00:32:50', '00:32:50', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (669, 1, '11', '2026-06-06 00:32:57', '2026-06-06 00:32:57', '00:32:57', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (670, 2, '22', '2026-06-06 00:32:57', '2026-06-06 00:32:57', '00:32:57', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (671, 3, '33', '2026-06-06 00:32:58', '2026-06-06 00:32:58', '00:32:58', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (672, 1, '11', '2026-06-06 00:32:59', '2026-06-06 00:32:59', '00:32:59', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (673, 2, '22', '2026-06-06 00:32:59', '2026-06-06 00:32:59', '00:32:59', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (674, 3, '33', '2026-06-06 00:33:00', '2026-06-06 00:33:00', '00:33:00', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (675, 1, '11', '2026-06-06 00:43:12', '2026-06-06 00:43:12', '00:43:12', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (676, 2, '22', '2026-06-06 00:43:17', '2026-06-06 00:43:17', '00:43:17', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (677, 1, '11', '2026-06-06 00:43:17', '2026-06-06 00:43:17', '00:43:17', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (678, 2, '22', '2026-06-06 00:43:18', '2026-06-06 00:43:18', '00:43:18', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (679, 1, '11', '2026-06-06 00:43:19', '2026-06-06 00:43:19', '00:43:19', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (680, 2, '22', '2026-06-06 00:43:19', '2026-06-06 00:43:19', '00:43:19', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (681, 1, '11', '2026-06-06 00:43:20', '2026-06-06 00:43:20', '00:43:20', '2026-06-06');
+INSERT INTO `egate_logs` VALUES (682, 2, '22', '2026-06-06 00:43:22', '2026-06-06 00:43:22', '00:43:22', '2026-06-06');
 
 -- ----------------------------
 -- Table structure for failed_jobs
@@ -453,7 +239,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of migrations
@@ -474,6 +260,7 @@ INSERT INTO `migrations` VALUES (13, '2026_05_25_000001_rename_time_login_permis
 INSERT INTO `migrations` VALUES (14, '2026_05_28_000001_rename_data_permissions_to_registration', 3);
 INSERT INTO `migrations` VALUES (15, '2026_05_29_000001_add_gatepass_no_to_egate_data_table', 3);
 INSERT INTO `migrations` VALUES (16, '2026_06_01_000001_rename_time_permissions_to_login_logout', 3);
+INSERT INTO `migrations` VALUES (17, '2026_06_05_000001_add_status_to_egate_logs_table', 4);
 
 -- ----------------------------
 -- Table structure for model_has_permissions
@@ -788,9 +575,10 @@ CREATE TABLE `sessions`  (
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('aajABMv3x89ZlhiE8K7TwssXLAyEOmwvhgEIbTWS', 1, '192.168.254.109', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidjZiNTJDdU16VUR3QnhNbjYyeDU2dzREYWE1a3BTSFQ4dW1heElzYSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozODoiaHR0cDovLzE5Mi4xNjguMjU0LjExMDo4MDAwL2FkbWluL2xvZ3MiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czo0MzoiaHR0cDovLzE5Mi4xNjguMjU0LjExMDo4MDAwL2FkbWluL2Rhc2hib2FyZCI7czo1OiJyb3V0ZSI7czoxNToiYWRtaW4uZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1780627251);
-INSERT INTO `sessions` VALUES ('tU3JtJH0cDjoELJQyAYAIqfIaY9BuHYskKDr7b3p', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVERkM1h0RVZZRWxBalVCV1V2S0NSdW11N0lFUTZPM0JnZ2V3QnI3TiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2RhdGEiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czoyMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwIjtzOjU6InJvdXRlIjtzOjQ6ImhvbWUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1780297631);
-INSERT INTO `sessions` VALUES ('wHv0ultHxAEs5xIK7FukMIXoHL429PrHPF1YDCDl', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRTFNNTJISmRJMlFIaFNQU1h5NlpPSlBaT2t2NFRNbEk3ZjlMbUR6eSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXRhL2ZldGNoP25hbWVfc29ydD1hc2MmcGFnZT0xIjtzOjU6InJvdXRlIjtzOjE2OiJhZG1pbi5kYXRhLmZldGNoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1780295502);
+INSERT INTO `sessions` VALUES ('bv90DWu4OW6ppfQ3iqp9t162LziE2Cqvt7UaLYut', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiR1VPTEFRUVI3RnUxeEFzU29VQlh6T0VTNGtqaER2VnAwbWFMcWkzQyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9nZXQtc3R1ZGVudHMvaW4iO3M6NToicm91dGUiO3M6MTU6ImdldC1zdHVkZW50cy5pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1780681520);
+INSERT INTO `sessions` VALUES ('G72YsCbObn04QgaFr4HzqdNXKJesU18sdGQuleNB', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.8457', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWE9lQzk1MXZaaWxSVlBXMENrMnRvaHV5NXRLc0FqNFZkVEN4bkE3WiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2xvZ3MiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozMjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2xvZ3MiO3M6NToicm91dGUiO3M6MTA6ImFkbWluLmxvZ3MiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1780681037);
+INSERT INTO `sessions` VALUES ('uwoI7l75B7K22dpYN9zYMrbavKxVt3uSpp7V0A1J', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiR0xYd1Y5SHZSdWRScUh6NWNWNzhGYzhDSXpJTzEyNTA4Q2s5RWszUSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MTIxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4vbG9ncy9mZXRjaD9kYXRlX2Zyb209MjAyNi0wNi0wNlQwMCUzQTAwJmRhdGVfdG89MjAyNi0wNi0wNlQwMCUzQTQzJTNBMjcmcGFnZT0xJnRpbWVfc29ydD1kZXNjIjtzOjU6InJvdXRlIjtzOjE2OiJhZG1pbi5sb2dzLmZldGNoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1780681407);
+INSERT INTO `sessions` VALUES ('WSYGy1f3277FogFCDIIQ7WZm7HYxnMNdxdSxOsxX', NULL, '127.0.0.1', 'curl/8.19.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZTBxd2M4OWg4SUpQWkM0bmQydUtxQUZUNGszNkE2UlV4bkRIVklMRSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoyMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1780681047);
 
 -- ----------------------------
 -- Table structure for users

@@ -310,16 +310,18 @@
 
                 <table class="logs-table">
                     <colgroup>
-                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 13%">
+                        <col style="width: 17%">
+                        <col style="width: 17%">
                         <col style="width: 18%">
-                        <col style="width: 18%">
-                        <col style="width: 20%">
-                        <col style="width: 18%">
-                        <col style="width: 18%">
+                        <col style="width: 14%">
+                        <col style="width: 14%">
                     </colgroup>
                     <thead>
                         <tr>
                             <th class="text-center">No.</th>
+                            <th>Session</th>
                             <th>Login</th>
                             <th>Logout</th>
                             <th>Time Consumed</th>
@@ -331,6 +333,7 @@
                         @forelse ($report['logs'] as $index => $log)
                             <tr>
                                 <td class="text-center">{{ $index + 1 }}</td>
+                                <td>{{ $log['session'] }}</td>
                                 <td>{{ $log['login'] }}</td>
                                 <td>{{ $log['logout'] }}</td>
                                 <td>{{ $log['time_consumed'] }}</td>
@@ -339,7 +342,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">No logs found.</td>
+                                <td colspan="7" class="text-center">No logs found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -410,18 +413,20 @@
             <table class="logs-table">
                 <colgroup>
                     <col style="width: 7%">
-                    <col style="width: 14%">
-                    <col style="width: 27%">
-                    <col style="width: 13%">
-                    <col style="width: 13%">
-                    <col style="width: 16%">
+                    <col style="width: 12%">
+                    <col style="width: 25%">
                     <col style="width: 10%">
+                    <col style="width: 12%">
+                    <col style="width: 12%">
+                    <col style="width: 15%">
+                    <col style="width: 7%">
                 </colgroup>
                 <thead>
                     <tr>
                         <th class="text-center">No.</th>
                         <th>ID No.</th>
                         <th>Name</th>
+                        <th>Session</th>
                         <th>Login</th>
                         <th>Logout</th>
                         <th>Time Consumed</th>
@@ -434,6 +439,7 @@
                             <td class="text-center">{{ $index + 1 }}</td>
                             <td>{{ $log['student_id'] }}</td>
                             <td>{{ $log['name'] }}</td>
+                            <td>{{ $log['session'] }}</td>
                             <td>{{ $log['login'] }}</td>
                             <td>{{ $log['logout'] }}</td>
                             <td>{{ $log['time_consumed'] }}</td>
@@ -441,7 +447,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center">No logs found.</td>
+                            <td colspan="8" class="text-center">No logs found.</td>
                         </tr>
                     @endforelse
                 </tbody>

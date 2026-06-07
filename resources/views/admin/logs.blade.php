@@ -116,6 +116,7 @@
                             <th class="px-3 py-2.5">No.</th>
                             <th class="px-3 py-2.5">ID</th>
                             <th class="px-3 py-2.5">Name</th>
+                            <th class="px-3 py-2.5">Session</th>
                             <th class="px-3 py-2.5">Login</th>
                             <th class="px-3 py-2.5">Logout</th>
                             <th class="px-3 py-2.5">Time Consumed</th>
@@ -126,7 +127,7 @@
 
                     <tbody id="logs-table-body" class="divide-y divide-black">
                         <tr>
-                            <td colspan="8" class="px-3 py-5 text-center text-slate-500">Loading logs...</td>
+                            <td colspan="9" class="px-3 py-5 text-center text-slate-500">Loading logs...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -336,10 +337,12 @@
     function setDefaultDateFilters() {
         const now = new Date();
         const startOfToday = new Date(now);
+        const endOfToday = new Date(now);
         startOfToday.setHours(0, 0, 0, 0);
+        endOfToday.setHours(23, 59, 59, 0);
 
         filterDateFrom.value = formatDateTimeFilterValue(startOfToday);
-        filterDateTo.value = formatDateTimeFilterValue(now);
+        filterDateTo.value = formatDateTimeFilterValue(endOfToday);
     }
 
     function resetLogFilters() {
@@ -428,7 +431,7 @@
         if (!logs.length) {
             logsTableBody.innerHTML = `
                 <tr>
-                    <td colspan="8" class="px-3 py-5 text-center text-slate-500">No logs found.</td>
+                    <td colspan="9" class="px-3 py-5 text-center text-slate-500">No logs found.</td>
                 </tr>
             `;
             return;
@@ -448,6 +451,7 @@
                 <td class="px-3 py-2.5">${from + index}</td>
                 <td class="px-3 py-2.5">${escapeHtml(log.student_id)}</td>
                 <td class="px-3 py-2.5">${escapeHtml(log.name)}</td>
+                <td class="px-3 py-2.5">${escapeHtml(log.session)}</td>
                 <td class="px-3 py-2.5">${escapeHtml(log.login)}</td>
                 <td class="px-3 py-2.5">${escapeHtml(log.logout)}</td>
                 <td class="px-3 py-2.5">${escapeHtml(log.time_consumed)}</td>
@@ -507,7 +511,7 @@
 
         logsTableBody.innerHTML = `
             <tr>
-                <td colspan="8" class="px-3 py-5 text-center text-slate-500">Loading logs...</td>
+                <td colspan="9" class="px-3 py-5 text-center text-slate-500">Loading logs...</td>
             </tr>
         `;
 
@@ -533,7 +537,7 @@
         } catch (error) {
             logsTableBody.innerHTML = `
                 <tr>
-                    <td colspan="8" class="px-3 py-5 text-center text-rose-600">Unable to load logs right now.</td>
+                    <td colspan="9" class="px-3 py-5 text-center text-rose-600">Unable to load logs right now.</td>
                 </tr>
             `;
             logsTableSummary.textContent = 'Log list unavailable';

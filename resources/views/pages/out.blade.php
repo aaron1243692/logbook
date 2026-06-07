@@ -202,14 +202,6 @@ class="w-full h-full">
                     >
                         Login
                     </a>
-
-                    <a
-                        href="{{ route('out') }}"
-                        data-shortcut-option
-                        class="eg-kiosk-shortcut bg-rose-600 hover:bg-rose-700 outline-none transition-all duration-200 focus:border-rose-200 focus:ring-4 focus:ring-rose-200/70"
-                    >
-                        Logout
-                    </a>
                 </div>
             </div>
         </div>
@@ -260,8 +252,8 @@ class="w-full h-full">
             let activeShortcutIndex = 0;
             let activeEntryStatus = defaultEntryStatus;
             let pinnedShortcutStudent = null;
-            const shortcutBaseColors = ['bg-emerald-600', 'bg-rose-600'];
-            const shortcutHoverColors = ['hover:bg-emerald-700', 'hover:bg-rose-700'];
+            const shortcutBaseColors = ['bg-emerald-600'];
+            const shortcutHoverColors = ['hover:bg-emerald-700'];
 
             const timeFormatter = new Intl.DateTimeFormat('en-PH', {
                 hour: '2-digit',
@@ -805,7 +797,7 @@ class="w-full h-full">
                     event.preventDefault();
                     event.stopPropagation();
                     event.stopImmediatePropagation();
-                    showShortcutModal();
+                    window.location.href = @json(route('in'));
                 }, true);
             }
 
@@ -880,7 +872,7 @@ class="w-full h-full">
                         if (event.ctrlKey && event.key === 'Enter') {
                             event.preventDefault();
                             event.stopPropagation();
-                            showShortcutModal();
+                            window.location.href = @json(route('in'));
                             return;
                         }
 
@@ -913,7 +905,7 @@ class="w-full h-full">
 
                     if (event.ctrlKey && event.key === 'Enter') {
                         event.preventDefault();
-                        showShortcutModal();
+                        window.location.href = @json(route('in'));
                         return;
                     }
 

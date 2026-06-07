@@ -2,10 +2,10 @@
     <div class="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-3 shadow-2xl">
         <div class="mb-4 text-center">
             <h3 class="text-xl font-bold text-stone-900">Quick Open</h3>
-            <p class="mt-2 text-sm text-slate-600">Use arrow keys, then press Enter.</p>
+            <p class="mt-2 text-sm text-slate-600">Press Ctrl+Enter to open the log scanner.</p>
         </div>
 
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-1 gap-2">
             @if (canAccessWithParent(auth()->user(), 'login'))
             <a
                 href="{{ route('in') }}"
@@ -17,19 +17,6 @@
                 <span class="text-base font-bold uppercase tracking-wide">Login</span>
             </a>
             @endif
-
-            @if (canAccessWithParent(auth()->user(), 'logout'))
-            <a
-                href="{{ route('out') }}"
-                data-admin-shortcut-option
-                data-base-class="bg-rose-600"
-                data-hover-class="hover:bg-rose-700"
-                class="flex min-h-[3rem] text-decoration-none flex-col items-center justify-center rounded-2xl border-2 border-transparent bg-rose-600 px-5 py-3 text-center text-white shadow-lg outline-none transition-all duration-200 hover:bg-rose-700 focus:border-rose-200 focus:ring-4 focus:ring-rose-200/70"
-            >
-                <span class="text-base font-bold uppercase tracking-wide">Logout</span>
-            </a>
-            @endif
-
         </div>
     </div>
 </div>
@@ -103,7 +90,7 @@
 
             if (event.ctrlKey && event.key === 'Enter') {
                 event.preventDefault();
-                showShortcutModal();
+                window.location.href = @json(route('in'));
                 return;
             }
 

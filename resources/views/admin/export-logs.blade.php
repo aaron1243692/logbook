@@ -4,6 +4,7 @@
             <th>No.</th>
             <th>ID</th>
             <th>Name</th>
+            <th>Session</th>
             <th>Login</th>
             <th>Logout</th>
             <th>Time Consumed</th>
@@ -16,6 +17,7 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $log['student_id'] }}</td>
                 <td>{{ $log['name'] }}</td>
+                <td>{{ $log['session'] }}</td>
                 <td>{{ $log['login'] }}</td>
                 <td>{{ $log['logout'] }}</td>
                 <td>{{ $log['time_consumed'] }}</td>
@@ -23,7 +25,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="7">No logs found.</td>
+                <td colspan="8">No logs found.</td>
             </tr>
         @endforelse
     </tbody>

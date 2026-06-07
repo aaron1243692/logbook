@@ -272,11 +272,11 @@ class LogController extends Controller
     {
         $direction = $this->resolveTimeSortDirection($request);
 
-        return $this->buildScanLogsQuery($request)
+        $pairedLogs = $this->buildScanLogsQuery($request)
             ->reorder()
-            ->orderBy('scan_date')
+            ->orderByRaw('COALESCE(egate_logs.date, DATE(egate_logs.created_at))')
             ->orderBy('egate_logs.student_id')
-            ->orderBy('scan_time')
+            ->orderByRaw('COALESCE(egate_logs.time, TIME(egate_logs.created_at))')
             ->orderBy('egate_logs.id')
             ->get()
             ->unique('id')
@@ -286,15 +286,23 @@ class LogController extends Controller
             })
             ->flatMap(function ($studentDayLogs) {
                 return $studentDayLogs
+                    ->sortBy([
+                        ['scan_date', 'asc'],
+                        ['scan_time', 'asc'],
+                        ['id', 'asc'],
+                    ])
                     ->values()
                     ->chunk(2)
-                    ->map(function ($pair) {
+                    ->values()
+                    ->map(function ($pair, $index) {
+                        $pair = $pair->values();
                         $login = $pair->first();
                         $logout = $pair->get(1);
                         $name = trim((string) $login->name);
 
                         return [
                             'id' => $login->id,
+                            'session' => $index + 1,
                             'student_id' => $login->student_id,
                             'lrn' => $login->lrn,
                             'name' => $name !== '' ? $name : $login->student_id,
@@ -306,16 +314,25 @@ class LogController extends Controller
                             'date' => $this->formatLogDate($login->scan_date),
                             'sort_date' => $login->scan_date,
                             'sort_time' => $login->scan_time,
+                            'sort_id' => $login->id,
                         ];
                     });
             })
-            ->sortBy([
-                ['sort_date', $direction],
-                ['sort_time', $direction],
-                ['id', $direction],
+            ->values();
+
+        $pairedLogs = $direction === 'asc'
+            ? $pairedLogs->sortBy([
+                ['sort_date', 'asc'],
+                ['sort_time', 'asc'],
+                ['sort_id', 'asc'],
             ])
+            : $pairedLogs->sortByDesc(function (array $log) {
+                return $log['sort_date'] . ' ' . $log['sort_time'] . ' ' . str_pad((string) $log['sort_id'], 20, '0', STR_PAD_LEFT);
+            });
+
+        return $pairedLogs
             ->map(function (array $log) {
-                unset($log['sort_date'], $log['sort_time']);
+                unset($log['sort_date'], $log['sort_time'], $log['sort_id']);
 
                 return $log;
             })

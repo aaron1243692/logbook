@@ -69,14 +69,6 @@
                 >
                     Login
                 </a>
-
-                <a
-                    href="{{ route('out') }}"
-                    data-shortcut-option
-                    class="eg-auth-shortcut bg-rose-600 hover:bg-rose-700 outline-none transition-all duration-200 focus:border-rose-200 focus:ring-4 focus:ring-rose-200/70"
-                >
-                    Logout
-                </a>
             </div>
         </div>
     </div>
@@ -91,9 +83,10 @@
     const loginInput = document.getElementById('login');
     const passwordInput = document.getElementById('password');
     let activeShortcutIndex = 0;
-    const shortcutBaseColors = ['bg-emerald-600', 'bg-rose-600'];
-    const shortcutHoverColors = ['hover:bg-emerald-700', 'hover:bg-rose-700'];
+    const shortcutBaseColors = ['bg-emerald-600'];
+    const shortcutHoverColors = ['hover:bg-emerald-700'];
     const csrfTokenUrl = @json(route('csrf.token'));
+    const scannerUrl = @json(route('in'));
 
     function readCsrfToken() {
         return document.querySelector('meta[name="csrf-token"]')?.content || '';
@@ -250,7 +243,7 @@
             if (event.ctrlKey && event.key === 'Enter') {
                 event.preventDefault();
                 event.stopPropagation();
-                showShortcutModal();
+                window.location.href = scannerUrl;
             }
         });
     });
@@ -262,7 +255,7 @@
 
         if (event.ctrlKey && event.key === 'Enter') {
             event.preventDefault();
-            showShortcutModal();
+            window.location.href = scannerUrl;
             return;
         }
 

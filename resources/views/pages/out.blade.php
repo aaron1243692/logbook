@@ -73,14 +73,14 @@ class="w-full h-full">
 
                     <div class="eg-kiosk-details">
                         <span id="current-status" class="px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full bg-slate-100 text-stone-700 border border-slate-200">
-                            Pending...
+                            -- --
                         </span>
-                        <p><span class="eg-kiosk-label">Name</span><span id="current-name" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">ID No.</span><span id="current-id" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">Grade Level</span><span id="current-grade" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">Department</span><span id="current-department" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">Course</span><span id="current-course" class="eg-kiosk-value">Pending...</span></p>
-                        <p><span class="eg-kiosk-label">Time</span><span id="current-time" class="eg-kiosk-value">Pending...</span></p>
+                        <p><span class="eg-kiosk-label">Name</span><span id="current-name" class="eg-kiosk-value">-- --</span></p>
+                        <p><span class="eg-kiosk-label">ID No.</span><span id="current-id" class="eg-kiosk-value">-- --</span></p>
+                        <p><span class="eg-kiosk-label">Grade Level</span><span id="current-grade" class="eg-kiosk-value">-- --</span></p>
+                        <p><span class="eg-kiosk-label">Department</span><span id="current-department" class="eg-kiosk-value">-- --</span></p>
+                        <p><span class="eg-kiosk-label">Course</span><span id="current-course" class="eg-kiosk-value">-- --</span></p>
+                        <p><span class="eg-kiosk-label">Time</span><span id="current-time" class="eg-kiosk-value">-- --</span></p>
                     </div>
                 </div>
 
@@ -144,14 +144,14 @@ class="w-full h-full">
 
                         <div class="eg-kiosk-details">
                             <span id="previous-status" class="px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full bg-slate-100 text-stone-700 border border-slate-200">
-                                Pending...
+                                -- --
                             </span>
-                            <p><span class="eg-kiosk-label">Name</span><span id="previous-name" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">ID No.</span><span id="previous-id" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">Grade Level</span><span id="previous-grade" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">Department</span><span id="previous-department" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">Course</span><span id="previous-course" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">Time</span><span id="previous-time" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Name</span><span id="previous-name" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">ID No.</span><span id="previous-id" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">Grade Level</span><span id="previous-grade" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">Department</span><span id="previous-department" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">Course</span><span id="previous-course" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">Time</span><span id="previous-time" class="eg-kiosk-value">-- --</span></p>
                         </div>
                     </div>
                 </section>
@@ -167,14 +167,14 @@ class="w-full h-full">
 
                         <div class="eg-kiosk-details">
                             <span id="previous2-status" class="px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full bg-slate-100 text-stone-700 border border-slate-200">
-                                Pending...
+                                -- --
                             </span>
-                            <p><span class="eg-kiosk-label">Name</span><span id="previous2-name" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">ID No.</span><span id="previous2-id" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">Grade Level</span><span id="previous2-grade" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">Department</span><span id="previous2-department" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">Course</span><span id="previous2-course" class="eg-kiosk-value">Pending...</span></p>
-                            <p><span class="eg-kiosk-label">Time</span><span id="previous2-time" class="eg-kiosk-value">Pending...</span></p>
+                            <p><span class="eg-kiosk-label">Name</span><span id="previous2-name" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">ID No.</span><span id="previous2-id" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">Grade Level</span><span id="previous2-grade" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">Department</span><span id="previous2-department" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">Course</span><span id="previous2-course" class="eg-kiosk-value">-- --</span></p>
+                            <p><span class="eg-kiosk-label">Time</span><span id="previous2-time" class="eg-kiosk-value">-- --</span></p>
                         </div>
                     </div>
                 </section>
@@ -455,15 +455,15 @@ class="w-full h-full">
 
                 imageEl.src = placeholderImage;
                 imageEl.alt = 'Pending student image';
-                statusEl.textContent = 'Pending...';
+                statusEl.textContent = '-- --';
                 statusEl.className = 'px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full border bg-slate-100 text-stone-700 border-slate-200';
 
-                document.getElementById(`${prefix}-name`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-id`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-grade`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-department`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-course`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-time`).textContent = 'Pending...';
+                document.getElementById(`${prefix}-name`).textContent = '-- --';
+                document.getElementById(`${prefix}-id`).textContent = '-- --';
+                document.getElementById(`${prefix}-grade`).textContent = '-- --';
+                document.getElementById(`${prefix}-department`).textContent = '-- --';
+                document.getElementById(`${prefix}-course`).textContent = '-- --';
+                document.getElementById(`${prefix}-time`).textContent = '-- --';
             }
 
             function fillStudent(prefix, student) {
@@ -504,17 +504,17 @@ class="w-full h-full">
                     statusEl.classList.add('bg-slate-100', 'text-stone-700', 'border-slate-200');
                 }
 
-                document.getElementById(`${prefix}-name`).textContent = student.student_name || student.name || 'Pending...';
-                document.getElementById(`${prefix}-id`).textContent = student.student_id || student.student_number || student.lrn || 'Pending...';
-                document.getElementById(`${prefix}-grade`).textContent = student.year_level || student.grade_level || 'Pending...';
-                document.getElementById(`${prefix}-department`).textContent = student.department || 'Pending...';
-                document.getElementById(`${prefix}-course`).textContent = student.course_name || student.course || 'Pending...';
+                document.getElementById(`${prefix}-name`).textContent = student.student_name || student.name || '-- --';
+                document.getElementById(`${prefix}-id`).textContent = student.student_id || student.student_number || student.lrn || '-- --';
+                document.getElementById(`${prefix}-grade`).textContent = student.year_level || student.grade_level || '-- --';
+                document.getElementById(`${prefix}-department`).textContent = student.department || '-- --';
+                document.getElementById(`${prefix}-course`).textContent = student.course_name || student.course || '-- --';
                 document.getElementById(`${prefix}-time`).textContent = formatLogTime(student.logged_at);
             }
 
             function formatLogTime(value) {
                 if (!value) {
-                    return 'Pending...';
+                    return '-- --';
                 }
 
                 const date = new Date(value);

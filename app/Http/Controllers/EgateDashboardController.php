@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Carbon\CarbonImmutable;
 
 class EgateDashboardController extends Controller
 {
@@ -59,12 +60,15 @@ class EgateDashboardController extends Controller
 
     public function buildStudentPayload(string $statusGroup)
     {
+        $today = CarbonImmutable::now(config('app.timezone'))->toDateString();
+
         return DB::table('egate_logs')
             ->leftJoin('egate_data', function ($join) {
                 $join
                     ->on('egate_data.id', '=', 'egate_logs.egate_data_id')
                     ->orOn('egate_data.student_number', '=', 'egate_logs.student_id');
             })
+            ->whereDate(DB::raw('COALESCE(egate_logs.date, egate_logs.created_at)'), $today)
             ->orderByDesc(DB::raw("COALESCE(CONCAT(egate_logs.date, ' ', egate_logs.time), egate_logs.created_at)"))
             ->select([
                 'egate_logs.id as log_id',

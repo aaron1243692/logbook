@@ -96,14 +96,14 @@ class="w-full h-full">
 
                     <div class="flex flex-col gap-0 text-md text-stone-700">
                         <span id="current-status" class="px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full bg-slate-100 text-stone-700 border border-slate-200">
-                            Pending...
+                            -- --
                         </span>
-                        <p><span class="text-stone-500">Name: </span><span id="current-name" class="text-stone-900">Pending...</span></p>
-                        <p><span class="text-stone-500">ID No: </span><span id="current-id" class="text-stone-800">Pending...</span></p>
-                        <p><span class="text-stone-500">Grade Level: </span><span id="current-grade" class="text-stone-800">Pending...</span></p>
-                        <p><span class="text-stone-500">Department: </span><span id="current-department" class="text-stone-800">Pending...</span></p>
-                        <p><span class="text-stone-500">Course: </span><span id="current-course" class="text-stone-800">Pending...</span></p>
-                        <p><span class="text-stone-500">Time: </span><span id="current-time" class="text-stone-800">Pending...</span></p>
+                        <p><span class="text-stone-500">Name: </span><span id="current-name" class="text-stone-900">-- --</span></p>
+                        <p><span class="text-stone-500">ID No: </span><span id="current-id" class="text-stone-800">-- --</span></p>
+                        <p><span class="text-stone-500">Grade Level: </span><span id="current-grade" class="text-stone-800">-- --</span></p>
+                        <p><span class="text-stone-500">Department: </span><span id="current-department" class="text-stone-800">-- --</span></p>
+                        <p><span class="text-stone-500">Course: </span><span id="current-course" class="text-stone-800">-- --</span></p>
+                        <p><span class="text-stone-500">Time: </span><span id="current-time" class="text-stone-800">-- --</span></p>
                     </div>
 
                 </div>
@@ -176,14 +176,14 @@ class="w-full h-full">
 
                     <div class="flex flex-col gap-0 text-md text-stone-700">
                         <span id="previous-status" class="px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full bg-slate-100 text-stone-700 border border-slate-200">
-                            Pending...
+                            -- --
                         </span>
-                        <p><span class="text-stone-500">Name: </span><span id="previous-name" class="text-stone-900">Pending...</span></p>
-                        <p><span class="text-stone-500">ID No: </span><span id="previous-id" class="text-stone-800">Pending...</span></p>
-                        <p><span class="text-stone-500">Grade Level: </span><span id="previous-grade" class="text-stone-800">Pending...</span></p>
-                        <p><span class="text-stone-500">Department: </span><span id="previous-department" class="text-stone-800">Pending...</span></p>
-                        <p><span class="text-stone-500">Course: </span><span id="previous-course" class="text-stone-800">Pending...</span></p>
-                        <p><span class="text-stone-500">Time: </span><span id="previous-time" class="text-stone-800">Pending...</span></p>
+                        <p><span class="text-stone-500">Name: </span><span id="previous-name" class="text-stone-900">-- --</span></p>
+                        <p><span class="text-stone-500">ID No: </span><span id="previous-id" class="text-stone-800">-- --</span></p>
+                        <p><span class="text-stone-500">Grade Level: </span><span id="previous-grade" class="text-stone-800">-- --</span></p>
+                        <p><span class="text-stone-500">Department: </span><span id="previous-department" class="text-stone-800">-- --</span></p>
+                        <p><span class="text-stone-500">Course: </span><span id="previous-course" class="text-stone-800">-- --</span></p>
+                        <p><span class="text-stone-500">Time: </span><span id="previous-time" class="text-stone-800">-- --</span></p>
                     </div>
                 </div>
             </div>
@@ -464,15 +464,15 @@ class="w-full h-full">
                 const statusEl = document.getElementById(`${prefix}-status`);
                 imageEl.src = placeholderImage;
                 imageEl.alt = 'Pending student image';
-                statusEl.textContent = 'Pending...';
+                statusEl.textContent = '-- --';
                 statusEl.className = 'px-3 py-1 text-xs font-semibold tracking-widest uppercase rounded-full border bg-slate-100 text-stone-700 border-slate-200';
 
-                document.getElementById(`${prefix}-name`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-id`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-grade`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-department`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-course`).textContent = 'Pending...';
-                document.getElementById(`${prefix}-time`).textContent = 'Pending...';
+                document.getElementById(`${prefix}-name`).textContent = '-- --';
+                document.getElementById(`${prefix}-id`).textContent = '-- --';
+                document.getElementById(`${prefix}-grade`).textContent = '-- --';
+                document.getElementById(`${prefix}-department`).textContent = '-- --';
+                document.getElementById(`${prefix}-course`).textContent = '-- --';
+                document.getElementById(`${prefix}-time`).textContent = '-- --';
             }
 
             function fillStudent(prefix, student) {
@@ -503,17 +503,17 @@ class="w-full h-full">
 
                 statusEl.classList.add('bg-slate-100', 'text-stone-700', 'border-slate-200');
 
-                document.getElementById(`${prefix}-name`).textContent = student.student_name || student.name || 'Pending...';
-                document.getElementById(`${prefix}-id`).textContent = student.student_id || student.student_number || student.lrn || 'Pending...';
-                document.getElementById(`${prefix}-grade`).textContent = student.year_level || student.grade_level || 'Pending...';
-                document.getElementById(`${prefix}-department`).textContent = student.department || 'Pending...';
-                document.getElementById(`${prefix}-course`).textContent = student.course_name || student.course || 'Pending...';
+                document.getElementById(`${prefix}-name`).textContent = student.student_name || student.name || '-- --';
+                document.getElementById(`${prefix}-id`).textContent = student.student_id || student.student_number || student.lrn || '-- --';
+                document.getElementById(`${prefix}-grade`).textContent = student.year_level || student.grade_level || '-- --';
+                document.getElementById(`${prefix}-department`).textContent = student.department || '-- --';
+                document.getElementById(`${prefix}-course`).textContent = student.course_name || student.course || '-- --';
                 document.getElementById(`${prefix}-time`).textContent = formatLogTime(student.logged_at);
             }
 
             function formatLogTime(value) {
                 if (!value) {
-                    return 'Pending...';
+                    return '-- --';
                 }
 
                 const date = new Date(value);

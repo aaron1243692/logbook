@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 90700 (9.7.0)
  Source Host           : localhost:3306
- Source Schema         : logbook
+ Source Schema         : logsperm
 
  Target Server Type    : MySQL
  Target Server Version : 90700 (9.7.0)
  File Encoding         : 65001
 
- Date: 08/06/2026 07:28:57
+ Date: 08/06/2026 14:57:27
 */
 
 SET NAMES utf8mb4;
@@ -66,8 +66,8 @@ CREATE TABLE `config`  (
 -- ----------------------------
 -- Records of config
 -- ----------------------------
-INSERT INTO `config` VALUES (1, 'Manual Login', 1, '2026-05-19 14:04:40', '2026-06-07 09:16:49');
-INSERT INTO `config` VALUES (2, 'RFID Login', 1, '2026-05-19 14:04:40', '2026-06-07 09:16:49');
+INSERT INTO `config` VALUES (1, 'Manual Login', 1, '2026-05-19 14:04:40', '2026-06-08 14:56:52');
+INSERT INTO `config` VALUES (2, 'RFID Login', 1, '2026-05-19 14:04:40', '2026-06-08 14:56:52');
 
 -- ----------------------------
 -- Table structure for egate_data
@@ -127,9 +127,11 @@ CREATE TABLE `egate_logs`  (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `egate_data_id` bigint UNSIGNED NULL DEFAULT NULL,
   `student_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `login` time NULL DEFAULT NULL,
+  `logout` time NULL DEFAULT NULL,
+  `time_consumed` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
-  `time` time NULL DEFAULT NULL,
   `date` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `egate_logs_egate_data_id_foreign`(`egate_data_id` ASC) USING BTREE,
@@ -139,15 +141,13 @@ CREATE TABLE `egate_logs`  (
 -- ----------------------------
 -- Records of egate_logs
 -- ----------------------------
-INSERT INTO `egate_logs` VALUES (1, 2, '22', '2026-05-19 23:45:18', '2026-05-19 23:45:18', NULL, NULL);
-INSERT INTO `egate_logs` VALUES (2, 1, '11', '2026-05-19 23:45:19', '2026-05-19 23:45:19', NULL, NULL);
-INSERT INTO `egate_logs` VALUES (3, 3, '33', '2026-05-19 23:45:19', '2026-05-19 23:45:19', NULL, NULL);
-INSERT INTO `egate_logs` VALUES (711, 1, '11', '2026-06-07 09:15:10', '2026-06-07 09:15:10', '09:15:10', '2026-06-07');
-INSERT INTO `egate_logs` VALUES (712, 2, '22', '2026-06-07 09:15:13', '2026-06-07 09:15:13', '09:15:13', '2026-06-07');
-INSERT INTO `egate_logs` VALUES (713, 1, '11', '2026-06-07 09:15:13', '2026-06-07 09:15:13', '09:15:13', '2026-06-07');
-INSERT INTO `egate_logs` VALUES (714, 2, '22', '2026-06-07 09:15:17', '2026-06-07 09:15:17', '09:15:17', '2026-06-07');
-INSERT INTO `egate_logs` VALUES (715, 1, '11', '2026-06-07 09:15:20', '2026-06-07 09:15:20', '09:15:20', '2026-06-07');
-INSERT INTO `egate_logs` VALUES (716, 1, '11', '2026-06-07 09:15:23', '2026-06-07 09:15:23', '09:15:23', '2026-06-07');
+INSERT INTO `egate_logs` VALUES (1, 2, '22', '23:45:18', NULL, NULL, '2026-05-19 23:45:18', '2026-05-19 23:45:18', '2026-05-19');
+INSERT INTO `egate_logs` VALUES (2, 1, '11', '23:45:19', NULL, NULL, '2026-05-19 23:45:19', '2026-05-19 23:45:19', '2026-05-19');
+INSERT INTO `egate_logs` VALUES (3, 3, '33', '23:45:19', NULL, NULL, '2026-05-19 23:45:19', '2026-05-19 23:45:19', '2026-05-19');
+INSERT INTO `egate_logs` VALUES (711, 1, '11', '09:15:10', '09:15:13', 'Less than 1 min', '2026-06-07 09:15:10', '2026-06-07 09:15:10', '2026-06-07');
+INSERT INTO `egate_logs` VALUES (712, 2, '22', '09:15:13', '09:15:17', 'Less than 1 min', '2026-06-07 09:15:13', '2026-06-07 09:15:13', '2026-06-07');
+INSERT INTO `egate_logs` VALUES (715, 1, '11', '09:15:20', NULL, NULL, '2026-06-07 09:15:20', '2026-06-07 09:15:20', '2026-06-07');
+INSERT INTO `egate_logs` VALUES (716, 1, '11', NULL, NULL, NULL, '2026-06-07 09:15:23', '2026-06-07 09:15:23', '2026-06-07');
 
 -- ----------------------------
 -- Table structure for failed_jobs
@@ -220,7 +220,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of migrations
@@ -242,6 +242,7 @@ INSERT INTO `migrations` VALUES (14, '2026_05_28_000001_rename_data_permissions_
 INSERT INTO `migrations` VALUES (15, '2026_05_29_000001_add_gatepass_no_to_egate_data_table', 3);
 INSERT INTO `migrations` VALUES (16, '2026_06_01_000001_rename_time_permissions_to_login_logout', 3);
 INSERT INTO `migrations` VALUES (17, '2026_06_05_000001_add_status_to_egate_logs_table', 4);
+INSERT INTO `migrations` VALUES (18, '2026_06_06_000001_replace_time_with_login_logout_on_egate_logs_table', 5);
 
 -- ----------------------------
 -- Table structure for model_has_permissions
@@ -340,21 +341,6 @@ INSERT INTO `permissions` VALUES (29, 'Export Registration', 'data.export', 23, 
 INSERT INTO `permissions` VALUES (31, 'Delete Logs', 'logs.delete', 21, 'web', '2026-05-21 01:32:58', '2026-05-21 03:02:42');
 INSERT INTO `permissions` VALUES (32, 'Print Logs', 'logs.print', 21, 'web', '2026-05-21 01:33:04', '2026-05-21 03:02:42');
 INSERT INTO `permissions` VALUES (35, 'Export Logs', 'export.logs', 21, 'web', '2026-05-21 03:10:36', '2026-05-21 03:10:36');
-INSERT INTO `permissions` VALUES (36, 'Login/Logout', 'login_logout', NULL, 'web', '2026-05-21 09:54:15', '2026-06-05 09:40:37');
-INSERT INTO `permissions` VALUES (37, 'Login', 'login', 36, 'web', '2026-05-21 09:54:22', '2026-06-05 09:40:37');
-INSERT INTO `permissions` VALUES (40, 'Logout', 'logout', 36, 'web', '2026-05-21 09:55:53', '2026-06-05 09:40:37');
-INSERT INTO `permissions` VALUES (41, 'Employee Logs', 'emlog', NULL, 'web', '2026-05-22 10:39:37', '2026-05-22 10:39:40');
-INSERT INTO `permissions` VALUES (42, 'View', 'emlog.view', 41, 'web', '2026-05-22 10:43:25', '2026-05-22 10:43:25');
-INSERT INTO `permissions` VALUES (44, 'Print', 'emlog.print', 41, 'web', '2026-05-22 10:45:09', '2026-05-22 10:45:09');
-INSERT INTO `permissions` VALUES (45, 'Delete', 'emlog.delete', 41, 'web', '2026-05-22 10:45:36', '2026-05-22 10:45:36');
-INSERT INTO `permissions` VALUES (46, 'Setup Sched Schedule', 'setschedcehed', NULL, 'web', '2026-05-25 11:59:49', '2026-05-25 11:59:49');
-INSERT INTO `permissions` VALUES (47, 'View', 'setschedcehed.view', 46, 'web', '2026-05-25 12:00:10', '2026-05-25 12:00:17');
-INSERT INTO `permissions` VALUES (48, 'Create', 'setschedcehed.create', 46, 'web', '2026-05-25 12:00:34', '2026-05-25 12:00:34');
-INSERT INTO `permissions` VALUES (49, 'Update', 'setschedcehed.update', 46, 'web', '2026-05-25 12:00:48', '2026-05-25 12:00:48');
-INSERT INTO `permissions` VALUES (50, 'Delete', 'setschedcehed.delete', 46, 'web', '2026-05-25 12:02:12', '2026-05-25 12:02:12');
-INSERT INTO `permissions` VALUES (51, 'Setup Sched Employee', 'setschedem', NULL, 'web', '2026-05-25 12:07:01', '2026-05-25 12:07:01');
-INSERT INTO `permissions` VALUES (52, 'View', 'setschedem.view', 51, 'web', '2026-05-25 12:07:14', '2026-05-25 12:07:14');
-INSERT INTO `permissions` VALUES (53, 'Update', 'setschedem.update', 51, 'web', '2026-05-25 12:07:32', '2026-05-25 12:07:32');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -395,37 +381,12 @@ INSERT INTO `role_has_permissions` VALUES (29, 1);
 INSERT INTO `role_has_permissions` VALUES (31, 1);
 INSERT INTO `role_has_permissions` VALUES (32, 1);
 INSERT INTO `role_has_permissions` VALUES (35, 1);
-INSERT INTO `role_has_permissions` VALUES (36, 1);
-INSERT INTO `role_has_permissions` VALUES (37, 1);
-INSERT INTO `role_has_permissions` VALUES (40, 1);
-INSERT INTO `role_has_permissions` VALUES (41, 1);
-INSERT INTO `role_has_permissions` VALUES (42, 1);
-INSERT INTO `role_has_permissions` VALUES (44, 1);
-INSERT INTO `role_has_permissions` VALUES (45, 1);
-INSERT INTO `role_has_permissions` VALUES (46, 1);
-INSERT INTO `role_has_permissions` VALUES (47, 1);
-INSERT INTO `role_has_permissions` VALUES (48, 1);
-INSERT INTO `role_has_permissions` VALUES (49, 1);
-INSERT INTO `role_has_permissions` VALUES (50, 1);
-INSERT INTO `role_has_permissions` VALUES (51, 1);
-INSERT INTO `role_has_permissions` VALUES (52, 1);
-INSERT INTO `role_has_permissions` VALUES (53, 1);
 INSERT INTO `role_has_permissions` VALUES (21, 5);
 INSERT INTO `role_has_permissions` VALUES (22, 5);
 INSERT INTO `role_has_permissions` VALUES (23, 5);
 INSERT INTO `role_has_permissions` VALUES (24, 5);
-INSERT INTO `role_has_permissions` VALUES (36, 5);
-INSERT INTO `role_has_permissions` VALUES (37, 5);
-INSERT INTO `role_has_permissions` VALUES (40, 5);
-INSERT INTO `role_has_permissions` VALUES (41, 5);
-INSERT INTO `role_has_permissions` VALUES (42, 5);
 INSERT INTO `role_has_permissions` VALUES (21, 6);
 INSERT INTO `role_has_permissions` VALUES (22, 6);
-INSERT INTO `role_has_permissions` VALUES (36, 6);
-INSERT INTO `role_has_permissions` VALUES (37, 6);
-INSERT INTO `role_has_permissions` VALUES (40, 6);
-INSERT INTO `role_has_permissions` VALUES (41, 6);
-INSERT INTO `role_has_permissions` VALUES (42, 6);
 INSERT INTO `role_has_permissions` VALUES (1, 8);
 INSERT INTO `role_has_permissions` VALUES (4, 8);
 INSERT INTO `role_has_permissions` VALUES (10, 8);
@@ -439,11 +400,6 @@ INSERT INTO `role_has_permissions` VALUES (28, 8);
 INSERT INTO `role_has_permissions` VALUES (29, 8);
 INSERT INTO `role_has_permissions` VALUES (32, 8);
 INSERT INTO `role_has_permissions` VALUES (35, 8);
-INSERT INTO `role_has_permissions` VALUES (36, 8);
-INSERT INTO `role_has_permissions` VALUES (37, 8);
-INSERT INTO `role_has_permissions` VALUES (40, 8);
-INSERT INTO `role_has_permissions` VALUES (41, 8);
-INSERT INTO `role_has_permissions` VALUES (42, 8);
 INSERT INTO `role_has_permissions` VALUES (21, 9);
 INSERT INTO `role_has_permissions` VALUES (22, 9);
 INSERT INTO `role_has_permissions` VALUES (23, 9);
@@ -454,17 +410,6 @@ INSERT INTO `role_has_permissions` VALUES (28, 9);
 INSERT INTO `role_has_permissions` VALUES (29, 9);
 INSERT INTO `role_has_permissions` VALUES (32, 9);
 INSERT INTO `role_has_permissions` VALUES (35, 9);
-INSERT INTO `role_has_permissions` VALUES (41, 9);
-INSERT INTO `role_has_permissions` VALUES (42, 9);
-INSERT INTO `role_has_permissions` VALUES (44, 9);
-INSERT INTO `role_has_permissions` VALUES (46, 9);
-INSERT INTO `role_has_permissions` VALUES (47, 9);
-INSERT INTO `role_has_permissions` VALUES (48, 9);
-INSERT INTO `role_has_permissions` VALUES (49, 9);
-INSERT INTO `role_has_permissions` VALUES (50, 9);
-INSERT INTO `role_has_permissions` VALUES (51, 9);
-INSERT INTO `role_has_permissions` VALUES (52, 9);
-INSERT INTO `role_has_permissions` VALUES (53, 9);
 
 -- ----------------------------
 -- Table structure for roles
@@ -556,9 +501,9 @@ CREATE TABLE `sessions`  (
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('6t0AANoDdWU9E6z1G5RcNRiC0hpg14GvUwMj8kPU', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSjVoTVQxUHBBVnNZYXptZjc0ZFFpNWdYdUY0UzYzeE54Nm1VUE13eSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9nZXQtc3R1ZGVudHMvaW4iO3M6NToicm91dGUiO3M6MTU6ImdldC1zdHVkZW50cy5pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1780798678);
-INSERT INTO `sessions` VALUES ('86Ew8q1PKDUSVqXHH9qVCj0Dj1Dr4h4oJpiJaz08', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiU1JkdVV4Y2FQUDhNU2szMEhQdFFTVXo1R2hyZE4zV3RoOHdBNkVFYiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MTIxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWRtaW4vbG9ncy9mZXRjaD9kYXRlX2Zyb209MjAyNi0wNi0wOFQwMCUzQTAwJmRhdGVfdG89MjAyNi0wNi0wOFQyMyUzQTU5JTNBNTkmcGFnZT0xJnRpbWVfc29ydD1kZXNjIjtzOjU6InJvdXRlIjtzOjE2OiJhZG1pbi5sb2dzLmZldGNoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1780878253);
-INSERT INTO `sessions` VALUES ('THdQBRyPIPWrgeUut7w4NAMB21e3DVlcAbEwUmFZ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiTTJsdDRWOTAwNVFoMk9NYVZmZ1RVRENpZU1RZ2dEdGNsbEhkS2Y0TyI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL3JvbGVzIjt9czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXRhL2ZldGNoP25hbWVfc29ydD1hc2MmcGFnZT0xIjtzOjU6InJvdXRlIjtzOjE2OiJhZG1pbi5kYXRhLmZldGNoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1780878511);
+INSERT INTO `sessions` VALUES ('fhh8dtVonby3Hhrt70jY46rXnB9xv5BoQ2QTkzYt', NULL, '192.168.254.111', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSW0zWUE5blFGYlc0OHo3OG51Q01tRTBFUjZzVjNKWjVYbjNaYXV2ZSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xOTIuMTY4LjI1NC4xMTE6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1780905320);
+INSERT INTO `sessions` VALUES ('hwwkuzuLCw6LKkVSNyeabw8BnD2S2Hh3UKVn209X', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoianZobWdzME5PUzllSmRTSWcxZWpQc2NVcFd2aGNWb3hPZUR1MVlpYiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL3JvbGVzIjt9czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1780904635);
+INSERT INTO `sessions` VALUES ('KRdy5YCjIjMHCtMjqZFM2iCjTaMmXDRKDNZ8dhH4', NULL, '192.168.254.112', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoieWRpcktFaFpqTEZKN1hEQkEyTXFzR3VSSk1TeVRIaE9pMVYzaGZrdyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xOTIuMTY4LjI1NC4xMTE6ODAwMC9nZXQtc3R1ZGVudHMvaW4iO3M6NToicm91dGUiO3M6MTU6ImdldC1zdHVkZW50cy5pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1780905443);
 
 -- ----------------------------
 -- Table structure for users

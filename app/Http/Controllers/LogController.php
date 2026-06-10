@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class LogController extends Controller
 {
+    use LogsSystemActions;
+
     public function index()
     {
         abort_unless(auth()->user()?->can('logs.view'), 403);
@@ -98,6 +101,18 @@ class LogController extends Controller
             })
             ->values();
 
+        if ($request->filled('student_id')) {
+            $studentId = (string) $request->get('student_id');
+            $egateDataId = DB::table('egate_data')
+                ->where('id', $studentId)
+                ->orWhere('student_number', $studentId)
+                ->value('id');
+
+            $this->logSystemAction('printed egate_data ' . ($egateDataId ?: $studentId));
+        } else {
+            $this->logSystemAction('printed student logs');
+        }
+
         return view('admin.print-logs', [
             'logs' => $logs,
             'reports' => $reports,
@@ -121,6 +136,8 @@ class LogController extends Controller
             'logs' => $logs,
         ])->render();
 
+        $this->logSystemAction('exported student logs');
+
         return response()->streamDownload(function () use ($html) {
             echo $html;
         }, $filename, [
@@ -134,7 +151,9 @@ class LogController extends Controller
 
         try {
             $log = EgateEntryLog::query()->findOrFail($id);
+            $label = $log->id;
             $log->delete();
+            $this->logSystemAction('deleted egate_logs ' . $label);
 
             return response()->json([
                 'success' => true,

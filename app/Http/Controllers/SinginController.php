@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SinginController extends Controller
 {
+    use LogsSystemActions;
+
     public function submit(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -43,6 +46,7 @@ class SinginController extends Controller
                 'csrf_token' => csrf_token(),
             ], 403)->header('X-CSRF-TOKEN', csrf_token());
         }
+        $this->logSystemAction('signed in');
 
         return response()->json([
             'message' => 'Login successful',

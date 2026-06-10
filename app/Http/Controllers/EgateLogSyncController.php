@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use App\Models\EgateLog;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\JsonResponse;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Http;
 
 class EgateLogSyncController extends Controller
 {
+    use LogsSystemActions;
+
     public function __invoke(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -87,6 +90,7 @@ class EgateLogSyncController extends Controller
                 'student_name' => $log->name,
             ];
         })->filter()->values();
+        $this->logSystemAction("synced egate_data {$created} created {$updated} updated");
 
         return response()->json([
             'message' => 'EGate logs synced successfully.',

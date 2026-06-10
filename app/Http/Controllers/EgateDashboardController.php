@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
@@ -13,6 +14,8 @@ use Carbon\CarbonImmutable;
 
 class EgateDashboardController extends Controller
 {
+    use LogsSystemActions;
+
     public function __invoke(Request $request): View
     {
         $this->logoutCurrentAdmin($request);
@@ -35,6 +38,7 @@ class EgateDashboardController extends Controller
 
     public function forceSignin(Request $request): RedirectResponse
     {
+        $this->logSystemAction('signed out for reauthentication');
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -179,6 +183,7 @@ class EgateDashboardController extends Controller
                 ->withInput($request->except('password'))
                 ->with('login_error', 'Incorrect credentials');
         }
+        $this->logSystemAction('signed in');
 
         return redirect()->route('admin.dashboard');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,8 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class EmployeeLogController extends Controller
 {
+    use LogsSystemActions;
+
     public function index()
     {
         abort_unless(auth()->user()?->can('emlog.view'), 403);
@@ -97,6 +100,8 @@ class EmployeeLogController extends Controller
                 ];
             });
 
+        $this->logSystemAction('printed employee logs');
+
         return view('admin.print-monthly-dtrs', [
             'schedules' => $schedules,
             'printedAt' => now(),
@@ -163,6 +168,8 @@ class EmployeeLogController extends Controller
             'logs' => $logs,
         ])->render();
 
+        $this->logSystemAction('exported employee logs');
+
         return response()->streamDownload(function () use ($html) {
             echo $html;
         }, $filename, [
@@ -176,7 +183,9 @@ class EmployeeLogController extends Controller
 
         try {
             $log = EgateEntryLog::query()->findOrFail($id);
+            $label = $log->id;
             $log->delete();
+            $this->logSystemAction('deleted egate_logs ' . $label);
 
             return response()->json([
                 'success' => true,
@@ -203,6 +212,8 @@ class EmployeeLogController extends Controller
         $month = $month >= 1 && $month <= 12 ? $month : (int) now()->format('n');
 
         $dtr = $this->buildMonthlyDtr((int) $employee->id, (string) $employee->student_number, $year, $month);
+
+        $this->logSystemAction('printed egate_data ' . $employee->id);
 
         return view('admin.print-monthly-dtr', [
             'employee' => $employee,

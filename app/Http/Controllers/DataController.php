@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use App\Models\EgateLog;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use Illuminate\Validation\ValidationException;
 
 class DataController extends Controller
 {
+    use LogsSystemActions;
+
     public function index()
     {
         abort_unless(auth()->user()?->can('data.view'), 403);
@@ -78,6 +81,10 @@ class DataController extends Controller
             ->orderBy('name', $this->resolveNameSortDirection($request))
             ->get();
 
+        $this->logSystemAction($request->filled('record_id')
+            ? 'printed egate_data ' . $request->integer('record_id')
+            : 'printed egate_data list');
+
         return view('admin.print-data', [
             'records' => $records,
             'individualPrint' => $request->filled('record_id'),
@@ -98,6 +105,8 @@ class DataController extends Controller
             'records' => $records,
         ])->render();
 
+        $this->logSystemAction('exported egate_data list');
+
         return response()->streamDownload(function () use ($html) {
             echo $html;
         }, $filename, [
@@ -111,8 +120,6 @@ class DataController extends Controller
 
         try {
             $request->merge([
-                'rfid' => $this->normalizeIntegerInput($request->input('rfid')),
-                'gatepass_no' => $this->normalizeStringInput($request->input('gatepass_no')),
                 'email' => $this->normalizeEmailInput($request->input('email')),
             ]);
 
@@ -124,6 +131,7 @@ class DataController extends Controller
             }
 
             $record = EgateLog::query()->create($data);
+            $this->logSystemAction('created egate_data ' . $this->recordLabel($record));
 
             return response()->json([
                 'success' => true,
@@ -152,9 +160,8 @@ class DataController extends Controller
 
         try {
             $record = EgateLog::query()->findOrFail($id);
+            $original = $record->getOriginal();
             $request->merge([
-                'rfid' => $this->normalizeIntegerInput($request->input('rfid')),
-                'gatepass_no' => $this->normalizeStringInput($request->input('gatepass_no')),
                 'email' => $this->normalizeEmailInput($request->input('email')),
             ]);
 
@@ -167,6 +174,8 @@ class DataController extends Controller
             }
 
             $record->update($data);
+            $changes = $this->describeChanges($original, $record->fresh()->getAttributes(), array_keys($data));
+            $this->logSystemAction('updated egate_data ' . $this->recordLabel($record) . ($changes ? ' ' . $changes : ''));
 
             return response()->json([
                 'success' => true,
@@ -195,6 +204,7 @@ class DataController extends Controller
 
         try {
             $record = EgateLog::query()->findOrFail($id);
+            $oldRfid = $record->rfid;
             $request->merge([
                 'rfid' => $this->normalizeIntegerInput($request->input('rfid')),
             ]);
@@ -210,6 +220,7 @@ class DataController extends Controller
             $record->update([
                 'rfid' => (int) $validated['rfid'],
             ]);
+            $this->logSystemAction('updated egate_data ' . $this->recordLabel($record) . ' rfid ' . $this->describeLogValue($oldRfid) . ' to ' . $validated['rfid']);
 
             return response()->json([
                 'success' => true,
@@ -238,6 +249,7 @@ class DataController extends Controller
 
         try {
             $record = EgateLog::query()->findOrFail($id);
+            $oldGatePass = $record->gatepass_no;
             $request->merge([
                 'gatepass_no' => $this->normalizeStringInput($request->input('gatepass_no')),
             ]);
@@ -254,6 +266,7 @@ class DataController extends Controller
             $record->update([
                 'gatepass_no' => trim($validated['gatepass_no']),
             ]);
+            $this->logSystemAction('updated egate_data ' . $this->recordLabel($record) . ' gatepass_no ' . $this->describeLogValue($oldGatePass) . ' to ' . trim($validated['gatepass_no']));
 
             return response()->json([
                 'success' => true,
@@ -282,7 +295,9 @@ class DataController extends Controller
 
         try {
             $record = EgateLog::query()->findOrFail($id);
+            $label = $this->recordLabel($record);
             $record->delete();
+            $this->logSystemAction('deleted egate_data ' . $label);
 
             return response()->json([
                 'success' => true,
@@ -303,17 +318,6 @@ class DataController extends Controller
         return [
             'student_number' => ['required', 'string', 'max:255', 'unique:egate_data,student_number' . ($ignoreId ? ',' . $ignoreId : '')],
             'lrn' => ['nullable', 'digits_between:1,20'],
-            'rfid' => [
-                'nullable',
-                'regex:/^\d+$/',
-                Rule::unique('egate_data', 'rfid')->ignore($ignoreId),
-            ],
-            'gatepass_no' => [
-                'nullable',
-                'string',
-                'max:100',
-                Rule::unique('egate_data', 'gatepass_no')->ignore($ignoreId),
-            ],
             'name' => ['required', 'string', 'max:150'],
             'role' => ['nullable', 'integer', 'in:1,2'],
             'email' => [
@@ -367,8 +371,6 @@ class DataController extends Controller
         return [
             'student_number' => $validated['student_number'],
             'lrn' => $validated['lrn'] ?? null,
-            'rfid' => isset($validated['rfid']) && $validated['rfid'] !== '' ? (int) $validated['rfid'] : null,
-            'gatepass_no' => trim((string) ($validated['gatepass_no'] ?? '')) ?: null,
             'name' => $this->normalizeName($validated['name']),
             'role' => $validated['role'] ?? null,
             'email' => $validated['email'] ?? null,
@@ -450,5 +452,10 @@ class DataController extends Controller
             ->when($department !== '', fn ($query) => $query->where('department', $department))
             ->when($course !== '', fn ($query) => $query->where('course', $course))
             ->when($yearLevel !== '', fn ($query) => $query->where('grade_level', $yearLevel));
+    }
+
+    private function recordLabel(EgateLog $record): string
+    {
+        return (string) $record->id;
     }
 }

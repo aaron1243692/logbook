@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +10,8 @@ use Illuminate\Validation\ValidationException;
 
 class SetSchScheduleController extends Controller
 {
+    use LogsSystemActions;
+
     public function index()
     {
         return view('admin.Setup.Schedules.schedule');
@@ -58,6 +61,7 @@ class SetSchScheduleController extends Controller
             $id = DB::table('schedules')->insertGetId([
                 'name' => $this->normalizeName($validated['name']),
             ]);
+            $this->logSystemAction('created schedules ' . $id);
 
             return response()->json([
                 'success' => true,
@@ -80,6 +84,7 @@ class SetSchScheduleController extends Controller
     {
         try {
             $validated = $request->validate($this->rules($id));
+            $schedule = DB::table('schedules')->select('id', 'name')->where('id', $id)->first();
 
             $updated = DB::table('schedules')
                 ->where('id', $id)
@@ -93,6 +98,8 @@ class SetSchScheduleController extends Controller
                     'message' => 'Schedule not found.',
                 ], 404);
             }
+            $name = $this->normalizeName($validated['name']);
+            $this->logSystemAction('updated schedules ' . ($schedule->id ?? $id) . ' name ' . $this->describeLogValue($schedule->name ?? null) . ' to ' . $name);
 
             return response()->json([
                 'success' => true,
@@ -114,6 +121,7 @@ class SetSchScheduleController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
+            $schedule = DB::table('schedules')->select('id', 'name')->where('id', $id)->first();
             $deleted = DB::transaction(function () use ($id) {
                 DB::table('sched_details')->where('schedule_id', $id)->delete();
 
@@ -126,6 +134,7 @@ class SetSchScheduleController extends Controller
                     'message' => 'Schedule not found.',
                 ], 404);
             }
+            $this->logSystemAction('deleted schedules ' . ($schedule->id ?? $id));
 
             return response()->json([
                 'success' => true,
@@ -235,6 +244,7 @@ class SetSchScheduleController extends Controller
                     'updated_at' => $now,
                 ])->all());
             });
+            $this->logSystemAction('updated sched_details schedules ' . $id);
 
             return response()->json([
                 'success' => true,

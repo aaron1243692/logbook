@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use App\Models\Permission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,6 +12,8 @@ use Spatie\Permission\PermissionRegistrar;
 
 class RoleController extends Controller
 {
+    use LogsSystemActions;
+
     public function index()
     {
         abort_unless(auth()->user()?->can('roles.view'), 403);
@@ -55,6 +58,7 @@ class RoleController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+            $this->logSystemAction('created roles ' . $id);
 
             return response()->json([
                 'success' => true,
@@ -130,6 +134,7 @@ class RoleController extends Controller
                     'name' => $name,
                     'updated_at' => now(),
                 ]);
+            $this->logSystemAction('updated roles ' . $role->id . ' name ' . $role->name . ' to ' . $name);
 
             return response()->json([
                 'success' => true,
@@ -170,6 +175,7 @@ class RoleController extends Controller
                 DB::table('model_has_roles')->where('role_id', $id)->delete();
                 DB::table('roles')->where('id', $id)->delete();
             });
+            $this->logSystemAction('deleted roles ' . $role->id);
 
             return response()->json([
                 'success' => true,
@@ -272,6 +278,7 @@ class RoleController extends Controller
             });
 
             app(PermissionRegistrar::class)->forgetCachedPermissions();
+            $this->logSystemAction('updated role_has_permissions roles ' . $role->id);
 
             return response()->json([
                 'success' => true,

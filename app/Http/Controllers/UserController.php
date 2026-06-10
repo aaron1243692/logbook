@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    use LogsSystemActions;
+
     public function index()
     {
         abort_unless(auth()->user()?->can('users.view'), 403);
@@ -62,6 +65,7 @@ class UserController extends Controller
             ]);
 
             $this->syncUserRoleByName($user->id, $validated['role']);
+            $this->logSystemAction('created users ' . $user->id);
 
             return response()->json([
                 'success' => true,
@@ -114,6 +118,7 @@ class UserController extends Controller
         abort_unless(auth()->user()?->can('users.update'), 403);
         try {
             $user = User::findOrFail($id);
+            $original = $user->getOriginal();
 
             $validated = $request->validate([
                 'username' => 'required|string|max:255|unique:users,username,' . $id,
@@ -127,6 +132,8 @@ class UserController extends Controller
             ]);
 
             $this->syncUserRoleByName($user->id, $validated['role']);
+            $changes = $this->describeChanges($original, $user->fresh()->getAttributes(), ['username', 'email']);
+            $this->logSystemAction('updated users ' . $user->id . ($changes ? ' ' . $changes : '') . ' role to ' . $validated['role']);
 
             return response()->json([
                 'success' => true,
@@ -166,6 +173,7 @@ class UserController extends Controller
             $user->update([
                 'password' => Hash::make($validated['password']),
             ]);
+            $this->logSystemAction('updated users ' . $user->id . ' password');
 
             return response()->json([
                 'success' => true,
@@ -196,6 +204,7 @@ class UserController extends Controller
         abort_unless(auth()->user()?->can('users.delete'), 403);
         try {
             $user = User::findOrFail($id);
+            $label = $user->id;
 
             // Prevent deleting the last admin
             if ($this->userHasRoleName($user->id, 'admin') && $this->countUsersByRoleName('admin') === 1) {
@@ -206,6 +215,7 @@ class UserController extends Controller
             }
 
             $user->delete();
+            $this->logSystemAction('deleted users ' . $label);
 
             return response()->json([
                 'success' => true,

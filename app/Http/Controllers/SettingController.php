@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +10,8 @@ use Illuminate\View\View;
 
 class SettingController extends Controller
 {
+    use LogsSystemActions;
+
     private const DEFINITIONS = [
         1 => 'Manual Login',
         2 => 'RFID Login',
@@ -25,7 +28,9 @@ class SettingController extends Controller
     {
         abort_unless(array_key_exists($id, self::DEFINITIONS), 404);
 
-        self::persist($id, $request->boolean('control'));
+        $enabled = $request->boolean('control');
+        self::persist($id, $enabled);
+        $this->logSystemAction('updated config ' . $id . ' control to ' . ($enabled ? 'enabled' : 'disabled'));
 
         return redirect()
             ->route('admin.settings')

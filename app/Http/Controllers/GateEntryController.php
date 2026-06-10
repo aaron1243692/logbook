@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use App\Models\EgateLog as EgateData;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\JsonResponse;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class GateEntryController extends Controller
 {
+    use LogsSystemActions;
+
     public function store(Request $request): JsonResponse
     {
         $manualEntryEnabled = SettingController::isEnabled(1);
@@ -85,6 +88,7 @@ class GateEntryController extends Controller
 
             return $entryLogId;
         });
+        $this->logSystemAction('recorded gate entry egate_data ' . $student->id);
 
         return response()->json([
             'message' => 'Entry submitted successfully.',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use App\Models\Permission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,6 +12,8 @@ use Spatie\Permission\PermissionRegistrar;
 
 class PermissionController extends Controller
 {
+    use LogsSystemActions;
+
     public function index()
     {
         return view('admin.permissions');
@@ -59,6 +62,7 @@ class PermissionController extends Controller
             ]);
 
             app(PermissionRegistrar::class)->forgetCachedPermissions();
+            $this->logSystemAction('created permissions ' . $permission->id);
 
             return response()->json([
                 'success' => true,
@@ -102,6 +106,7 @@ class PermissionController extends Controller
     {
         try {
             $permission = Permission::query()->findOrFail($id);
+            $oldName = $permission->name;
 
             $validated = $request->validate([
                 'name' => ['required', 'string', 'max:255'],
@@ -127,6 +132,7 @@ class PermissionController extends Controller
             ]);
 
             app(PermissionRegistrar::class)->forgetCachedPermissions();
+            $this->logSystemAction('updated permissions ' . $permission->id . ' name ' . $oldName . ' to ' . $name);
 
             return response()->json([
                 'success' => true,
@@ -153,10 +159,12 @@ class PermissionController extends Controller
     {
         try {
             $permission = Permission::query()->findOrFail($id);
+            $label = $permission->id;
 
             $permission->delete();
 
             app(PermissionRegistrar::class)->forgetCachedPermissions();
+            $this->logSystemAction('deleted permissions ' . $label);
 
             return response()->json([
                 'success' => true,

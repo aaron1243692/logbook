@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LogsSystemActions;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +10,8 @@ use Illuminate\Validation\ValidationException;
 
 class SetSchEmployeeController extends Controller
 {
+    use LogsSystemActions;
+
     public function index()
     {
         return view('admin.Setup.Schedules.employee');
@@ -52,6 +55,7 @@ class SetSchEmployeeController extends Controller
             $validated = $request->validate([
                 'schedule_id' => ['nullable', 'integer', 'exists:schedules,id'],
             ]);
+            $employee = DB::table('egate_data')->select('id', 'student_number', 'name', 'sched')->where('id', $id)->where('role', 2)->first();
 
             $updated = DB::table('egate_data')
                 ->where('id', $id)
@@ -67,6 +71,9 @@ class SetSchEmployeeController extends Controller
                     'message' => 'Employee not found.',
                 ], 404);
             }
+            $oldSchedule = $employee?->sched ? DB::table('schedules')->where('id', $employee->sched)->value('name') : null;
+            $newSchedule = $validated['schedule_id'] ? DB::table('schedules')->where('id', $validated['schedule_id'])->value('name') : null;
+            $this->logSystemAction('updated egate_data ' . ($employee?->id ?? $id) . ' sched ' . $this->describeLogValue($oldSchedule) . ' to ' . $this->describeLogValue($newSchedule));
 
             return response()->json([
                 'success' => true,

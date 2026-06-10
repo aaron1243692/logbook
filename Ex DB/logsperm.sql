@@ -11,7 +11,7 @@
  Target Server Version : 90700 (9.7.0)
  File Encoding         : 65001
 
- Date: 10/06/2026 14:24:43
+ Date: 10/06/2026 21:25:55
 */
 
 SET NAMES utf8mb4;
@@ -162,7 +162,7 @@ CREATE TABLE `failed_jobs`  (
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `failed_jobs_uuid_unique`(`uuid` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of failed_jobs
@@ -204,7 +204,7 @@ CREATE TABLE `jobs`  (
   `created_at` int UNSIGNED NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `jobs_queue_index`(`queue` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of jobs
@@ -564,7 +564,7 @@ CREATE TABLE `sessions`  (
 INSERT INTO `sessions` VALUES ('1jzjO2vNRqcg3D2sdhjSl8QON5mmPlZ2HOrV14wJ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRDY0YjBJbFBXZzlXUHhTWDJRN1VDNFhIcHdYTHZEUXhJOFlpS0tuMyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9nZXQtc3R1ZGVudHMvaW4iO3M6NToicm91dGUiO3M6MTU6ImdldC1zdHVkZW50cy5pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1780973437);
 INSERT INTO `sessions` VALUES ('fhh8dtVonby3Hhrt70jY46rXnB9xv5BoQ2QTkzYt', NULL, '192.168.254.111', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSW0zWUE5blFGYlc0OHo3OG51Q01tRTBFUjZzVjNKWjVYbjNaYXV2ZSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly8xOTIuMTY4LjI1NC4xMTE6ODAwMC9nZXQtc3R1ZGVudHMvaW4iO3M6NToicm91dGUiO3M6MTU6ImdldC1zdHVkZW50cy5pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1780906420);
 INSERT INTO `sessions` VALUES ('hwwkuzuLCw6LKkVSNyeabw8BnD2S2Hh3UKVn209X', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoianZobWdzME5PUzllSmRTSWcxZWpQc2NVcFd2aGNWb3hPZUR1MVlpYiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL3JvbGVzIjt9czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1780904635);
-INSERT INTO `sessions` VALUES ('MDcVMrPRvkXGiUZso2b8hb601p1XS4PHCe8eKFW0', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaEE5ZWFMMkRvT3g1VVBjd2ZRb0Uwc1N2ZmI0TlNjaWF2R2VJM0ZpYyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXRhL2ZldGNoP25hbWVfc29ydD1hc2MmcGFnZT0xIjtzOjU6InJvdXRlIjtzOjE2OiJhZG1pbi5kYXRhLmZldGNoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozNzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2Rhc2hib2FyZCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1781076217);
+INSERT INTO `sessions` VALUES ('MDcVMrPRvkXGiUZso2b8hb601p1XS4PHCe8eKFW0', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaEE5ZWFMMkRvT3g1VVBjd2ZRb0Uwc1N2ZmI0TlNjaWF2R2VJM0ZpYyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NTk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXRhL2ZldGNoP25hbWVfc29ydD1hc2MmcGFnZT0xIjtzOjU6InJvdXRlIjtzOjE2OiJhZG1pbi5kYXRhLmZldGNoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozNzoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2Rhc2hib2FyZCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1781076285);
 INSERT INTO `sessions` VALUES ('TAHKZxj0K43h1ZupTxrY25KtCYSzDslbZlL8MV2k', 1, '192.168.254.112', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNFFPWElYTFJ3ZW45TlduYzlVUXE1MlRFeHdFN2RTZDlFbUNQTnVOUCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NjU6Imh0dHA6Ly8xOTIuMTY4LjI1NC4xMTE6ODAwMC9hZG1pbi9kYXRhL2ZldGNoP25hbWVfc29ydD1hc2MmcGFnZT0xIjtzOjU6InJvdXRlIjtzOjE2OiJhZG1pbi5kYXRhLmZldGNoIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1780906122);
 
 -- ----------------------------
